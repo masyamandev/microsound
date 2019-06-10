@@ -1,5 +1,7 @@
 
+#ifndef MICROSOUND_FREQUENCY_DIVIDER
 #define MICROSOUND_FREQUENCY_DIVIDER	1 // 2^n
+#endif
 
 #include "../microsound.h"
 
@@ -51,6 +53,8 @@ ISR(TIMER2_OVF_vect) {
 //ISR(TIMER0_OVF_vect) {
 #if MICROSOUND_FREQUENCY_DIVIDER > 1
 	if ((cnt++) & (MICROSOUND_FREQUENCY_DIVIDER - 1)) {
+//		int8_t next = soundBuffer[(bufferRead + 1) & BUFFER_MASK] - soundBuffer[bufferRead];
+//		OCR1A = soundBuffer[bufferRead] + (int8_t)((next * ((cnt-1) & (MICROSOUND_FREQUENCY_DIVIDER - 1))) >> 4);
 		return;
 	}
 #endif

@@ -1,6 +1,7 @@
 #include <avr/io.h>
 #include <avr/interrupt.h>
 
+#define MICROSOUND_FREQUENCY_DIVIDER	1
 #define VOICE_COUNTER	2
 #define INTERPOLATE_WAVE
 #define INTERPOLATE_VOLUME
@@ -14,9 +15,11 @@ int main(void)
 	initSound();
 	pianoInit();
 	piano1Init();
+	piano2Init();
 	harmonicaInit();
 
 	bpmIncrementAt = fromBpm(60);
+//	bpmIncrementAt = fromBpm(880);
 
 	sei();
 
@@ -39,6 +42,24 @@ int main(void)
 //				harmonicaPlayNote(FREQ_A4);
 //				playSound(0, silence());
 			}
+
+//			switch (beatCounter & 7) {
+//			case 0:
+//				playSound(0, piano(FREQ_C3), 255);
+//				break;
+//			case 1:
+//				playSound(1, piano1(FREQ_E3), 255);
+//				break;
+//			case 2:
+//				playSound(2, piano2(FREQ_G3), 255);
+//				break;
+//			case 3:
+////				playSound(3, piano(FREQ_C4), 255);
+////				playSound(0, piano(FREQ_C3), 128);
+////				playSound(1, piano1(FREQ_E3), 128);
+////				playSound(2, piano2(FREQ_G3), 128);
+//				break;
+//			}
 
 //			if (beatCounter >= FREQ_ARRAY_SIZE) {
 //				beatCounter = 0;
