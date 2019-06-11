@@ -39,6 +39,8 @@ uint8_t bufferWrite;
 
 uint8_t downsampleCounter;
 
+uint16_t declickValue;
+
 
 #include "frequencies.h"
 #include "waveform.h"
@@ -47,16 +49,29 @@ uint8_t downsampleCounter;
 
 typedef int8_t (*soundSource)();
 
-soundSource channels[VOICE_COUNTER];
-uint8_t volumes[VOICE_COUNTER];
+typedef struct
+{
+	soundSource sound;
+	uint8_t volume;
+#ifdef DECLICK
+	uint16_t prevValue;
+#endif
+} soundChannel;
+
+soundChannel channels[VOICE_COUNTER];
 
 int8_t silence() {
 	return 0;
 }
 
 inline void playSound(uint8_t channel, soundSource sound, uint8_t volume) {
-	channels[channel] = sound;
-	volumes[channel] = volume;
+
+#ifdef DECLICK
+	declickValue += channels[channel].prevValue;
+	channels[channel].prevValue = 0;
+#endif
+	channels[channel].sound = sound;
+	channels[channel].volume = volume;
 }
 
 inline void resetSound() {
@@ -65,8 +80,8 @@ inline void resetSound() {
 
 	int i;
 	for (i = 0; i < VOICE_COUNTER; i++) {
-		channels[i] = silence;
-		volumes[i] = 128;
+		channels[i].sound = silence;
+		channels[i].volume = 128;
 	}
 }
 
@@ -83,8 +98,17 @@ uint8_t getNextSample() {
 
 	int i;
 	for (i = 0; i < VOICE_COUNTER; i++) {
-		val += channels[i]() * volumes[i];
+		val +=
+#ifdef DECLICK
+				channels[i].prevValue =
+#endif
+				channels[i].sound() * channels[i].volume;
 	}
+
+#ifdef DECLICK
+	declickValue -= (int8_t) declickValue >> 8;
+	val += declickValue;
+#endif
 
 	return val >> 8;
 }
