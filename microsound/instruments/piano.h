@@ -18,15 +18,16 @@ const int8_t pianoSample[SAMPLE_LENGTH + 1] = {
 
 #include "common/commonInstrument.h"
 
-inline void init() {
-	initWaveform(&wave, pianoSample, SAMPLE_MASK);
-	initWaveform(&volume, expNegTable, SAMPLE_MASK);
-}
-
-soundSource play(uint16_t freqStep) {
-	resetWaveform(&wave, freqStep);
+soundSource play(uint8_t note) {
+	resetWaveform(&wave, frequency(note));
 	resetWaveform(&volume, volumeSampleMillis(30));
 	return PPCAT(INSTRUMENT_NAME, NextSample);
+}
+
+inline sampleSource init() {
+	initWaveform(&wave, pianoSample, SAMPLE_MASK);
+	initWaveform(&volume, expNegTable, SAMPLE_MASK);
+	return play;
 }
 
 #include "common/commonInstrumentUndefine.h"

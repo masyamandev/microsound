@@ -49,6 +49,9 @@ uint16_t declickValue;
 
 typedef int8_t (*soundSource)();
 
+typedef soundSource (*sampleSource)(uint8_t);
+
+
 typedef struct
 {
 	soundSource sound;

@@ -24,15 +24,16 @@ const int8_t harmonicaVolumeSample[SAMPLE_LENGTH + 1] = {
 
 #include "common/commonInstrument.h"
 
-inline void init() {
-	initWaveform(&wave, harmonicaSample, SAMPLE_MASK);
-	initWaveform(&volume, harmonicaVolumeSample, SAMPLE_MASK);
-}
-
-soundSource play(uint16_t freqStep) {
-	resetWaveform(&wave, freqStep);
+soundSource play(uint8_t note) {
+	resetWaveform(&wave, frequency(note));
 	resetWaveform(&volume, volumeSampleMillis(100));
 	return PPCAT(INSTRUMENT_NAME, NextSample);
+}
+
+inline sampleSource init() {
+	initWaveform(&wave, harmonicaSample, SAMPLE_MASK);
+	initWaveform(&volume, harmonicaVolumeSample, SAMPLE_MASK);
+	return play;
 }
 
 #include "common/commonInstrumentUndefine.h"

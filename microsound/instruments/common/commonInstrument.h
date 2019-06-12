@@ -7,7 +7,7 @@
 // functions
 #define nextSample	PPCAT(INSTRUMENT_NAME, NextSample)
 #define init		PPCAT(INSTRUMENT_NAME, Init)
-#define play		INSTRUMENT_NAME
+#define play		PPCAT(INSTRUMENT_NAME, Play)
 
 // vars
 #define wave	PPCAT(INSTRUMENT_NAME, Wave)

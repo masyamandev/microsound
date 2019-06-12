@@ -20,10 +20,10 @@ int main(void)
 {
 
 	initSound();
-	pianoInit();
-	piano1Init();
-	piano2Init();
-	harmonicaInit();
+	sampleSource piano = pianoInit();
+	sampleSource piano1 = piano1Init();
+	sampleSource piano2 = piano2Init();
+	sampleSource harmonica = harmonicaInit();
 
 	bpmIncrementAt = fromBpm(60);
 //	bpmIncrementAt = fromBpm(880);
@@ -39,36 +39,36 @@ int main(void)
 
 		if (prevBeatCounter != beatCounter) {
 			if (beatCounter & 1) {
-				playSound(0, piano(FREQ_A3), 255);
-//				playSound(0, harmonica(FREQ_A3), 255);
-//				harmonicaPlayNote(FREQ_A3);
+				playSound(0, piano(NOTE_A3), 255);
+//				playSound(0, harmonica(NOTE_A3), 255);
+//				harmonicaPlayNote(NOTE_A3);
 //				playSound(1, silence());
 			} else {
-				playSound(0, piano(FREQ_A4), 255);
-//				playSound(0, harmonica(FREQ_A4), 255);
-//				harmonicaPlayNote(FREQ_A4);
+				playSound(0, piano(NOTE_A4), 255);
+//				playSound(0, harmonica(NOTE_A4), 255);
+//				harmonicaPlayNote(NOTE_A4);
 //				playSound(0, silence());
 			}
 
 //			switch (beatCounter & 7) {
 ////			case 0:
-////				playSound(0, piano(FREQ_C3), 255);
+////				playSound(0, piano(NOTE_C3), 255);
 ////				break;
 ////			case 1:
-////				playSound(1, piano1(FREQ_E3), 255);
+////				playSound(1, piano1(NOTE_E3), 255);
 ////				break;
 ////			case 2:
-////				playSound(2, piano2(FREQ_G3), 255);
+////				playSound(2, piano2(NOTE_G3), 255);
 ////				break;
 //			case 3:
-////				playSound(3, piano(FREQ_C4), 96);
-//				playSound(0, piano(FREQ_C3), 128);
-//				playSound(1, piano1(FREQ_E3), 128);
-//				playSound(2, piano2(FREQ_G3), 128);
+////				playSound(3, piano(NOTE_C4), 96);
+//				playSound(0, piano(NOTE_C3), 128);
+//				playSound(1, piano1(NOTE_E3), 128);
+//				playSound(2, piano2(NOTE_G3), 128);
 //				break;
 //			}
 
-//			if (beatCounter >= FREQ_ARRAY_SIZE) {
+//			if (beatCounter >= NOTE_ARRAY_SIZE) {
 //				beatCounter = 0;
 //			}
 //			playSound(0, piano(frequencies[beatCounter]), 255);
