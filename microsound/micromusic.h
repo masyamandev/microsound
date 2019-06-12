@@ -36,12 +36,12 @@ inline void fillMusicBuffer() {
 		return;
 	}
 	while (beatCounter >= nextBeat) {
-		uint8_t data = *(musicData++);
+		uint8_t data = pgm_read_byte(musicData++);
 		if (data & COMMAND_PLAYSHORT) {
 			// 2 bytes [CSSSSHHH][NNNNNWWW]: C: command, SSSS: sampleId,  HHH: channelId, NNNNN: note, WWW: wait
 			uint8_t channel = data & 0b111;
 			uint8_t sample = (data >> 3) & 0b1111;
-			data = *(musicData++);
+			data = pgm_read_byte(musicData++);
 			playSound(channel, samples[sample](data >> 3));
 			nextBeat += data & 0b111;
 		} else if (data & COMMAND_WAIT) {
@@ -49,11 +49,11 @@ inline void fillMusicBuffer() {
 			nextBeat += data & 0b00111111;
 		} else if (data & COMMAND_VOLUME) {
 			// 2 bytes [CCCHHHHH][VVVVVVVV]: CCC: command, HHHHHH: channelId, VVVVVVVV: volume
-			setVolume(data & 0b00011111, *(musicData++));
+			setVolume(data & 0b00011111, pgm_read_byte(musicData++));
 		} else if (data & COMMAND_TEMPO) {
 			// 3 bytes [CCCCCCCC][TTTTTTTT][TTTTTTTT]: C: command, T: bpm increment counter
-			bpmIncrementAt = *(musicData++) << 8;
-			bpmIncrementAt += *(musicData++);
+			bpmIncrementAt = pgm_read_byte(musicData++) << 8;
+			bpmIncrementAt += pgm_read_byte(musicData++);
 		} else {
 			// COMMAND_END
 			isMusicStopped = 1;

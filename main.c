@@ -2,6 +2,7 @@
 #include <avr/io.h>
 //#include <avr/iom8.h>
 #include <avr/interrupt.h>
+#include <avr/pgmspace.h>
 
 #ifndef F_CPU
 #define F_CPU 8000000
