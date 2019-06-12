@@ -29,7 +29,7 @@ uint16_t sampleCounter;
 uint16_t beatCounter;
 
 #ifndef BUFFER_SIZE
-#define BUFFER_SIZE 8
+#define BUFFER_SIZE 128
 #endif
 
 #define BUFFER_MASK (BUFFER_SIZE - 1)
@@ -67,15 +67,22 @@ int8_t silence() {
 	return 0;
 }
 
-inline void playSound(uint8_t channel, soundSource sound, uint8_t volume) {
+inline void setVolume(uint8_t channel, uint8_t volume) {
+	channels[channel].volume = volume;
+}
 
+inline void playSound(uint8_t channel, soundSource sound) {
 #ifdef DECLICK
 	declickValue += channels[channel].prevValue;
 	channels[channel].prevValue = 0;
 #endif
 	channels[channel].sound = sound;
-	channels[channel].volume = volume;
 }
+
+//inline void playSound(uint8_t channel, soundSource sound, uint8_t volume) {
+//	setVolume(channel, volume);
+//	playSound(channel, sound);
+//}
 
 inline void resetSound() {
 	sampleCounter = 0;
