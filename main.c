@@ -14,7 +14,7 @@
 #define SAMPLE_HARMONICA	3
 
 //#define DECLICK
-#define MICROSOUND_FREQUENCY_DIVIDER	2
+#define MICROSOUND_FREQUENCY_DIVIDER	1
 #define VOICE_COUNTER	2
 #define SAMPLE_COUNTER	16
 #define INTERPOLATE_WAVE
@@ -25,6 +25,16 @@
 #include "microsound/samples/instruments.h"
 #include "microsound/samples/singlechannel.h"
 
+
+const uint8_t test[] PROGMEM = {
+		DATA_TEMPO(60),
+		DATA_VOLUME(0, 128),
+		DATA_PLAYSHORT(0, SAMPLE_PIANO, NOTE_A3, 2),
+//		DATA_PLAYSHORT(0, SAMPLE_PIANO, NOTE_C5, 1),
+//		DATA_PLAYSHORT(0, SAMPLE_PIANO, NOTE_A4, 1),
+//		DATA_PLAYSHORT(0, SAMPLE_PIANO, NOTE_A4, 1),
+		DATA_END()
+};
 
 
 int main(void)
@@ -45,7 +55,7 @@ int main(void)
 		PORTB &= ~0x01;
 
 		if (isMusicStopped) {
-			playMusic(phonecall);
+			playMusic(test);
 		}
 
 	}

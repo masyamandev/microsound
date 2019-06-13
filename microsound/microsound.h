@@ -29,7 +29,7 @@ uint16_t sampleCounter;
 uint16_t beatCounter;
 
 #ifndef BUFFER_SIZE
-#define BUFFER_SIZE 128
+#define BUFFER_SIZE 8
 #endif
 
 #define BUFFER_MASK (BUFFER_SIZE - 1)
@@ -79,13 +79,13 @@ inline void playSound(uint8_t channel, soundSource sound) {
 	channels[channel].sound = sound;
 }
 
-//inline void playSound(uint8_t channel, soundSource sound, uint8_t volume) {
-//	setVolume(channel, volume);
-//	playSound(channel, sound);
-//}
+inline void setBpm(uint16_t counter) {
+	bpmIncrementAt = counter;
+	sampleCounter = counter;
+}
 
 inline void resetSound() {
-	sampleCounter = 0;
+	sampleCounter = bpmIncrementAt;
 	beatCounter = 0;
 
 	int i;

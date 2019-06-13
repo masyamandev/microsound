@@ -28,7 +28,8 @@ inline void setSample(uint8_t id, sampleSource sample) {
 #define DATA_PLAYSHORT(channel, sample, note, wait)		(COMMAND_PLAYSHORT | (sample << 3) | channel), ((note << 3) | wait)
 #define DATA_WAIT(wait)				(COMMAND_WAIT | wait)
 #define DATA_VOLUME(channel, vol)	(COMMAND_VOLUME | channel), (vol)
-#define DATA_TEMPO(bpm)				(COMMAND_TEMPO), (fromBpm(bpm) >> 8), (fromBpm(bpm) & 0xFF)
+#define DATA_TEMPO(bpm)				(COMMAND_TEMPO), ((fromBpm(bpm) >> 8) & 0xFF), (fromBpm(bpm) & 0xFF)
+#define DATA_END()					(COMMAND_END)
 
 inline void fillMusicBuffer() {
 	fillBuffer();
@@ -52,11 +53,13 @@ inline void fillMusicBuffer() {
 			setVolume(data & 0b00011111, pgm_read_byte(musicData++));
 		} else if (data & COMMAND_TEMPO) {
 			// 3 bytes [CCCCCCCC][TTTTTTTT][TTTTTTTT]: C: command, T: bpm increment counter
-			bpmIncrementAt = pgm_read_byte(musicData++) << 8;
-			bpmIncrementAt += pgm_read_byte(musicData++);
+			uint16_t bpm = pgm_read_byte(musicData++) << 8;
+			bpm += pgm_read_byte(musicData++);
+			setBpm(bpm);
 		} else {
 			// COMMAND_END
 			isMusicStopped = 1;
+			break;
 		}
 	}
 	fillBuffer();
