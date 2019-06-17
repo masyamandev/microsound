@@ -9,10 +9,18 @@ const uint8_t *musicData;
 uint16_t nextBeat;
 uint8_t isMusicStopped;
 
+soundSource silenceSource(uint8_t data) {
+	return silence;
+}
+
 inline void initMusic() {
 	initSound();
 	nextBeat = 0;
 	isMusicStopped = 1;
+	uint8_t i;
+	for (i = 0; i < SAMPLE_COUNTER; i++) {
+		samples[i] = silenceSource;
+	}
 }
 
 inline void setSample(uint8_t id, sampleSource sample) {

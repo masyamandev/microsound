@@ -27,7 +27,7 @@ const int8_t harmonicaVolumeSample[SAMPLE_LENGTH + 1] = {
 soundSource play(uint8_t note) {
 	resetWaveform(&wave, frequency(note));
 	resetWaveform(&volume, volumeSampleMillis(100));
-	return PPCAT(INSTRUMENT_NAME, NextSample);
+	return nextSample;
 }
 
 inline sampleSource init() {

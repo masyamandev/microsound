@@ -21,7 +21,7 @@ const int8_t pianoSample[SAMPLE_LENGTH + 1] = {
 soundSource play(uint8_t note) {
 	resetWaveform(&wave, frequency(note));
 	resetWaveform(&volume, volumeSampleMillis(30));
-	return PPCAT(INSTRUMENT_NAME, NextSample);
+	return nextSample;
 }
 
 inline sampleSource init() {

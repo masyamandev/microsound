@@ -16,5 +16,12 @@ const int8_t expNegTable[SAMPLE_LENGTH + 1] = {
 		16, 14, 13, 12, 11, 10, 9, 8,
 		0}; // last value could be used for interpolation
 
+const int8_t noise[SAMPLE_LENGTH + 1] = {
+		-14, -2, 22, 53, -27, -87, -23, 123,
+		-23, 66, -20, -77, -102, 95, 92, -41,
+		22, -127, -26, 73, -121, 119, 64, 98,
+		9, 71, -11, 66, -58, 67, 96, -78,
+		-14}; // last value could be used for interpolation
+
 
 #endif

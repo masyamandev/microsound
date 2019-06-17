@@ -123,27 +123,11 @@ uint8_t getNextSample() {
 	return val >> 8;
 }
 
-#if INTERPOLATION_STRENGTH > 1
-uint8_t interpolationCounter;
-uint16_t interpolationValue, interpolationDiff;
-inline uint8_t getNextInterpolatedSample() {
-	interpolationCounter = (interpolationCounter + 1) & ((1 << INTERPOLATION_STRENGTH) - 1);
-	if (!interpolationCounter) {
-		uint16_t next = getNextSample() << 8;
-		interpolationDiff = ((int16_t)(next - interpolationValue)) >> INTERPOLATION_STRENGTH;
-	}
-	interpolationValue += interpolationDiff;
-	return interpolationValue >> 8;
-}
-#endif
+#include "globalSoundInterpolation.h"
 
 inline void fillBuffer() {
 	while (bufferWrite != bufferRead) {
-#if INTERPOLATION_STRENGTH > 1
 		soundBuffer[bufferWrite] = getNextInterpolatedSample();
-#else
-		soundBuffer[bufferWrite] = getNextSample();
-#endif
 		bufferWrite = (bufferWrite + 1) & BUFFER_MASK;
 	}
 }

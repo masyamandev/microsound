@@ -8,3 +8,5 @@
 #include "../instruments/piano.h"
 
 #include "../instruments/harmonica.h"
+
+#include "../instruments/percussion.h"
