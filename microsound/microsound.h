@@ -34,6 +34,8 @@ uint8_t beatTickCounter;
 uint8_t beatIncrementAt;
 uint16_t beatCounter;
 
+uint8_t volumeRecalculationId;
+
 #ifndef BUFFER_SIZE
 #define BUFFER_SIZE 8
 #endif
@@ -46,14 +48,19 @@ uint8_t bufferWrite;
 
 #include "frequencies.h"
 
-
 typedef struct
 {
 	// Info about wave
-	uint16_t sample;
-	uint16_t step;
+	uint16_t waveSample;
+	uint16_t waveStep;
 	const int8_t* waveForm;
-//	uint8_t waveFormMask;
+
+	// Info about volume form
+	uint8_t volumeSample;
+	uint8_t volumeTicksCounter;
+	uint8_t volumeTicksPerSample;
+	uint8_t volumeFormLength;
+	const uint8_t* volumeForm;
 
 	// Info about volume
 	uint8_t currentVolume;
@@ -61,13 +68,16 @@ typedef struct
 
 } soundChannel;
 
-//soundChannel channels[CHANNELS_SIZE];
-//
-//inline void setVolume(uint8_t channel, uint8_t volume) {
-//	channels[channel].instrumentVolume = volume;
-//}
+soundChannel* channels[CHANNELS_SIZE];
 
 
+inline void setVolume(uint8_t channel, uint8_t volume) {
+	channels[channel]->instrumentVolume = volume;
+}
+
+
+#define CHANNEL_ID	channel0
+#include "wavechannel.h"
 #define CHANNEL_ID	channel1
 #include "wavechannel.h"
 #define CHANNEL_ID	channel2
@@ -76,14 +86,12 @@ typedef struct
 #include "wavechannel.h"
 #define CHANNEL_ID	channel4
 #include "wavechannel.h"
-//#define CHANNEL_ID	channel5
-//#include "wavechannel.h"
-//#define CHANNEL_ID	channel6
-//#include "wavechannel.h"
-//#define CHANNEL_ID	channel7
-//#include "wavechannel.h"
-//#define CHANNEL_ID	channel8
-//#include "wavechannel.h"
+#define CHANNEL_ID	channel5
+#include "wavechannel.h"
+#define CHANNEL_ID	channel6
+#include "wavechannel.h"
+#define CHANNEL_ID	channel7
+#include "wavechannel.h"
 
 
 inline void setBpm(uint8_t counter) {
@@ -92,35 +100,44 @@ inline void setBpm(uint8_t counter) {
 }
 
 inline void resetChannel(soundChannel* channel) {
-	channel->sample = 0;
-	channel->step = 0;
+	channel->waveSample = 0;
+	channel->waveStep = 0;
+	channel->volumeSample = 0;
+	channel->volumeTicksCounter = channel->volumeTicksPerSample;
 	channel->currentVolume = 0;
-	channel->instrumentVolume = 128;
-
-//	channel->waveForm = sinTable;
-//	channel->waveFormMask = SAMPLE_MASK;
+	channel->instrumentVolume = 0;
 }
 
 inline void resetSound() {
 	beatTickCounter = beatIncrementAt;
 	beatCounter = 0;
 
-//	uint8_t i;
-//	for (i = 0; i < CHANNELS_SIZE; i++) {
-//		channels[i].sample = 0;
-//		channels[i].step = 0;
-//		channels[i].currentVolume = 128;
-//		channels[i].instrumentVolume = 128;
-//	}
 
-	resetChannel(&channel1ChannelData);
-	resetChannel(&channel2ChannelData);
-	resetChannel(&channel3ChannelData);
-	resetChannel(&channel4ChannelData);
-//	resetChannel(&channel5ChannelData);
-//	resetChannel(&channel6ChannelData);
-//	resetChannel(&channel7ChannelData);
-//	resetChannel(&channel8ChannelData);
+	channels[0] = &channel0ChannelData;
+	channels[1] = &channel1ChannelData;
+	channels[2] = &channel2ChannelData;
+	channels[3] = &channel3ChannelData;
+	channels[4] = &channel4ChannelData;
+	channels[5] = &channel5ChannelData;
+	channels[6] = &channel6ChannelData;
+	channels[7] = &channel7ChannelData;
+
+	uint8_t i;
+	for (i = 0; i < CHANNELS_SIZE; i++) {
+		resetChannel(channels[i]);
+	}
+
+}
+
+inline void recalculateVolume(soundChannel* channel) {
+	// TODO mark end
+
+	if ((channel->volumeTicksCounter--) == 0) {
+		channel->volumeTicksCounter = channel->volumeTicksPerSample;
+		channel->volumeSample++;
+	}
+
+	channel->currentVolume = (pgm_read_byte(&channel->volumeForm[channel->volumeSample]) * channel->instrumentVolume) >> 8;
 }
 
 inline uint8_t getNextSample() {
@@ -133,38 +150,14 @@ inline uint8_t getNextSample() {
 		}
 	}
 
-//	if ((sampleCounter--) == 0) {
-//		sampleCounter = bpmIncrementAt;
-//		beatCounter++;
-//	}
-//	downsampleCounter = (downsampleCounter + 1) & VOLUME_CHANGE_DOWNSAMPLING_MASK;
+	// volume recalculation should no be done so often for all channels
+	if (tickSampleCounter < CHANNELS_SIZE) {
+		recalculateVolume(channels[tickSampleCounter]);
+	}
 
 	uint16_t val = 0x8000;
-//	int i;
-//	for (i = CHANNELS_SIZE - 1; i >= 0; i--) {
-//
-//		// Get wave
-//		uint16_t sample = channels[i].sample;
-//		uint8_t sampleId = ((uint8_t)(sample >> 8)) & channels[i].waveFormMask;
-//		int8_t tone = channels[i].waveForm[sampleId];
-//		#ifdef INTERPOLATE_WAVE
-//			uint8_t subsampleTone = sample;
-//			tone += (( channels[i].waveForm[sampleId + 1] - tone) * subsampleTone) >> 8;
-//		#endif
-//		channels[i].sample += channels[i].step;
-//
-//		val +=
-//			#ifdef DECLICK
-//				channels[i].prevValue =
-//			#endif
-//				tone * channels[i].currentVolume;
-//	}
-//
-//	#ifdef DECLICK
-//		declickValue -= (int8_t) declickValue >> 8;
-//		val += declickValue;
-//	#endif
 
+	val += channel0NextSample();
 	val += channel1NextSample();
 	val += channel2NextSample();
 	val += channel3NextSample();
@@ -172,7 +165,6 @@ inline uint8_t getNextSample() {
 //	val += channel5NextSample();
 //	val += channel6NextSample();
 //	val += channel7NextSample();
-//	val += channel8NextSample();
 
 	return val >> 8;
 
@@ -185,12 +177,6 @@ inline void fillBuffer() {
 		soundBuffer[bufferWrite] = getNextInterpolatedSample();
 		bufferWrite = (bufferWrite + 1) & BUFFER_MASK;
 	}
-
-//	uint8_t toWrite = (bufferRead - bufferWrite) & BUFFER_MASK;
-//	for (; toWrite > 0; toWrite--) {
-//		soundBuffer[bufferWrite] = getNextInterpolatedSample();
-//		bufferWrite = (bufferWrite + 1) & BUFFER_MASK;
-//	}
 }
 
 #endif

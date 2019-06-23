@@ -1,5 +1,5 @@
 
-#define SAMPLE_LENGTH 	32 // Number of samples per period, 2^n
+#define SAMPLE_LENGTH 	256 // Number of samples per period, 2^n
 #define SAMPLE_MASK 	(SAMPLE_LENGTH - 1)
 
 #define freqStep(freq) ((uint16_t) (256L * freq * SAMPLE_LENGTH / MICROSOUND_FREQUENCY))
