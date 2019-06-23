@@ -18,7 +18,7 @@
 #define MICROSOUND_FREQUENCY_DIVIDER	1
 //#define GLOBAL_INTERPOLATION_LINEAR
 //#define INTERPOLATION_STRENGTH	2
-#define CHANNELS_SIZE	8
+#define CHANNELS_SIZE	5
 #define SAMPLES_SIZE	16
 
 #include "microsound/devices/atmega8timer2cpu8mhz.h"
@@ -63,7 +63,7 @@ int main(void)
 		PORTB &= ~0x01;
 
 		if (isMusicStopped) {
-			playMusic(phonecall);
+			playMusic(test);
 		}
 
 	}

@@ -76,22 +76,38 @@ inline void setVolume(uint8_t channel, uint8_t volume) {
 }
 
 
-#define CHANNEL_ID	channel0
-#include "wavechannel.h"
-#define CHANNEL_ID	channel1
-#include "wavechannel.h"
-#define CHANNEL_ID	channel2
-#include "wavechannel.h"
-#define CHANNEL_ID	channel3
-#include "wavechannel.h"
-#define CHANNEL_ID	channel4
-#include "wavechannel.h"
-#define CHANNEL_ID	channel5
-#include "wavechannel.h"
-#define CHANNEL_ID	channel6
-#include "wavechannel.h"
-#define CHANNEL_ID	channel7
-#include "wavechannel.h"
+#if CHANNELS_SIZE >= 1
+	#define CHANNEL_ID	channel0
+	#include "wavechannel.h"
+#endif
+#if CHANNELS_SIZE >= 2
+	#define CHANNEL_ID	channel1
+	#include "wavechannel.h"
+#endif
+#if CHANNELS_SIZE >= 3
+	#define CHANNEL_ID	channel2
+	#include "wavechannel.h"
+#endif
+#if CHANNELS_SIZE >= 4
+	#define CHANNEL_ID	channel3
+	#include "wavechannel.h"
+#endif
+#if CHANNELS_SIZE >= 5
+	#define CHANNEL_ID	channel4
+	#include "wavechannel.h"
+#endif
+#if CHANNELS_SIZE >= 6
+	#define CHANNEL_ID	channel5
+	#include "wavechannel.h"
+#endif
+#if CHANNELS_SIZE >= 7
+	#define CHANNEL_ID	channel6
+	#include "wavechannel.h"
+#endif
+#if CHANNELS_SIZE >= 8
+	#define CHANNEL_ID	channel7
+	#include "wavechannel.h"
+#endif
 
 
 inline void setBpm(uint8_t counter) {
@@ -112,15 +128,30 @@ inline void resetSound() {
 	beatTickCounter = beatIncrementAt;
 	beatCounter = 0;
 
-
-	channels[0] = &channel0ChannelData;
-	channels[1] = &channel1ChannelData;
-	channels[2] = &channel2ChannelData;
-	channels[3] = &channel3ChannelData;
-	channels[4] = &channel4ChannelData;
-	channels[5] = &channel5ChannelData;
-	channels[6] = &channel6ChannelData;
-	channels[7] = &channel7ChannelData;
+	#if CHANNELS_SIZE >= 1
+		channels[0] = &channel0ChannelData;
+	#endif
+	#if CHANNELS_SIZE >= 2
+		channels[1] = &channel1ChannelData;
+	#endif
+	#if CHANNELS_SIZE >= 3
+		channels[2] = &channel2ChannelData;
+	#endif
+	#if CHANNELS_SIZE >= 4
+		channels[3] = &channel3ChannelData;
+	#endif
+	#if CHANNELS_SIZE >= 5
+		channels[4] = &channel4ChannelData;
+	#endif
+	#if CHANNELS_SIZE >= 6
+		channels[5] = &channel5ChannelData;
+	#endif
+	#if CHANNELS_SIZE >= 7
+		channels[6] = &channel6ChannelData;
+	#endif
+	#if CHANNELS_SIZE >= 8
+		channels[7] = &channel7ChannelData;
+	#endif
 
 	uint8_t i;
 	for (i = 0; i < CHANNELS_SIZE; i++) {
@@ -156,14 +187,30 @@ inline uint8_t getNextSample() {
 
 	uint16_t val = 0x8000;
 
-	val += channel0NextSample();
-	val += channel1NextSample();
-	val += channel2NextSample();
-	val += channel3NextSample();
-	val += channel4NextSample();
-//	val += channel5NextSample();
-//	val += channel6NextSample();
-//	val += channel7NextSample();
+	#if CHANNELS_SIZE >= 1
+		val += channel0NextSample();
+	#endif
+	#if CHANNELS_SIZE >= 2
+		val += channel1NextSample();
+	#endif
+	#if CHANNELS_SIZE >= 3
+		val += channel2NextSample();
+	#endif
+	#if CHANNELS_SIZE >= 4
+		val += channel3NextSample();
+	#endif
+	#if CHANNELS_SIZE >= 5
+		val += channel4NextSample();
+	#endif
+	#if CHANNELS_SIZE >= 6
+		val += channel5NextSample();
+	#endif
+	#if CHANNELS_SIZE >= 7
+		val += channel6NextSample();
+	#endif
+	#if CHANNELS_SIZE >= 8
+		val += channel7NextSample();
+	#endif
 
 	return val >> 8;
 
