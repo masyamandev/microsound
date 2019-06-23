@@ -130,9 +130,8 @@ inline void resetSound() {
 }
 
 inline void recalculateVolume(soundChannel* channel) {
-	// TODO mark end
 
-	if ((channel->volumeTicksCounter--) == 0) {
+	if ((channel->volumeTicksCounter--) == 0 && channel->volumeSample < channel->volumeFormLength) {
 		channel->volumeTicksCounter = channel->volumeTicksPerSample;
 		channel->volumeSample++;
 	}
