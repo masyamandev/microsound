@@ -39,10 +39,10 @@ inline void setSample(uint8_t id, sampleSource sample) {
 #define COMMAND_TEMPO		0b00000001
 #define COMMAND_END			0b00000000
 
-#define DATA_PLAY(channel, note, wait)			(COMMAND_PLAY | (wait << 4) | channel), (note)
-#define DATA_WAIT(wait)							(COMMAND_WAIT | wait)
-#define DATA_VOLUME(channel, vol)				(COMMAND_VOLUME | channel), (vol)
-#define DATA_INSTRUMENT(channel, instrument)	(COMMAND_INSTRUMENT | channel), (instrument)
+#define DATA_PLAY(channel, note, wait)			(COMMAND_PLAY | ((wait) << 4) | (channel)), (note)
+#define DATA_WAIT(wait)							(COMMAND_WAIT | (wait))
+#define DATA_VOLUME(channel, vol)				(COMMAND_VOLUME | (channel)), (vol)
+#define DATA_INSTRUMENT(channel, instrument)	(COMMAND_INSTRUMENT | (channel)), (instrument)
 #define DATA_TEMPO(bpm)							(COMMAND_TEMPO), ((fromBpm(bpm) >> 8) & 0xFF), (fromBpm(bpm) & 0xFF)
 #define DATA_END()								(COMMAND_END)
 
