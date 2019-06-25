@@ -76,6 +76,9 @@ inline void setVolume(uint8_t channel, uint8_t volume) {
 }
 
 
+#ifdef USE_NOISE_CHANNEL
+	#include "noisechannel.h"
+#endif
 #if CHANNELS_SIZE >= 1
 	#define CHANNEL_ID	channel0
 	#include "wavechannel.h"
@@ -158,6 +161,9 @@ inline void resetSound() {
 		resetChannel(channels[i]);
 	}
 
+	#ifdef USE_NOISE_CHANNEL
+		resetNoise();
+	#endif
 }
 
 inline void recalculateVolume(soundChannel* channel) {
@@ -169,6 +175,10 @@ inline void recalculateVolume(soundChannel* channel) {
 
 	channel->currentVolume = (pgm_read_byte(&channel->volumeForm[channel->volumeSample]) * channel->instrumentVolume) >> 8;
 }
+
+
+
+
 
 inline uint8_t getNextSample() {
 
@@ -186,6 +196,11 @@ inline uint8_t getNextSample() {
 	}
 
 	uint16_t val = 0x8000;
+
+
+	#ifdef USE_NOISE_CHANNEL
+		val += noiseNextSample();
+	#endif
 
 	#if CHANNELS_SIZE >= 1
 		val += channel0NextSample();

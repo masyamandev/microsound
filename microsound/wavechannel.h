@@ -7,7 +7,7 @@
 
 soundChannel channelData;
 
-inline uint16_t nextSample() {
+inline int16_t nextSample() {
 	// Get wave
 	uint16_t sample = channelData.waveSample;
 	uint8_t sampleId = ((uint8_t)(sample >> 8)) & SAMPLE_MASK;

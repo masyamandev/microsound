@@ -37,8 +37,10 @@ const uint8_t overdrivenGuitarVolumeTableLong[] PROGMEM = {
 		120, 119, 122, 122, 121, 122, 122, 120, 121, 117, 117, 116, 119, 116, 112, 110
 		};
 const uint8_t overdrivenGuitarVolumeTableShort[] PROGMEM = {
-		64, 139, 164, 177, 180, 198, 235, 255, 217, 229, 221, 205, 190, 170, 153, 125,
-		117, 64, 0};
+		164, 177, 180, 198, 235, 255, 217, 229, 221, 205, 190, 170, 153, 125, 117, 64,
+		0};
+
+
 
 void playOverdrivenGuitar(soundChannel* channel, uint8_t data) {
 	channel->waveStep = frequencies[(data & 0b00111111)];
@@ -46,7 +48,7 @@ void playOverdrivenGuitar(soundChannel* channel, uint8_t data) {
 
 	if (data & OVERDRIVE_SHORT) {
 		channel->volumeForm = overdrivenGuitarVolumeTableShort;
-		channel->volumeFormLength = 18;
+		channel->volumeFormLength = 16;
 		channel->volumeSample = 0;
 		channel->volumeTicksPerSample = 1;
 		channel->volumeTicksCounter = 1;
@@ -68,7 +70,7 @@ void playOverdrivenGuitarChord(soundChannel* channel, uint8_t data) {
 
 	if (data & OVERDRIVE_SHORT) {
 		channel->volumeForm = overdrivenGuitarVolumeTableShort;
-		channel->volumeFormLength = 18;
+		channel->volumeFormLength = 16;
 		channel->volumeSample = 0;
 		channel->volumeTicksPerSample = 1;
 		channel->volumeTicksCounter = 1;
@@ -90,7 +92,7 @@ void playOverdrivenGuitarChord(soundChannel* channel, uint8_t data) {
 
 	if (data & OVERDRIVE_SHORT) {
 		channel->volumeForm = overdrivenGuitarVolumeTableShort;
-		channel->volumeFormLength = 18;
+		channel->volumeFormLength = 16;
 		channel->volumeSample = 0;
 		channel->volumeTicksPerSample = 1;
 		channel->volumeTicksCounter = 1;
@@ -103,4 +105,5 @@ void playOverdrivenGuitarChord(soundChannel* channel, uint8_t data) {
 	}
 
 	channel->currentVolume = (channel->instrumentVolume) * 147 >> 8;
+
 }

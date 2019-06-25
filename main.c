@@ -20,6 +20,7 @@
 //#define INTERPOLATION_STRENGTH	2
 #define CHANNELS_SIZE	5
 #define SAMPLES_SIZE	16
+#define USE_NOISE_CHANNEL
 
 #include "microsound/devices/atmega8timer2cpu8mhz.h"
 #include "microsound/micromusic.h"
@@ -29,28 +30,34 @@
 #include "microsound/instruments/accordion.h"
 #include "microsound/instruments/overdrivenGuirar5.h"
 
-//#include "microsound/samples/singlechannel.h"
+#include "microsound/samples/singlechannel.h"
 //#include "microsound/samples/twochannels.h"
-#include "microsound/samples/oh_susanna.h"
+//#include "microsound/samples/oh_susanna.h"
 
 
 const uint8_t test[] PROGMEM = {
-//		DATA_TEMPO(60),
-		DATA_INSTRUMENT(0, SAMPLE_OVERDRIVE),
+		DATA_TEMPO(60),
+		DATA_INSTRUMENT(0, SAMPLE_PIANO),
 		DATA_INSTRUMENT(1, SAMPLE_PIANO),
 		DATA_INSTRUMENT(2, SAMPLE_PIANO),
-		DATA_INSTRUMENT(3, SAMPLE_OVERDRIVE),
+		DATA_INSTRUMENT(3, SAMPLE_PIANO),
 		DATA_VOLUME(0, 80),
 		DATA_VOLUME(1, 80),
 		DATA_VOLUME(2, 80),
 		DATA_VOLUME(3, 128),
+//		DATA_PLAY(0, NOTE_E4, 1),
+//		DATA_PLAY(0, NOTE_E3, 1),
+
+
+		DATA_INSTRUMENT(0, SAMPLE_OVERDRIVE5),
+		DATA_INSTRUMENT(3, SAMPLE_OVERDRIVE5),
 //		DATA_PLAY(0, NOTE_G2, 0),
-//		DATA_PLAY(3, NOTE_C2, 1),
-////		DATA_PLAY(3, NOTE_C4, 0),
-////		DATA_PLAY(2, NOTE_C3, 0),
-////		DATA_PLAY(1, NOTE_E3, 0),
+		DATA_PLAY(0, NOTE_C2, 1),
+//		DATA_PLAY(3, NOTE_C4, 0),
+//		DATA_PLAY(2, NOTE_C3, 0),
+//		DATA_PLAY(1, NOTE_E3, 0),
 //		DATA_PLAY(0, NOTE_G3, 0),
-//		DATA_PLAY(3, NOTE_C3, 1),
+		DATA_PLAY(0, NOTE_C3, 1),
 
 		DATA_TEMPO(220),
 		DATA_INSTRUMENT(0, SAMPLE_OVERDRIVE5),
@@ -80,7 +87,7 @@ int main(void)
 		PORTB &= ~0x01;
 
 		if (isMusicStopped) {
-			playMusic(ohSusannaSong);
+			playMusic(test);
 		}
 
 	}
