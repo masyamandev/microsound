@@ -8,12 +8,11 @@
 #define F_CPU 8000000
 #endif
 
-//#define SAMPLE_SILENCE	0
+#define SAMPLE_PERCUSSION	0
 #define SAMPLE_PIANO		1
 #define SAMPLE_ACCORDION	2
 #define SAMPLE_BASS			3
 #define SAMPLE_OVERDRIVE	4
-#define SAMPLE_OVERDRIVE5	5
 
 #define MICROSOUND_FREQUENCY_DIVIDER	1
 //#define GLOBAL_INTERPOLATION_LINEAR
@@ -28,11 +27,12 @@
 #include "microsound/instruments/piano.h"
 #include "microsound/instruments/bassGuitar.h"
 #include "microsound/instruments/accordion.h"
-#include "microsound/instruments/overdrivenGuirar5.h"
+#include "microsound/instruments/overdrivenGuirar7.h"
+#include "microsound/instruments/percussion.h"
 
 #include "microsound/samples/singlechannel.h"
 //#include "microsound/samples/twochannels.h"
-//#include "microsound/samples/oh_susanna.h"
+#include "microsound/samples/oh_susanna.h"
 
 
 const uint8_t test[] PROGMEM = {
@@ -49,8 +49,8 @@ const uint8_t test[] PROGMEM = {
 //		DATA_PLAY(0, NOTE_E3, 1),
 
 
-		DATA_INSTRUMENT(0, SAMPLE_OVERDRIVE5),
-		DATA_INSTRUMENT(3, SAMPLE_OVERDRIVE5),
+		DATA_INSTRUMENT(0, SAMPLE_OVERDRIVE),
+		DATA_INSTRUMENT(3, SAMPLE_OVERDRIVE),
 //		DATA_PLAY(0, NOTE_G2, 0),
 		DATA_PLAY(0, NOTE_C2, 1),
 //		DATA_PLAY(3, NOTE_C4, 0),
@@ -60,7 +60,7 @@ const uint8_t test[] PROGMEM = {
 		DATA_PLAY(0, NOTE_C3, 1),
 
 		DATA_TEMPO(220),
-		DATA_INSTRUMENT(0, SAMPLE_OVERDRIVE5),
+		DATA_INSTRUMENT(0, SAMPLE_OVERDRIVE),
 		DATA_PLAY(0, NOTE_C3 | OVERDRIVE_SHORT, 1),
 		DATA_PLAY(0, NOTE_D3 | OVERDRIVE_SHORT, 1),
 		DATA_PLAY(0, NOTE_E3 | OVERDRIVE_SHORT, 1),
@@ -68,15 +68,36 @@ const uint8_t test[] PROGMEM = {
 		DATA_END()
 };
 
+const uint8_t testPercussion[] PROGMEM = {
+		DATA_TEMPO(480),
+		DATA_INSTRUMENT(0, SAMPLE_PERCUSSION),
+		DATA_VOLUME(0, 128),
+
+//		DATA_PLAY(0, PERCUSSION_HAT_L, 1),
+//		DATA_PLAY(0, PERCUSSION_HAT_H, 1),
+//		DATA_PLAY(0, PERCUSSION_BAR_L, 1),
+//		DATA_PLAY(0, PERCUSSION_BAR_H, 1),
+
+		DATA_PLAY(0, PERCUSSION_HAT_H, 1),
+		DATA_PLAY(0, PERCUSSION_HAT_L, 1),
+		DATA_PLAY(0, PERCUSSION_BAR_H, 1),
+		DATA_PLAY(0, PERCUSSION_BAR_L, 1),
+		DATA_PLAY(0, PERCUSSION_HAT_H, 2),
+		DATA_PLAY(0, PERCUSSION_HAT_L, 2),
+		DATA_PLAY(0, PERCUSSION_BAR_H, 2),
+		DATA_PLAY(0, PERCUSSION_BAR_L, 2),
+		DATA_PLAY(0, PERCUSSION_HAT_H, 2),
+		DATA_END()
+};
 
 int main(void)
 {
 	initMusic();
+	setSample(SAMPLE_PERCUSSION, playPercussion);
 	setSample(SAMPLE_PIANO, playPiano);
 	setSample(SAMPLE_ACCORDION, playAccordion);
 	setSample(SAMPLE_BASS, playBassGuitar);
 	setSample(SAMPLE_OVERDRIVE, playOverdrivenGuitar);
-	setSample(SAMPLE_OVERDRIVE5, playOverdrivenGuitarChord);
 
 	sei();
 
@@ -87,7 +108,7 @@ int main(void)
 		PORTB &= ~0x01;
 
 		if (isMusicStopped) {
-			playMusic(test);
+			playMusic(ohSusannaSong);
 		}
 
 	}

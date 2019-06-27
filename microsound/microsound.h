@@ -227,6 +227,9 @@ inline uint8_t getNextSample() {
 		val += channel7NextSample();
 	#endif
 
+//	nextSemirandom();
+//	val += semirandomValue;
+
 	return val >> 8;
 
 }
