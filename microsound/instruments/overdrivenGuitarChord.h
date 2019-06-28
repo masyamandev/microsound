@@ -1,7 +1,9 @@
 
+#include "common/expneg.h"
+
 #define OVERDRIVE_SHORT 	0b10000000 // This bit indicates short play and mute
 
-const int8_t overdrivenGuitarWaveTable[] PROGMEM = {
+const int8_t overdrivenGuitarChordWaveTable[] PROGMEM = {
 		0, 0, -5, -26, -47, -37, -23, -35, -51, -52, -58, -58, -51, -53, -74, -80,
 		-74, -81, -93, -91, -84, -86, -93, -90, -82, -80, -85, -88, -87, -81, -66, -60,
 		-63, -59, -49, -49, -55, -49, -37, -32, -22, -16, -17, -14, -6, -1, 5, 17,
@@ -20,32 +22,38 @@ const int8_t overdrivenGuitarWaveTable[] PROGMEM = {
 		23, 32, 30, 27, 23, 12, 19, 30, 36, 36, 30, 24, 22, 18, 13, 9,
 		0};// last value could be used for interpolation
 
-const uint8_t overdrivenGuitarVolumeTableLong[] PROGMEM = {
-		255, 128, 244, 128, 233, 228, 223, 219, 214, 209, 205, 200, 196, 192, 188, 184,
-		180, 176, 172, 168, 165, 161, 158, 154, 151, 148, 145, 142, 139, 136, 133, 130,
-		127, 124, 122, 119, 116, 114, 111, 109, 107, 104, 102, 100, 98, 96, 94, 92,
-		90, 88, 86, 84, 82, 80, 79, 77, 75, 74, 72, 71, 69, 68, 66, 65,
-		64};
-const uint8_t overdrivenGuitarVolumeTableShort[] PROGMEM = {
-		255, 128, 244, 128, 233, 228, 223, 219, 214, 209, 205, 200, 196, 192, 128, 64,
+const uint8_t overdrivenGuitarChordVolumeTableShort[] PROGMEM = {
+		255, 248, 244, 238, 233, 228, 223, 219, 214, 209, 205, 200, 196, 192, 128, 64,
 		0};
 
+#ifdef ADD_GUITAR_NOISE
+const uint8_t overdrivenGuitarChordNoiseVolume[] PROGMEM = {
+		64, 96, 96, 64, 32, 16, 8, 0, 0, 0, 0, 0, 0, 0, 0, 0,
+		64, 96, 96, 64, 32, 16, 8, 0, 0, 0, 0, 0, 0, 0, 0, 0,
+		64, 96, 96, 64, 32, 16, 8, 0, 0, 0, 0, 0, 0, 0, 0, 0,
+		0};
+#endif
 
-
-void playOverdrivenGuitar(waveChannel* channel, uint8_t data) {
+void playOverdrivenGuitarChord(waveChannel* channel, uint8_t data) {
 	channel->waveStep = frequencies[(data & 0b00111111) - 12];
-	channel->waveForm = overdrivenGuitarWaveTable;
+	channel->waveForm = overdrivenGuitarChordWaveTable;
 
 	if (data & OVERDRIVE_SHORT) {
-		channel->volumeForm = overdrivenGuitarVolumeTableShort;
+		channel->volumeForm = overdrivenGuitarChordVolumeTableShort;
 		channel->volumeFormLength = 16;
+		channel->volumeTicksPerSample = 1;
+		channel->volumeTicksCounter = 1;
 	} else {
-		channel->volumeForm = overdrivenGuitarVolumeTableLong;
-		channel->volumeFormLength = 16;
+		channel->volumeForm = expNegTable;
+		channel->volumeFormLength = 64;
+		channel->volumeTicksPerSample = 8;
+		channel->volumeTicksCounter = 8;
 	}
 	channel->volumeSample = 0;
-	channel->volumeTicksPerSample = 1;
-	channel->volumeTicksCounter = 1;
 
 	channel->currentVolume = channel->instrumentVolume;
+
+#ifdef ADD_GUITAR_NOISE
+	playNoise(overdrivenGuitarNoiseVolume, 48, channel->instrumentVolume);
+#endif
 }

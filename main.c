@@ -10,7 +10,7 @@
 
 #define SAMPLE_PERCUSSION	0
 #define SAMPLE_PIANO		1
-#define SAMPLE_ACCORDION	2
+#define SAMPLE_HARMONICA	2
 #define SAMPLE_BASS			3
 #define SAMPLE_OVERDRIVE	4
 
@@ -25,13 +25,20 @@
 
 #include "microsound/instruments/piano.h"
 #include "microsound/instruments/bassGuitar.h"
-#include "microsound/instruments/accordion.h"
-#include "microsound/instruments/overdrivenGuirar7.h"
+//#include "microsound/instruments/accordion.h"
+#include "microsound/instruments/harmonica.h"
+#include "microsound/instruments/overdrivenGuitarChord.h"
 #include "microsound/instruments/percussion.h"
 
-#include "microsound/samples/singlechannel.h"
+
+#ifndef OVERDRIVE_SHORT
+#define OVERDRIVE_SHORT 0
+#endif
+
+//#include "microsound/samples/singlechannel.h"
 //#include "microsound/samples/twochannels.h"
 #include "microsound/samples/oh_susanna.h"
+
 
 
 const uint8_t test[] PROGMEM = {
@@ -94,9 +101,9 @@ int main(void)
 	initMusic();
 	setSample(SAMPLE_PERCUSSION, playPercussion);
 	setSample(SAMPLE_PIANO, playPiano);
-	setSample(SAMPLE_ACCORDION, playAccordion);
+	setSample(SAMPLE_HARMONICA, playHarmonica);
 	setSample(SAMPLE_BASS, playBassGuitar);
-	setSample(SAMPLE_OVERDRIVE, playOverdrivenGuitar);
+	setSample(SAMPLE_OVERDRIVE, playOverdrivenGuitarChord);
 
 	sei();
 
