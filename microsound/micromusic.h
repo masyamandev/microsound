@@ -6,7 +6,7 @@
 
 typedef void (*sampleSource)(waveChannel* channel, uint8_t data);
 
-
+// SAMPLES_SIZE - amount of instruments
 sampleSource samples[SAMPLES_SIZE];
 sampleSource channelSamples[SAMPLES_SIZE];
 
@@ -14,12 +14,15 @@ const uint8_t *musicData;
 uint16_t nextBeat;
 uint8_t isMusicStopped;
 
+
+// Init music and sound
 inline void initMusic() {
 	initSound();
 	nextBeat = 0;
 	isMusicStopped = 1;
 }
 
+// Assign instrument to specific id
 inline void setSample(uint8_t id, sampleSource sample) {
 	samples[id] = sample;
 }
@@ -38,8 +41,9 @@ inline void setSample(uint8_t id, sampleSource sample) {
 #define DATA_TEMPO(bpm)							(COMMAND_TEMPO), ((fromBpm(bpm) >> 8) & 0xFF), (fromBpm(bpm) & 0xFF)
 #define DATA_END()								(COMMAND_END)
 
-inline void fillMusicBuffer() {
-	fillBuffer();
+
+// Update channels data from music array
+inline void updateMusicData() {
 	if (isMusicStopped) {
 		return;
 	}
@@ -72,9 +76,16 @@ inline void fillMusicBuffer() {
 			break;
 		}
 	}
+}
+
+// Fill buffer until it's full
+inline void fillMusicBuffer() {
+	fillBuffer();
+	updateMusicData();
 	fillBuffer();
 }
 
+// Play music data from specified array
 inline void playMusic(const uint8_t *data) {
 	resetSound();
 	musicData = data;

@@ -2,14 +2,17 @@
 #ifndef MICROSOUND_INIT
 #define MICROSOUND_INIT
 
+// Amount of wave channels
 #ifndef CHANNELS_SIZE
 #define CHANNELS_SIZE	1
 #endif
 
+// Divide default PCM sample rate onto this value
 #ifndef MICROSOUND_FREQUENCY_DIVIDER
 #define MICROSOUND_FREQUENCY_DIVIDER	1
 #endif
 
+// Default PCM sample rate onto this value
 #ifndef MICROSOUND_FREQUENCY
 #define MICROSOUND_FREQUENCY 		(F_CPU / 256 / MICROSOUND_FREQUENCY_DIVIDER) // PCM sample rate
 #endif
@@ -62,14 +65,16 @@ typedef struct
 waveChannel* channels[CHANNELS_SIZE];
 
 
+// Set volume for specified wave channel
 inline void setVolume(uint8_t channel, uint8_t volume) {
 	channels[channel]->instrumentVolume = volume;
 }
 
-
+// Add noise channel
 #ifdef USE_NOISE_CHANNEL
 	#include "noisechannel.h"
 #endif
+// Add wave channels
 #if CHANNELS_SIZE >= 1
 	#define CHANNEL_ID	channel0
 	#include "wavechannel.h"
@@ -104,11 +109,15 @@ inline void setVolume(uint8_t channel, uint8_t volume) {
 #endif
 
 
+// Set beats per minute value. For example:
+// setBpm(fromBpm(180));
+// will increment beatCounter 180 times per minute or 3 times per second.
 inline void setBpm(uint8_t counter) {
 	beatIncrementAt = counter;
 	beatTickCounter = counter;
 }
 
+// Clean data for wave channel
 inline void resetChannel(waveChannel* channel) {
 	channel->waveSample = 0;
 	channel->waveStep = 0;
@@ -118,6 +127,7 @@ inline void resetChannel(waveChannel* channel) {
 	channel->instrumentVolume = 0;
 }
 
+// Clean data for all channels
 inline void resetSound() {
 	beatTickCounter = beatIncrementAt;
 	beatCounter = 0;
@@ -157,6 +167,7 @@ inline void resetSound() {
 	#endif
 }
 
+// Recalculate volume for a channel
 inline void recalculateVolume(waveChannel* channel) {
 
 	if ((channel->volumeTicksCounter--) == 0 && channel->volumeSample < channel->volumeFormLength) {
@@ -168,9 +179,7 @@ inline void recalculateVolume(waveChannel* channel) {
 }
 
 
-
-
-
+// Calculate next sample on all channels
 inline soundSample getNextSample() {
 
 	if ((tickSampleCounter--) == 0) {
@@ -225,8 +234,17 @@ inline soundSample getNextSample() {
 
 }
 
+
+// Fill buffer until it's full
 inline void fillBuffer() {
-	while (bufferWrite != bufferRead) {
+	while (isBufferNotFull) {
+		writeToBuffer(getNextSample());
+	}
+}
+
+// Fill buffer at max of `limit` samples or until bussef is full
+inline void fillBufferWithLimit(uint8_t limit) {
+	while (isBufferNotFull && (limit--)) {
 		writeToBuffer(getNextSample());
 	}
 }
