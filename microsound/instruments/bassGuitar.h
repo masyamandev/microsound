@@ -19,7 +19,7 @@ const int8_t bassGuitarWaveTable[] PROGMEM = {
 		-112, -115, -116, -116, -115, -113, -109, -103, -96, -88, -78, -67, -55, -41, -26, -11,
 		4};// last value could be used for interpolation
 
-void playBassGuitar(soundChannel* channel, uint8_t data) {
+void playBassGuitar(waveChannel* channel, uint8_t data) {
 	channel->waveStep = frequencies[data];
 	channel->waveForm = bassGuitarWaveTable;
 

@@ -1,6 +1,6 @@
 
 #ifndef INTERPOLATION_SOURCE_FUNCTION
-#define INTERPOLATION_SOURCE_FUNCTION	getNextSample
+#define INTERPOLATION_SOURCE_FUNCTION	readFromBuffer
 #endif
 
 // TODO move this stuff to interrupt to reduce memory consumption for buffer

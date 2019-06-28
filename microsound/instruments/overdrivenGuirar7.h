@@ -32,7 +32,7 @@ const uint8_t overdrivenGuitarVolumeTableShort[] PROGMEM = {
 
 
 
-void playOverdrivenGuitar(soundChannel* channel, uint8_t data) {
+void playOverdrivenGuitar(waveChannel* channel, uint8_t data) {
 	channel->waveStep = frequencies[(data & 0b00111111) - 12];
 	channel->waveForm = overdrivenGuitarWaveTable;
 

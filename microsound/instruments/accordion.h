@@ -22,7 +22,7 @@ const uint8_t accordionVolumeTable[] PROGMEM = {
 		6, 14, 24, 40, 58, 81, 100, 124, 148, 177, 187, 186, 189, 193, 206, 215,
 		213, 211, 209, 217, 235, 225, 223, 227, 232, 240, 238, 233, 230, 233, 245, 232};
 
-void playAccordion(soundChannel* channel, uint8_t data) {
+void playAccordion(waveChannel* channel, uint8_t data) {
 	channel->waveStep = frequencies[data];
 	channel->waveForm = accordionWaveTable;
 

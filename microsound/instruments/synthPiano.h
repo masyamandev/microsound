@@ -1,7 +1,7 @@
 #include "common/sin.h"
 #include "common/expneg.h"
 
-void playSynthPiano(soundChannel* channel, uint8_t data) {
+void playSynthPiano(waveChannel* channel, uint8_t data) {
 	channel->waveStep = frequencies[data];
 	channel->waveForm = sinTable;
 

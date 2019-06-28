@@ -32,7 +32,7 @@ const int8_t pianoWaveTable[] PROGMEM = {
 //		17, 17, 17, 16, 15, 14, 14, 14, 13, 12, 11, 11, 11, 10, 10, 9,
 //		8, 8, 7, 7, 6, 6, 5, 5, 4, 4, 4, 3, 3, 1, 1, 0};
 
-void playPiano(soundChannel* channel, uint8_t data) {
+void playPiano(waveChannel* channel, uint8_t data) {
 	channel->waveStep = frequencies[data];
 	channel->waveForm = pianoWaveTable;
 

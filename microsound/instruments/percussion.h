@@ -72,7 +72,7 @@ const uint8_t barVolumeL[] PROGMEM = {
 //		32, 28, 24, 21, 19, 16, 14, 12,
 		0};
 
-void playPercussion(soundChannel* channel, uint8_t data) {
+void playPercussion(waveChannel* channel, uint8_t data) {
 
 //	playNoise(expNegTable + (data & 0b00111111), 64, channel->instrumentVolume);
 

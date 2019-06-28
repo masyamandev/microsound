@@ -36,16 +36,7 @@ uint16_t beatCounter;
 
 uint8_t volumeRecalculationId;
 
-#ifndef BUFFER_SIZE
-#define BUFFER_SIZE 8
-#endif
-
-#define BUFFER_MASK (BUFFER_SIZE - 1)
-volatile uint8_t soundBuffer[BUFFER_SIZE];
-volatile uint8_t bufferRead;
-uint8_t bufferWrite;
-
-
+#include "buffer.h"
 #include "frequencies.h"
 
 typedef struct
@@ -66,9 +57,9 @@ typedef struct
 	uint8_t currentVolume;
 	uint8_t instrumentVolume;
 
-} soundChannel;
+} waveChannel;
 
-soundChannel* channels[CHANNELS_SIZE];
+waveChannel* channels[CHANNELS_SIZE];
 
 
 inline void setVolume(uint8_t channel, uint8_t volume) {
@@ -118,7 +109,7 @@ inline void setBpm(uint8_t counter) {
 	beatTickCounter = counter;
 }
 
-inline void resetChannel(soundChannel* channel) {
+inline void resetChannel(waveChannel* channel) {
 	channel->waveSample = 0;
 	channel->waveStep = 0;
 	channel->volumeSample = 0;
@@ -166,7 +157,7 @@ inline void resetSound() {
 	#endif
 }
 
-inline void recalculateVolume(soundChannel* channel) {
+inline void recalculateVolume(waveChannel* channel) {
 
 	if ((channel->volumeTicksCounter--) == 0 && channel->volumeSample < channel->volumeFormLength) {
 		channel->volumeTicksCounter = channel->volumeTicksPerSample;
@@ -180,7 +171,7 @@ inline void recalculateVolume(soundChannel* channel) {
 
 
 
-inline uint8_t getNextSample() {
+inline soundSample getNextSample() {
 
 	if ((tickSampleCounter--) == 0) {
 		tickSampleCounter = SAMPLES_PER_TICK;
@@ -230,16 +221,13 @@ inline uint8_t getNextSample() {
 //	nextSemirandom();
 //	val += semirandomValue;
 
-	return val >> 8;
+	return toSample(val);
 
 }
 
-#include "globalSoundInterpolation.h"
-
 inline void fillBuffer() {
 	while (bufferWrite != bufferRead) {
-		soundBuffer[bufferWrite] = getNextInterpolatedSample();
-		bufferWrite = (bufferWrite + 1) & BUFFER_MASK;
+		writeToBuffer(getNextSample());
 	}
 }
 

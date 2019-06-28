@@ -5,7 +5,7 @@
 
 #include "../microsound.h"
 
-
+#include "../globalSoundInterpolation.h"
 
 inline void initSound() {
 	// prescale timer to 1/1st the clock rate
@@ -34,7 +34,7 @@ inline void initSound() {
 
 
 
-uint8_t prevSample;
+//uint8_t prevSample;
 
 // Timer interrupt
 //ISR(TIMER0_OVF_vect) {
@@ -56,8 +56,5 @@ ISR(TIMER2_OVF_vect) {
 		return;
 	}
 #endif
-	OCR1A = soundBuffer[bufferRead];
-//	OCR1B = soundBuffer[bufferRead];
-//	OCR2 = soundBuffer[bufferRead];
-	bufferRead = (bufferRead + 1) & BUFFER_MASK;
+	OCR1A = sampleToUint8(getNextInterpolatedSample());
 }

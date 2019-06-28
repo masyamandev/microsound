@@ -5,7 +5,7 @@
 #define nextSample		CONCAT2(CHANNEL_ID, NextSample)
 
 
-soundChannel channelData;
+waveChannel channelData;
 
 inline int16_t nextSample() {
 	// Get wave
