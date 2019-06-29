@@ -88,7 +88,6 @@ void playPercussion(waveChannel* channel, uint8_t data) {
 
 		channel->volumeForm = barVolumeH;
 		channel->volumeFormLength = 8;
-		channel->volumeSample = 0;
 		channel->volumeTicksPerSample = 4;
 		channel->volumeTicksCounter = 4;
 
@@ -99,7 +98,6 @@ void playPercussion(waveChannel* channel, uint8_t data) {
 
 		channel->volumeForm = barVolumeL;
 		channel->volumeFormLength = 4;
-		channel->volumeSample = 0;
 		channel->volumeTicksPerSample = 4; // TODO increase?
 		channel->volumeTicksCounter = 4;
 

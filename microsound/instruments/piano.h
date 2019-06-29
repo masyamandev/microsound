@@ -40,7 +40,6 @@ void playPiano(waveChannel* channel, uint8_t data) {
 //	channel->volumeForm = pianoVolumeTable;
 //	channel->volumeFormLength = 175 - 1;
 	channel->volumeFormLength = 256 - 1;
-	channel->volumeSample = 0;
 	channel->volumeTicksPerSample = 4;
 	channel->volumeTicksCounter = 4;
 

@@ -49,7 +49,6 @@ void playOverdrivenGuitarChord(waveChannel* channel, uint8_t data) {
 		channel->volumeTicksPerSample = 8;
 		channel->volumeTicksCounter = 8;
 	}
-	channel->volumeSample = 0;
 
 	channel->currentVolume = channel->instrumentVolume;
 

@@ -25,7 +25,6 @@ void playBassGuitar(waveChannel* channel, uint8_t data) {
 
 	channel->volumeForm = expNegTable;
 	channel->volumeFormLength = 256 - 1;
-	channel->volumeSample = 0;
 	channel->volumeTicksPerSample = 4;
 	channel->volumeTicksCounter = 4;
 

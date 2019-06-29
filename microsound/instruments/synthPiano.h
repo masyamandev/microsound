@@ -7,7 +7,6 @@ void playSynthPiano(waveChannel* channel, uint8_t data) {
 
 	channel->volumeForm = expNegTable;
 	channel->volumeFormLength = 255;
-	channel->volumeSample = 0;
 	channel->volumeTicksPerSample = 2;
 
 	channel->currentVolume = channel->instrumentVolume;

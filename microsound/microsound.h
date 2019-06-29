@@ -42,7 +42,6 @@ typedef struct
 	const int8_t* waveForm;
 
 	// Info about volume form
-	uint8_t volumeSample;
 	uint8_t volumeTicksCounter;
 	uint8_t volumeTicksPerSample;
 	uint8_t volumeFormLength;
@@ -113,7 +112,7 @@ inline void setBpm(uint8_t counter) {
 inline void resetChannel(waveChannel* channel) {
 	channel->waveSample = 0;
 	channel->waveStep = 0;
-	channel->volumeSample = 0;
+	channel->volumeFormLength = 0;
 	channel->volumeTicksCounter = channel->volumeTicksPerSample;
 	channel->currentVolume = 0;
 	channel->instrumentVolume = 0;
@@ -162,12 +161,13 @@ inline void resetSound() {
 // Recalculate volume for a channel
 inline void recalculateVolume(waveChannel* channel) {
 
-	if ((channel->volumeTicksCounter--) == 0 && channel->volumeSample < channel->volumeFormLength) {
+	if ((channel->volumeTicksCounter--) == 0 && channel->volumeFormLength > 0) {
 		channel->volumeTicksCounter = channel->volumeTicksPerSample;
-		channel->volumeSample++;
+		channel->volumeFormLength--;
+		channel->volumeForm = &channel->volumeForm[1];
 	}
 
-	channel->currentVolume = (pgm_read_byte(&channel->volumeForm[channel->volumeSample]) * channel->instrumentVolume) >> 8;
+	channel->currentVolume = (pgm_read_byte(&channel->volumeForm) * channel->instrumentVolume) >> 8;
 }
 
 

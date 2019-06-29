@@ -28,7 +28,6 @@ void playAccordion(waveChannel* channel, uint8_t data) {
 
 	channel->volumeForm = accordionVolumeTable;
 	channel->volumeFormLength = 32 - 1;
-	channel->volumeSample = 0;
 	channel->volumeTicksPerSample = 1;
 	channel->volumeTicksCounter = 1;
 
