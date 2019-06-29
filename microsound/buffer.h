@@ -31,6 +31,8 @@ soundSample bufferWrite;
 
 #define isBufferFull	(bufferRead == bufferWrite)
 #define isBufferNotFull	(bufferRead != bufferWrite)
+#define samplesToWrite	((bufferRead - bufferWrite) & BUFFER_MASK)
+#define samplesInBuffer	(BUFFER_SIZE - samplesToWrite)
 
 
 inline void writeToBuffer(soundSample value) {
