@@ -120,7 +120,7 @@ inline void resetChannel(waveChannel* channel) {
 
 // Clean data for all channels
 inline void resetSound() {
-	beatTickCounter = beatIncrementAt;
+	setBpm(fromBpm(60)); // Avoid too high BPM at MCU start
 	beatCounter = 0;
 
 	#if CHANNELS_SIZE >= 1
@@ -234,10 +234,16 @@ inline void fillBuffer() {
 	}
 }
 
-// Fill buffer at max of `limit` samples or until bussef is full
-inline void fillBufferWithLimit(uint8_t limit) {
-	while (isBufferNotFull && (limit--)) {
+// Fill buffer until tick after the next or until buffer is full
+inline void fillBufferTick() {
+	uint8_t ticks = 1;
+	while (isBufferNotFull) {
 		writeToBuffer(getNextSample());
+		if (!tickSampleCounter) {
+			if ((ticks--) == 0) {
+				return;
+			}
+		}
 	}
 }
 

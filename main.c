@@ -115,7 +115,7 @@ int main(void)
 		PORTB &= ~0x01;
 
 		// Simulate other CPU usage
-//		while (samplesInBuffer > 2) {};
+		while (samplesInBuffer > 4) {};
 
 		if (isMusicStopped) {
 			playMusic(ohSusannaSong);

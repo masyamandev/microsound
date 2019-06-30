@@ -80,9 +80,15 @@ inline void updateMusicData() {
 
 // Fill buffer until it's full
 inline void fillMusicBuffer() {
-	fillBuffer();
-	updateMusicData();
-	fillBuffer();
+//	fillBuffer();
+//	updateMusicData();
+//	fillBuffer();
+
+	// Smaller value requires bigger overhead for writing remain of the buffer
+	while ((samplesToWrite) > 4) {
+		fillBufferTick();
+		updateMusicData();
+	}
 }
 
 // Play music data from specified array
