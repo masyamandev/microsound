@@ -164,10 +164,10 @@ inline void recalculateVolume(waveChannel* channel) {
 	if ((channel->volumeTicksCounter--) == 0 && channel->volumeFormLength > 0) {
 		channel->volumeTicksCounter = channel->volumeTicksPerSample;
 		channel->volumeFormLength--;
-		channel->volumeForm = &channel->volumeForm[1];
+		channel->volumeForm++;
 	}
 
-	channel->currentVolume = (pgm_read_byte(&channel->volumeForm) * channel->instrumentVolume) >> 8;
+	channel->currentVolume = (pgm_read_byte(channel->volumeForm) * channel->instrumentVolume) >> 8;
 }
 
 
