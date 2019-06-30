@@ -25,14 +25,14 @@
 
 #define BUFFER_MASK (BUFFER_SIZE - 1)
 volatile soundSample soundBuffer[BUFFER_SIZE];
-volatile soundSample bufferRead;
-soundSample bufferWrite;
+volatile uint8_t bufferRead;
+uint8_t bufferWrite;
 
 
 #define isBufferFull	(bufferRead == bufferWrite)
 #define isBufferNotFull	(bufferRead != bufferWrite)
-#define samplesToWrite	((bufferRead - bufferWrite) & BUFFER_MASK)
-#define samplesInBuffer	(BUFFER_SIZE - samplesToWrite)
+#define samplesToWrite	(((uint8_t)(bufferRead - bufferWrite)) & BUFFER_MASK)
+#define samplesInBuffer	(((uint8_t)BUFFER_SIZE) - samplesToWrite)
 
 
 inline void writeToBuffer(soundSample value) {
