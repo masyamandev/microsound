@@ -21,7 +21,7 @@ const int8_t overdrivenGuitarWaveTable[] PROGMEM = {
 		0};// last value could be used for interpolation
 
 void playOverdrivenGuitar(waveChannel* channel, uint8_t data) {
-	channel->waveStep = frequencies[(data & 0b00111111)];
+	channel->waveStep = pgm_read_word(&frequencies[(data & 0b00111111)]);
 	channel->waveForm = overdrivenGuitarWaveTable;
 
 	channel->volumeForm = expNegTable;

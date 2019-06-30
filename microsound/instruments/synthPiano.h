@@ -2,7 +2,7 @@
 #include "common/expneg.h"
 
 void playSynthPiano(waveChannel* channel, uint8_t data) {
-	channel->waveStep = frequencies[data];
+	channel->waveStep = pgm_read_word(&frequencies[data]);
 	channel->waveForm = sinTable;
 
 	channel->volumeForm = expNegTable;

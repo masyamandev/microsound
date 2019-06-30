@@ -33,7 +33,7 @@ const int8_t pianoWaveTable[] PROGMEM = {
 //		8, 8, 7, 7, 6, 6, 5, 5, 4, 4, 4, 3, 3, 1, 1, 0};
 
 void playPiano(waveChannel* channel, uint8_t data) {
-	channel->waveStep = frequencies[data];
+	channel->waveStep = pgm_read_word(&frequencies[data]);
 	channel->waveForm = pianoWaveTable;
 
 	channel->volumeForm = expNegTable;//pianoVolumeTable;

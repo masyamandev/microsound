@@ -68,7 +68,7 @@
 #define NOTE_C6 	61
 
 #define NOTE_ARRAY_SIZE		62
-const uint16_t frequencies[NOTE_ARRAY_SIZE] = {
+const uint16_t frequencies[NOTE_ARRAY_SIZE] PROGMEM = {
 		0,
         freqStep(32.703), freqStep(34.648), freqStep(36.708), freqStep(38.891), freqStep(41.203), freqStep(43.654), freqStep(46.249), freqStep(48.999), freqStep(51.913), freqStep(55.000), freqStep(58.270), freqStep(61.735),
         freqStep(65.406), freqStep(69.296), freqStep(73.416), freqStep(77.782), freqStep(82.407), freqStep(87.307), freqStep(92.499), freqStep(97.999), freqStep(103.826), freqStep(110.000), freqStep(116.541), freqStep(123.471),

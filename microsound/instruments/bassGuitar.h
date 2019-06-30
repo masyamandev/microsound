@@ -20,7 +20,7 @@ const int8_t bassGuitarWaveTable[] PROGMEM = {
 		4};// last value could be used for interpolation
 
 void playBassGuitar(waveChannel* channel, uint8_t data) {
-	channel->waveStep = frequencies[data];
+	channel->waveStep = pgm_read_word(&frequencies[data]);
 	channel->waveForm = bassGuitarWaveTable;
 
 	channel->volumeForm = expNegTable;
