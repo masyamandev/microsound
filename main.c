@@ -32,12 +32,7 @@
 #include "microsound/instruments/percussion.h"
 
 
-#ifndef OVERDRIVE_SHORT
-#define OVERDRIVE_SHORT 0
-#endif
-
 //#include "microsound/samples/singlechannel.h"
-//#include "microsound/samples/twochannels.h"
 #include "microsound/samples/oh_susanna.h"
 
 
