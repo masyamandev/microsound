@@ -286,6 +286,25 @@ var expNegTable = [
 		0];
 		
 		
+var sinTable = [
+		0, 3, 6, 9, 12, 15, 18, 21, 24, 27, 30, 33, 36, 39, 42, 45,
+		48, 51, 54, 57, 59, 62, 65, 67, 70, 73, 75, 78, 80, 82, 85, 87,
+		89, 91, 94, 96, 98, 100, 102, 103, 105, 107, 108, 110, 112, 113, 114, 116,
+		117, 118, 119, 120, 121, 122, 123, 123, 124, 125, 125, 126, 126, 126, 126, 126,
+		127, 126, 126, 126, 126, 126, 125, 125, 124, 123, 123, 122, 121, 120, 119, 118,
+		117, 116, 114, 113, 112, 110, 108, 107, 105, 103, 102, 100, 98, 96, 94, 91,
+		89, 87, 85, 82, 80, 78, 75, 73, 70, 67, 65, 62, 59, 57, 54, 51,
+		48, 45, 42, 39, 36, 33, 30, 27, 24, 21, 18, 15, 12, 9, 6, 3,
+		0, -3, -6, -9, -12, -15, -18, -21, -24, -27, -30, -33, -36, -39, -42, -45,
+		-48, -51, -54, -57, -59, -62, -65, -67, -70, -73, -75, -78, -80, -82, -85, -87,
+		-89, -91, -94, -96, -98, -100, -102, -103, -105, -107, -108, -110, -112, -113, -114, -116,
+		-117, -118, -119, -120, -121, -122, -123, -123, -124, -125, -125, -126, -126, -126, -126, -126,
+		-127, -126, -126, -126, -126, -126, -125, -125, -124, -123, -123, -122, -121, -120, -119, -118,
+		-117, -116, -114, -113, -112, -110, -108, -107, -105, -103, -102, -100, -98, -96, -94, -91,
+		-89, -87, -85, -82, -80, -78, -75, -73, -70, -67, -65, -62, -59, -57, -54, -51,
+		-48, -45, -42, -39, -36, -33, -30, -27, -24, -21, -18, -15, -12, -9, -6, -3,
+    0];
+  
 var pianoWaveTable = [
 		0, 1, 3, 7, 12, 17, 24, 31, 38, 44, 50, 55, 58, 60, 60, 59,
 		56, 52, 49, 45, 43, 42, 43, 45, 48, 50, 51, 52, 51, 48, 45, 40,
@@ -411,11 +430,68 @@ function SAMPLE_OVERDRIVE(channel, data, t) {
 } 
 
 
+var barWaveTable = [
+		4, 19, 33, 47, 60, 72, 83, 92, 101, 108, 114, 119, 122, 125, 126, 127,
+		126, 125, 123, 120, 116, 112, 108, 103, 98, 92, 87, 81, 75, 70, 64, 59,
+		54, 49, 44, 40, 36, 32, 29, 25, 23, 20, 18, 16, 14, 13, 11, 10,
+		8, 7, 6, 5, 3, 2, 1, 0, -1, -2, -4, -5, -6, -7, -9, -10,
+		-11, -11, -12, -13, -13, -13, -13, -14, -14, -13, -13, -13, -12, -12, -12, -11,
+		-11, -10, -9, -9, -8, -8, -7, -6, -5, -4, -4, -3, -2, -1, 0, 0,
+		0, 1, 2, 2, 3, 4, 4, 5, 5, 5, 5, 5, 5, 5, 5, 5,
+		4, 3, 3, 2, 1, 1, 0, 0, -1, -2, -3, -4, -4, -5, -6, -6,
+		-7, -7, -7, -7, -7, -7, -7, -6, -6, -6, -5, -5, -4, -4, -3, -3,
+		-2, -2, -1, -1, -1, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0,
+		0, 0, 0, 0, 0, -1, -1, -1, -1, -2, -2, -2, -3, -3, -3, -3,
+		-3, -3, -3, -3, -3, -2, -2, -2, -1, -1, -1, 0, 0, 0, -1, -1,
+		-2, -3, -4, -5, -7, -8, -10, -12, -14, -16, -18, -20, -21, -23, -24, -25,
+		-26, -26, -26, -26, -25, -24, -23, -22, -20, -19, -17, -16, -16, -16, -17, -18,
+		-20, -23, -27, -31, -36, -42, -49, -56, -63, -70, -78, -85, -92, -98, -104, -108,
+		-112, -115, -116, -116, -115, -113, -109, -103, -96, -88, -78, -67, -55, -41, -26, -11,
+		4];
+		
+var noiseVolumeH = [
+		255, 214, 180, 151, 127, 107, 90, 75, 63, 53, 45, 37, 31, 26, 22, 18,
+		15, 13, 11, 9, 7, 6, 5, 4, 3, 3, 2, 2, 1, 1, 1, 1,
+		0];
+
+var noiseVolumeL = [
+		128, 112, 98, 86, 76, 66, 58, 51, 45, 39, 34, 30, 26, 23, 20, 18,
+		16, 14, 12, 10, 9, 8, 7, 6, 5, 4, 4, 3, 3, 2, 2, 2,
+		0];
+
+var barVolumeH = [
+		64, 56, 48, 40, 32, 24, 16, 8, 
+		0];
+
+var barVolumeL = [
+		32, 24, 16, 8,
+		0];
 
 function SAMPLE_PERCUSSION(channel, data, t) {
   console.log("play percussion at " + t);
-  channel.frequency = 0;
-  // TODO
+  
+  noiseStart = t;
+  noiseVolume = channel.volume;
+  
+	if (data & 0b00000001) {
+		noiseVolumeForm = noiseVolumeH;
+	} else {
+		noiseVolumeForm = noiseVolumeL;
+	}
+
+	if (data == PERCUSSION_BAR_H) {
+    channel.waveForm = sinTable;
+    channel.frequency = 55;
+    channel.volumeForm = barVolumeH;
+    channel.volumeTicksPerSample = 4;
+	} else if (data == PERCUSSION_BAR_L) {
+    channel.waveForm = sinTable;
+    channel.frequency = 55;
+    channel.volumeForm = barVolumeL;
+    channel.volumeTicksPerSample = 4;
+	} else {
+		channel.frequency = 0;
+	}
 } 
 
 
@@ -428,28 +504,28 @@ function SAMPLE_PERCUSSION(channel, data, t) {
 
 // Add more channels if it's required
 var channels = [{
-    waveForm: pianoWaveTable,
+    waveForm: sinTable,
     frequency: 0, 
     volumeForm: expNegTable,
     volumeTicksPerSample: 4,
     volume: 0,
     startTime: 0
 }, {
-    waveForm: pianoWaveTable,
+    waveForm: sinTable,
     frequency: 0,
     volumeForm: expNegTable,
     volumeTicksPerSample: 4,
     volume: 0,
     startTime: 0
 }, {
-    waveForm: pianoWaveTable,
+    waveForm: sinTable,
     frequency: 0,
     volumeForm: expNegTable,
     volumeTicksPerSample: 4,
     volume: 0,
     startTime: 0
 }, {
-    waveForm: pianoWaveTable,
+    waveForm: sinTable,
     frequency: 0,
     volumeForm: expNegTable,
     volumeTicksPerSample: 4,
@@ -461,6 +537,11 @@ var channelsInstrument = [];
 var dataIndex = 0;
 var nextCommandTime = 0;
 var beatTime = 60;
+
+
+var noiseStart = 999;
+var noiseVolumeForm = [0];
+var noiseVolume = 0;
 
 function rand() {
   return Math.random() * 2 - 1;
@@ -482,6 +563,10 @@ function dsp(t) {
     dataIndex = 0;
     nextCommandTime = 0;
     beatTime = 60;
+    
+    noiseStart = 999;
+    noiseVolumeForm = [0];
+    noiseVolume = 0;
     return 0;
   }
   
@@ -496,7 +581,10 @@ function dsp(t) {
     res += playNote(channels[i], t - channels[i].startTime);
   }
   
-  // console.log(t);
+  var noiseVolIndex = Math.round((t - noiseStart) / 0.004);
+  if (noiseVolIndex < noiseVolumeForm.length) {
+    res += rand() * noiseVolumeForm[noiseVolIndex] * noiseVolume / 256 / 256;
+  }
   
   return res;
 }
