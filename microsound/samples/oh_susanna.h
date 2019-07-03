@@ -166,7 +166,7 @@ const uint8_t ohSusannaSong[] PROGMEM = {
 		DATA_VOLUME(BASS, 0),
 		DATA_WAIT(16),
 
-		COMMAND_END
+		DATA_END()
 };
 
 

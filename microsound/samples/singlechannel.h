@@ -45,5 +45,5 @@ const uint8_t phonecall[] PROGMEM = {
 		DATA_PLAY(0, NOTE_A4, 1),
 		DATA_VOLUME(0, 0),
 		DATA_WAIT(63),
-		COMMAND_END
+		DATA_END()
 };
