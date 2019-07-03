@@ -21,19 +21,19 @@
 #define SAMPLES_SIZE	16
 #define USE_NOISE_CHANNEL
 
-#include "microsound/devices/atmega8timer2cpu8mhz.h"
-#include "microsound/micromusic.h"
+#include "../../microsound/devices/atmega8timer2cpu8mhz.h"
+#include "../../microsound/micromusic.h"
 
-#include "microsound/instruments/piano.h"
-#include "microsound/instruments/bassGuitar.h"
-//#include "microsound/instruments/accordion.h"
-#include "microsound/instruments/harmonica.h"
-#include "microsound/instruments/overdrivenGuitarChord.h"
-#include "microsound/instruments/percussion.h"
+#include "../../microsound/instruments/piano.h"
+#include "../../microsound/instruments/bassGuitar.h"
+//#include "../../microsound/instruments/accordion.h"
+#include "../../microsound/instruments/harmonica.h"
+#include "../../microsound/instruments/overdrivenGuitarChord.h"
+#include "../../microsound/instruments/percussion.h"
 
 
-//#include "microsound/samples/singlechannel.h"
-#include "microsound/samples/oh_susanna.h"
+//#include "../../microsound/samples/singlechannel.h"
+#include "../../microsound/samples/oh_susanna.h"
 
 
 
