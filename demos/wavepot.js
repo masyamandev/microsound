@@ -92,6 +92,8 @@ var PERCUSSION_BAR_L = 3;
  * Data 
  */
 
+var CHANNELS = 4;
+
 var PERC = 0;
 var BASS = 1;
 var HRMN = 2;
@@ -502,37 +504,7 @@ function SAMPLE_PERCUSSION(channel, data, t) {
  * Engine 
  */
 
-// Add more channels if it's required
-var channels = [{
-    waveForm: sinTable,
-    frequency: 0, 
-    volumeForm: expNegTable,
-    volumeTicksPerSample: 4,
-    volume: 0,
-    startTime: 0
-}, {
-    waveForm: sinTable,
-    frequency: 0,
-    volumeForm: expNegTable,
-    volumeTicksPerSample: 4,
-    volume: 0,
-    startTime: 0
-}, {
-    waveForm: sinTable,
-    frequency: 0,
-    volumeForm: expNegTable,
-    volumeTicksPerSample: 4,
-    volume: 0,
-    startTime: 0
-}, {
-    waveForm: sinTable,
-    frequency: 0,
-    volumeForm: expNegTable,
-    volumeTicksPerSample: 4,
-    volume: 0,
-    startTime: 0
-}];
-var channelsInstrument = [];
+var channels = [];
 
 var dataIndex = 0;
 var nextCommandTime = 0;
@@ -550,27 +522,36 @@ function rand() {
 
 function playNote(waveSample, t) {
   // waveForm, frequency, volumeForm, volumeTicksPerSample, volume
-  var waveIndex = Math.round(t * waveSample.frequency * 256) % 256;
-  var volumeIndex = Math.round(Math.min(t / 0.004 / waveSample.volumeTicksPerSample, waveSample.volumeForm.length - 1));
+  var waveIndex = Math.floor(t * waveSample.frequency * 256) % 256;
+  var volumeIndex = Math.floor(Math.min(t / 0.004 / waveSample.volumeTicksPerSample, waveSample.volumeForm.length - 1));
   return waveSample.waveForm[waveIndex] * waveSample.volumeForm[volumeIndex] * waveSample.volume / 128 / 256 / 256;
 }
 
 
-
-function dsp(t) {
+function clear() {
+  dataIndex = 0;
+  nextCommandTime = -1;
+  beatTime = 60;
   
-  if (t < 0.001) {
-    dataIndex = 0;
-    nextCommandTime = 0;
-    beatTime = 60;
-    
-    noiseStart = 999;
-    noiseVolumeForm = [0];
-    noiseVolume = 0;
-    return 0;
+  noiseStart = 999;
+  noiseVolumeForm = [0];
+  noiseVolume = 0;
+  
+  for (var i = 0; i < CHANNELS; i++) {
+    channels[i] = {
+        waveForm: sinTable,
+        frequency: 0, 
+        volumeForm: expNegTable,
+        volumeTicksPerSample: 4,
+        volume: 0,
+        startTime: 0
+    };
   }
+}
+
+function play(t) {
   
-  while (t > nextCommandTime) {
+  while (t >= nextCommandTime) {
     soundData[dataIndex](t);
     dataIndex++;
   }
@@ -581,12 +562,23 @@ function dsp(t) {
     res += playNote(channels[i], t - channels[i].startTime);
   }
   
-  var noiseVolIndex = Math.round((t - noiseStart) / 0.004);
+  var noiseVolIndex = Math.floor((t - noiseStart) / 0.004);
   if (noiseVolIndex < noiseVolumeForm.length) {
     res += rand() * noiseVolumeForm[noiseVolIndex] * noiseVolume / 256 / 256;
   }
   
   return res;
+}
+
+
+function dsp(t) {
+  
+  if (t < 0.001) {
+    clear();
+    return 0;
+  }
+  
+  return play(t);
 }
 
 
@@ -607,7 +599,7 @@ function DATA_TEMPO(bpm) {
 function DATA_INSTRUMENT(channelId, sample) {
   return function(t) {
     console.log("set instrument for " + channelId + " at " + t);
-    channelsInstrument[channelId] = sample;
+    channels[channelId].instrument = sample;
   };
 }
 
@@ -621,7 +613,7 @@ function DATA_VOLUME(channelId, volume) {
 function DATA_PLAY(channelId, data, waitBeats) {
   return function(t) {
     console.log("new note for " + channelId + " at " + t);
-    channelsInstrument[channelId](channels[channelId], data, t);
+    channels[channelId].instrument(channels[channelId], data, t);
     channels[channelId].startTime = t;
     nextCommandTime += waitBeats * beatTime;
     console.log("next command at " + nextCommandTime);
