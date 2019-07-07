@@ -106,7 +106,7 @@ var soundData = [
 		DATA_INSTRUMENT(HRMN, SAMPLE_HARMONICA),
 		DATA_INSTRUMENT(OVRD, SAMPLE_OVERDRIVE),
 		DATA_VOLUME(PERC, 80),
-		DATA_VOLUME(HRMN, 80),
+		DATA_VOLUME(HRMN, 64),
 		DATA_VOLUME(BASS, 32),
 		DATA_VOLUME(OVRD, 64),
 
@@ -228,31 +228,31 @@ var soundData = [
 
 
 		DATA_TEMPO(480 * 4),
-		DATA_VOLUME(HRMN, 80),
+		DATA_VOLUME(HRMN, 56),
 		DATA_VOLUME(OVRD, 28),
 		DATA_VOLUME(BASS, 56),
 		DATA_WAIT(1),
-		DATA_VOLUME(HRMN, 72),
+		DATA_VOLUME(HRMN, 56),
 		DATA_VOLUME(OVRD, 24),
 		DATA_VOLUME(BASS, 48),
 		DATA_WAIT(1),
-		DATA_VOLUME(HRMN, 60),
+		DATA_VOLUME(HRMN, 40),
 		DATA_VOLUME(OVRD, 20),
 		DATA_VOLUME(BASS, 40),
 		DATA_WAIT(1),
-		DATA_VOLUME(HRMN, 28),
+		DATA_VOLUME(HRMN, 32),
 		DATA_VOLUME(OVRD, 16),
 		DATA_VOLUME(BASS, 32),
 		DATA_WAIT(1),
-		DATA_VOLUME(HRMN, 36),
+		DATA_VOLUME(HRMN, 24),
 		DATA_VOLUME(OVRD, 12),
 		DATA_VOLUME(BASS, 24),
 		DATA_WAIT(1),
-		DATA_VOLUME(HRMN, 24),
+		DATA_VOLUME(HRMN, 16),
 		DATA_VOLUME(OVRD, 8),
 		DATA_VOLUME(BASS, 16),
 		DATA_WAIT(1),
-		DATA_VOLUME(HRMN, 12),
+		DATA_VOLUME(HRMN, 8),
 		DATA_VOLUME(OVRD, 4),
 		DATA_VOLUME(BASS, 8),
 		DATA_WAIT(1),
@@ -383,15 +383,15 @@ var harmonicaWaveTable = [
 		0];
 
 var harmonicaVolumeTable = [
-		35, 162, 255, 214, 149, 118, 102, 88, 83, 84, 78, 73, 48, 70, 85, 92
-		];
+  16, 86, 142, 177, 199, 212, 220, 224, 225, 226, 225, 224, 222, 220, 218, 216,
+];
 
 function SAMPLE_HARMONICA(channel, data, t) {
   console.log("play harmonica at " + t);
   channel.waveForm = harmonicaWaveTable;
   channel.frequency = frequencies[data - 12];
   channel.volumeForm = harmonicaVolumeTable;
-  channel.volumeTicksPerSample = 1;
+  channel.volumeTicksPerSample = 2;
 } 
 
 
@@ -432,25 +432,6 @@ function SAMPLE_OVERDRIVE(channel, data, t) {
 } 
 
 
-var barWaveTable = [
-		4, 19, 33, 47, 60, 72, 83, 92, 101, 108, 114, 119, 122, 125, 126, 127,
-		126, 125, 123, 120, 116, 112, 108, 103, 98, 92, 87, 81, 75, 70, 64, 59,
-		54, 49, 44, 40, 36, 32, 29, 25, 23, 20, 18, 16, 14, 13, 11, 10,
-		8, 7, 6, 5, 3, 2, 1, 0, -1, -2, -4, -5, -6, -7, -9, -10,
-		-11, -11, -12, -13, -13, -13, -13, -14, -14, -13, -13, -13, -12, -12, -12, -11,
-		-11, -10, -9, -9, -8, -8, -7, -6, -5, -4, -4, -3, -2, -1, 0, 0,
-		0, 1, 2, 2, 3, 4, 4, 5, 5, 5, 5, 5, 5, 5, 5, 5,
-		4, 3, 3, 2, 1, 1, 0, 0, -1, -2, -3, -4, -4, -5, -6, -6,
-		-7, -7, -7, -7, -7, -7, -7, -6, -6, -6, -5, -5, -4, -4, -3, -3,
-		-2, -2, -1, -1, -1, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0,
-		0, 0, 0, 0, 0, -1, -1, -1, -1, -2, -2, -2, -3, -3, -3, -3,
-		-3, -3, -3, -3, -3, -2, -2, -2, -1, -1, -1, 0, 0, 0, -1, -1,
-		-2, -3, -4, -5, -7, -8, -10, -12, -14, -16, -18, -20, -21, -23, -24, -25,
-		-26, -26, -26, -26, -25, -24, -23, -22, -20, -19, -17, -16, -16, -16, -17, -18,
-		-20, -23, -27, -31, -36, -42, -49, -56, -63, -70, -78, -85, -92, -98, -104, -108,
-		-112, -115, -116, -116, -115, -113, -109, -103, -96, -88, -78, -67, -55, -41, -26, -11,
-		4];
-		
 var noiseVolumeH = [
     102, 89, 78, 69, 60, 53, 46, 41, 36, 31, 27, 24, 21, 18, 16, 14, 
     12, 11, 9, 8, 7, 6, 5, 5, 4, 3, 3, 3, 2, 2, 2, 1, 

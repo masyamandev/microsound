@@ -19,8 +19,8 @@ const int8_t harmonicaWaveTable[] PROGMEM = {
 		0};// last value could be used for interpolation
 
 const uint8_t harmonicaVolumeTable[] PROGMEM = {
-		35, 162, 255, 214, 149, 118, 102, 88, 83, 84, 78, 73, 48, 70, 85, 92
-};
+		16, 86, 142, 177, 199, 212, 220, 224, 225, 226, 225, 224, 222, 220, 218, 216,
+		};
 
 void playHarmonica(waveChannel* channel, uint8_t data) {
 	channel->waveStep = pgm_read_word(&frequencies[data - 12]);
