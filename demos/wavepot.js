@@ -517,6 +517,8 @@ var noiseStart = 999;
 var noiseVolumeForm = [0];
 var noiseVolume = 0;
 
+var prevT = 999;
+
 function rand() {
   return Math.random() * 2 - 1;
 }
@@ -575,10 +577,11 @@ function play(t) {
 
 function dsp(t) {
   
-  if (t < 0.001) {
+  if (t < prevT) {
     clear();
-    return 0;
   }
+  
+  prevT = t;
   
   return play(t);
 }
