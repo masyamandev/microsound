@@ -110,16 +110,16 @@ var soundData = [
 		DATA_VOLUME(BASS, 32),
 		DATA_VOLUME(OVRD, 64),
 
-
-//		DATA_PLAY(PERC, PERCUSSION_HAT_H, 1),
-//		DATA_PLAY(PERC, PERCUSSION_HAT_L, 1),
-//		DATA_PLAY(PERC, PERCUSSION_BAR_H, 1),
-//		DATA_PLAY(PERC, PERCUSSION_BAR_L, 1),
-//		DATA_PLAY(PERC, PERCUSSION_HAT_H, 2),
-//		DATA_PLAY(PERC, PERCUSSION_HAT_L, 2),
-//		DATA_PLAY(PERC, PERCUSSION_BAR_H, 2),
-//		DATA_PLAY(PERC, PERCUSSION_BAR_L, 2),
-//		DATA_PLAY(PERC, PERCUSSION_HAT_H, 2),
+		// DATA_PLAY(PERC, PERCUSSION_HAT_H, 1),
+		// DATA_PLAY(PERC, PERCUSSION_HAT_L, 1),
+		// DATA_PLAY(PERC, PERCUSSION_BAR_H, 1),
+		// DATA_PLAY(PERC, PERCUSSION_BAR_L, 1),
+		// DATA_PLAY(PERC, PERCUSSION_HAT_H, 2),
+		// DATA_PLAY(PERC, PERCUSSION_HAT_L, 2),
+		// DATA_PLAY(PERC, PERCUSSION_BAR_H, 2),
+		// DATA_PLAY(PERC, PERCUSSION_BAR_L, 2),
+		// DATA_PLAY(PERC, PERCUSSION_HAT_H, 2),
+    // DATA_END(),
 
 		DATA_PLAY(HRMN, NOTE_C4, 1),
 		DATA_PLAY(HRMN, NOTE_D4, 0),
@@ -452,22 +452,43 @@ var barWaveTable = [
 		4];
 		
 var noiseVolumeH = [
-		255, 214, 180, 151, 127, 107, 90, 75, 63, 53, 45, 37, 31, 26, 22, 18,
-		15, 13, 11, 9, 7, 6, 5, 4, 3, 3, 2, 2, 1, 1, 1, 1,
+    102, 89, 78, 69, 60, 53, 46, 41, 36, 31, 27, 24, 21, 18, 16, 14, 
+    12, 11, 9, 8, 7, 6, 5, 5, 4, 3, 3, 3, 2, 2, 2, 1, 
 		0];
 
+var noiseVolumeM = [
+    153, 129, 108, 91, 76, 64, 54, 45, 38, 32, 27, 22, 19, 16, 13, 11, 
+    9, 8, 6, 5, 4, 4, 3, 2, 2, 2, 1, 1, 1, 1, 0, 0,
+		0];
+		
 var noiseVolumeL = [
-		128, 112, 98, 86, 76, 66, 58, 51, 45, 39, 34, 30, 26, 23, 20, 18,
-		16, 14, 12, 10, 9, 8, 7, 6, 5, 4, 4, 3, 3, 2, 2, 2,
+    51, 43, 36, 30, 25, 21, 18, 15, 12, 10, 9, 7, 6, 5, 4, 3, 
+    3, 2, 2, 1, 1, 1, 1, 0, 0, 0, 0, 0, 0, 0, 0, 0,
 		0];
 
 var barVolumeH = [
-		64, 56, 48, 40, 32, 24, 16, 8, 
-		0];
+		184, 176, 168, 161, 154, 148, 141, 135, 130, 124, 119, 114, 109, 104, 100, 96,
+		92, 88, 84, 80, 77, 74, 70, 67, 65, 62, 59, 57, 54, 52, 50, 48,
+		46, 44, 42, 40, 38, 37, 35, 33, 32, 31, 29, 28, 27, 26, 25, 24,
+		23, 22, 21, 20, 19, 18, 17, 16, 16, 15, 14, 14, 13, 13, 12, 12,
+//		11, 11, 10, 10, 9, 9, 8, 8, 8, 7, 7, 7, 6, 6, 6, 6,
+//		5, 5, 5, 5, 4, 4, 4, 4, 4, 3, 3, 3, 3, 3, 3, 3,
+//		2, 2, 2, 2, 2, 2, 2, 2, 2, 1, 1, 1, 1, 1, 1, 1,
+//		1, 1, 1, 1, 1, 1, 1, 1, 1, 0, 0, 0, 0, 0, 0, 0,
+		0
+];
 
-var barVolumeL = [
-		32, 24, 16, 8,
-		0];
+var barVolumeL = [ 
+		/*184, 176, 168, 161, 154, 148, 141, 135,*/ 130, 124, 119, 114, 109, 104, 100, 96,
+		92, 88, 84, 80, 77, 74, 70, 67, 65, 62, 59, 57, 54, 52, 50, 48,
+		46, 44, 42, 40, 38, 37, 35, 33, 32, 31, 29, 28, 27, 26, 25, 24,
+		23, 22, 21, 20, 19, 18, 17, 16, 16, 15, 14, 14, 13, 13, 12, 12,
+//		11, 11, 10, 10, 9, 9, 8, 8, 8, 7, 7, 7, 6, 6, 6, 6,
+//		5, 5, 5, 5, 4, 4, 4, 4, 4, 3, 3, 3, 3, 3, 3, 3,
+//		2, 2, 2, 2, 2, 2, 2, 2, 2, 1, 1, 1, 1, 1, 1, 1,
+//		1, 1, 1, 1, 1, 1, 1, 1, 1, 0, 0, 0, 0, 0, 0, 0,
+		0
+];
 
 function SAMPLE_PERCUSSION(channel, data, t) {
   console.log("play percussion at " + t);
@@ -475,23 +496,23 @@ function SAMPLE_PERCUSSION(channel, data, t) {
   noiseStart = t;
   noiseVolume = channel.volume;
   
-	if (data & 0b00000001) {
-		noiseVolumeForm = noiseVolumeH;
-	} else {
-		noiseVolumeForm = noiseVolumeL;
-	}
-
 	if (data == PERCUSSION_BAR_H) {
+		noiseVolumeForm = noiseVolumeM;
     channel.waveForm = sinTable;
     channel.frequency = 55;
     channel.volumeForm = barVolumeH;
-    channel.volumeTicksPerSample = 4;
+    channel.volumeTicksPerSample = 2;
 	} else if (data == PERCUSSION_BAR_L) {
+		noiseVolumeForm = noiseVolumeL;
     channel.waveForm = sinTable;
     channel.frequency = 55;
     channel.volumeForm = barVolumeL;
-    channel.volumeTicksPerSample = 4;
+    channel.volumeTicksPerSample = 1;
+	} else if (data == PERCUSSION_HAT_H) {
+		noiseVolumeForm = noiseVolumeH;
+		channel.frequency = 0;
 	} else {
+		noiseVolumeForm = noiseVolumeL;
 		channel.frequency = 0;
 	}
 } 
