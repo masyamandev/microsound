@@ -506,6 +506,8 @@ function SAMPLE_PERCUSSION(channel, data, t) {
  * Engine 
  */
 
+var simulate8bits = true;
+
 var channels = [];
 
 var dataIndex = 0;
@@ -528,7 +530,11 @@ function playNote(waveSample, t) {
   // waveForm, frequency, volumeForm, volumeTicksPerSample, volume
   var waveIndex = Math.floor(t * waveSample.frequency * 256) % 256;
   var volumeIndex = Math.floor(Math.min(t / 0.004 / waveSample.volumeTicksPerSample, waveSample.volumeForm.length - 1));
-  return waveSample.waveForm[waveIndex] * waveSample.volumeForm[volumeIndex] * waveSample.volume / 128 / 256 / 256;
+  if (simulate8bits) {
+    return waveSample.waveForm[waveIndex] * Math.round(waveSample.volumeForm[volumeIndex] * waveSample.volume / 256) / 128 / 256;
+  } else {
+    return waveSample.waveForm[waveIndex] * waveSample.volumeForm[volumeIndex] * waveSample.volume / 128 / 256 / 256;
+  }
 }
 
 
@@ -571,7 +577,11 @@ function play(t) {
     res += rand() * noiseVolumeForm[noiseVolIndex] * noiseVolume / 256 / 256;
   }
   
-  return res;
+  if (simulate8bits) {
+    return round8bits(res);
+  } else {
+    return res;
+  }
 }
 
 
@@ -588,6 +598,9 @@ function dsp(t) {
 
 
 
+function round8bits(x) {
+  return Math.floor(x * 127) / 127.0;
+}
 
 
 /*
