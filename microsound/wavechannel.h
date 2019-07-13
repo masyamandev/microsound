@@ -14,7 +14,7 @@ inline int16_t nextSample() {
 	int8_t tone = pgm_read_byte(&channelData.waveForm[sampleId]);
 	#ifdef INTERPOLATE_WAVE
 		uint8_t subsampleTone = sample;
-		tone += (( pgm_read_byte(&channelData.waveForm[sampleId + 1]) - tone) * subsampleTone) >> 8;
+		tone += (( (int8_t) pgm_read_byte(&channelData.waveForm[(uint8_t)(sampleId + 1)]) - tone) * subsampleTone) >> 8;
 	#endif
 	channelData.waveSample += channelData.waveStep;
 
