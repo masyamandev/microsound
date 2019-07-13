@@ -6,9 +6,10 @@
 
 typedef void (*sampleSource)(waveChannel* channel, uint8_t data);
 
-// SAMPLES_SIZE - amount of instruments
+// SAMPLES_SIZE - amount of different instruments
+// CHANNELS_SIZE - amount of simultaneously played channels, managed by microsound.h
 sampleSource samples[SAMPLES_SIZE];
-sampleSource channelSamples[SAMPLES_SIZE];
+sampleSource channelSamples[CHANNELS_SIZE];
 
 const uint8_t *musicData;
 uint16_t nextBeat;
