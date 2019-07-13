@@ -99,26 +99,33 @@ var BASS = 1;
 var HRMN = 2;
 var OVRD = 3;
 
-var soundData = [		
+ soundData = [
 		DATA_TEMPO(480),
 		DATA_INSTRUMENT(PERC, SAMPLE_PERCUSSION),
 		DATA_INSTRUMENT(BASS, SAMPLE_BASS),
 		DATA_INSTRUMENT(HRMN, SAMPLE_HARMONICA),
 		DATA_INSTRUMENT(OVRD, SAMPLE_OVERDRIVE),
+		// DATA_INSTRUMENT(BASS, SAMPLE_MUSICBOX),
+		// DATA_INSTRUMENT(HRMN, SAMPLE_MUSICBOX),
+		// DATA_INSTRUMENT(OVRD, SAMPLE_MUSICBOX),
 		DATA_VOLUME(PERC, 80),
 		DATA_VOLUME(HRMN, 64),
 		DATA_VOLUME(BASS, 32),
 		DATA_VOLUME(OVRD, 64),
+		// DATA_VOLUME(PERC, 0),
+		// DATA_VOLUME(HRMN, 64),
+		// DATA_VOLUME(BASS, 0),
+		// DATA_VOLUME(OVRD, 0),
 
-		// DATA_PLAY(PERC, PERCUSSION_HAT_H, 1),
-		// DATA_PLAY(PERC, PERCUSSION_HAT_L, 1),
-		// DATA_PLAY(PERC, PERCUSSION_BAR_H, 1),
-		// DATA_PLAY(PERC, PERCUSSION_BAR_L, 1),
-		// DATA_PLAY(PERC, PERCUSSION_HAT_H, 2),
-		// DATA_PLAY(PERC, PERCUSSION_HAT_L, 2),
-		// DATA_PLAY(PERC, PERCUSSION_BAR_H, 2),
-		// DATA_PLAY(PERC, PERCUSSION_BAR_L, 2),
-		// DATA_PLAY(PERC, PERCUSSION_HAT_H, 2),
+		DATA_PLAY(PERC, PERCUSSION_HAT_H, 1),
+		DATA_PLAY(PERC, PERCUSSION_HAT_L, 1),
+		DATA_PLAY(PERC, PERCUSSION_BAR_H, 1),
+		DATA_PLAY(PERC, PERCUSSION_BAR_L, 1),
+		DATA_PLAY(PERC, PERCUSSION_HAT_H, 2),
+		DATA_PLAY(PERC, PERCUSSION_HAT_L, 2),
+		DATA_PLAY(PERC, PERCUSSION_BAR_H, 2),
+		DATA_PLAY(PERC, PERCUSSION_BAR_L, 2),
+		DATA_PLAY(PERC, PERCUSSION_HAT_H, 2),
     // DATA_END(),
 
 		DATA_PLAY(HRMN, NOTE_C4, 1),
@@ -329,7 +336,7 @@ var pianoWaveTable = [
 function SAMPLE_PIANO(channel, data, t) {
   console.log("play piano at " + t);
   channel.waveForm = pianoWaveTable;
-  channel.frequency = frequencies[data];
+  channel.frequency = frequencies[data % 64];
   channel.volumeForm = expNegTable;
   channel.volumeTicksPerSample = 4;
 } 
@@ -357,7 +364,7 @@ var bassGuitarWaveTable = [
 function SAMPLE_BASS(channel, data, t) {
   console.log("play bass at " + t);
   channel.waveForm = bassGuitarWaveTable;
-  channel.frequency = frequencies[data];
+  channel.frequency = frequencies[data % 64];
   channel.volumeForm = expNegTable;
   channel.volumeTicksPerSample = 4;
 } 
@@ -389,7 +396,7 @@ var harmonicaVolumeTable = [
 function SAMPLE_HARMONICA(channel, data, t) {
   console.log("play harmonica at " + t);
   channel.waveForm = harmonicaWaveTable;
-  channel.frequency = frequencies[data - 12];
+  channel.frequency = frequencies[data % 64 - 12];
   channel.volumeForm = harmonicaVolumeTable;
   channel.volumeTicksPerSample = 2;
 } 
@@ -431,6 +438,40 @@ function SAMPLE_OVERDRIVE(channel, data, t) {
   }
 } 
 
+var musicboxWaveTable = [
+    0, 1, 4, 6, 9, 11, 13, 16, 18, 20, 22, 25, 28, 31, 34, 37, 
+    40, 43, 45, 47, 50, 52, 55, 58, 61, 63, 66, 69, 72, 76, 79, 82, 
+    85, 88, 90, 92, 95, 97, 100, 101, 102, 104, 105, 106, 107, 108, 109, 110, 
+    111, 112, 113, 115, 116, 117, 119, 120, 121, 122, 124, 125, 126, 127, 126, 126, 
+    126, 126, 126, 125, 123, 122, 121, 120, 119, 118, 117, 116, 115, 115, 114, 113, 
+    113, 112, 111, 110, 108, 106, 104, 102, 100, 97, 94, 90, 87, 83, 80, 76, 
+    73, 69, 66, 62, 60, 57, 55, 52, 50, 48, 45, 43, 41, 38, 36, 32, 
+    29, 25, 21, 17, 14, 9, 5, 1, -2, -7, -10, -13, -15, -18, -21, -23, 
+    -25, -27, -29, -30, -32, -35, -37, -40, -42, -45, -48, -51, -54, -57, -61, -64, 
+    -67, -69, -71, -73, -75, -77, -77, -78, -79, -79, -80, -81, -82, -82, -83, -84, 
+    -84, -86, -87, -89, -90, -92, -93, -94, -95, -96, -97, -98, -98, -98, -98, -97, 
+    -97, -97, -96, -96, -95, -94, -94, -94, -94, -95, -95, -96, -96, -96, -97, -97, 
+    -98, -98, -98, -98, -97, -96, -96, -95, -94, -93, -92, -91, -90, -89, -88, -88, 
+    -87, -87, -86, -86, -85, -85, -84, -84, -83, -82, -81, -80, -79, -78, -76, -74, 
+    -72, -70, -69, -67, -65, -63, -62, -60, -58, -56, -55, -53, -52, -50, -48, -46, 
+    -44, -41, -39, -36, -34, -31, -28, -25, -22, -19, -16, -13, -11, -8, -5, -3, 
+		0];
+
+var musicboxVolumeTable = [
+    255, 226, 199, 191, 184, 160, 163, 178, 177, 166, 158, 156, 147, 141, 135, 131, 
+    124, 118, 113, 107, 100, 95, 90, 85, 80, 75, 71, 67, 63, 59, 55, 51, 
+    48, 45, 43, 40, 39, 36, 34, 30, 28, 27, 25, 24, 23, 22, 22, 20, 
+    18, 18, 17, 16, 16, 15, 14, 14, 13, 12, 12, 11, 11, 10, 9, 9, 
+    8,7,6,5,4,3,2,1,0,
+    0];
+
+function SAMPLE_MUSICBOX(channel, data, t) {
+  console.log("play musicbox at " + t);
+  channel.waveForm = musicboxWaveTable;
+  channel.frequency = frequencies[data % 64];
+  channel.volumeForm = musicboxVolumeTable;
+  channel.volumeTicksPerSample = 4;
+} 
 
 var noiseVolumeH = [
     102, 89, 78, 69, 60, 53, 46, 41, 36, 31, 27, 24, 21, 18, 16, 14, 
@@ -506,7 +547,7 @@ function SAMPLE_PERCUSSION(channel, data, t) {
  * Engine 
  */
 
-var simulate8bits = true;
+var simulate8bits = false;
 
 var channels = [];
 
@@ -540,8 +581,6 @@ function playNote(waveSample, t) {
 
 function clear() {
   dataIndex = 0;
-  nextCommandTime = -1;
-  beatTime = 60;
   
   noiseStart = 999;
   noiseVolumeForm = [0];
@@ -586,14 +625,20 @@ function play(t) {
 
 
 function dsp(t) {
-  
-  if (t < prevT) {
-    clear();
+  try {
+    if (t < prevT) {
+      nextCommandTime = t;
+      beatTime = 60;
+      clear();
+    }
+    
+    prevT = t;
+    
+    return Math.max(-1, Math.min(play(t), 1));
+  } catch(error) {
+    console.error(error);
+    return 0;
   }
-  
-  prevT = t;
-  
-  return play(t);
 }
 
 
@@ -648,7 +693,8 @@ function DATA_WAIT(waitBeats) {
 
 function DATA_END() {
   return function(t) {
-    nextCommandTime = t;
+    clear();
+    nextCommandTime = t + 0.0001;
     dataIndex = -1;
     console.log("end at " + t);
   };

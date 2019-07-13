@@ -19,29 +19,14 @@ const int8_t pianoWaveTable[] PROGMEM = {
 		-44, -39, -36, -33, -31, -29, -26, -22, -17, -12, -8, -5, -3, -2, -1, -1,
 		0};// last value could be used for interpolation
 
-//const uint8_t pianoVolumeTable[] PROGMEM = {
-//		255, 230, 218, 190, 196, 219, 239, 243, 255, 250, 244, 248, 239, 231, 224, 213,
-//		225, 218, 210, 204, 191, 206, 199, 190, 186, 189, 194, 183, 173, 174, 180, 173,
-//		172, 164, 158, 159, 154, 156, 150, 142, 147, 144, 143, 135, 130, 133, 131, 130,
-//		120, 115, 115, 118, 112, 105, 102, 103, 106, 99, 98, 97, 95, 96, 90, 88,
-//		83, 83, 83, 77, 74, 70, 72, 70, 68, 66, 62, 63, 61, 60, 57, 54,
-//		52, 52, 52, 49, 46, 44, 44, 43, 42, 40, 39, 38, 36, 35, 34, 33,
-//		33, 32, 31, 31, 30, 28, 26, 26, 27, 26, 26, 25, 24, 24, 24, 24,
-//		23, 23, 23, 23, 23, 21, 21, 22, 22, 22, 21, 20, 20, 21, 20, 20,
-//		20, 20, 20, 19, 20, 19, 19, 20, 19, 20, 19, 19, 19, 19, 19, 18,
-//		17, 17, 17, 16, 15, 14, 14, 14, 13, 12, 11, 11, 11, 10, 10, 9,
-//		8, 8, 7, 7, 6, 6, 5, 5, 4, 4, 4, 3, 3, 1, 1, 0};
-
 void playPiano(waveChannel* channel, uint8_t data) {
 	channel->waveStep = pgm_read_word(&frequencies[data]);
 	channel->waveForm = pianoWaveTable;
 
-	channel->volumeForm = expNegTable;//pianoVolumeTable;
-//	channel->volumeForm = pianoVolumeTable;
-//	channel->volumeFormLength = 175 - 1;
+	channel->volumeForm = expNegTable;
 	channel->volumeFormLength = 256 - 1;
 	channel->volumeTicksPerSample = 4;
 	channel->volumeTicksCounter = 4;
 
-	channel->currentVolume = (channel->instrumentVolume) * 142 >> 8;
+	channel->currentVolume = channel->instrumentVolume;
 }

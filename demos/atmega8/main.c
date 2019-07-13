@@ -13,6 +13,7 @@
 #define SAMPLE_HARMONICA	2
 #define SAMPLE_BASS			3
 #define SAMPLE_OVERDRIVE	4
+#define SAMPLE_MUSICBOX		5
 
 //#define BUFFER_SIZE 128
 //#define MICROSOUND_FREQUENCY_DIVIDER	4
@@ -30,6 +31,7 @@
 #include "../../microsound/instruments/harmonica.h"
 #include "../../microsound/instruments/overdrivenGuitarChord.h"
 #include "../../microsound/instruments/percussion.h"
+#include "../../microsound/instruments/musicbox.h"
 
 
 //#include "../../microsound/samples/singlechannel.h"
@@ -38,35 +40,26 @@
 
 
 const uint8_t test[] PROGMEM = {
-		DATA_TEMPO(60),
-		DATA_INSTRUMENT(0, SAMPLE_PIANO),
-		DATA_INSTRUMENT(1, SAMPLE_PIANO),
-		DATA_INSTRUMENT(2, SAMPLE_PIANO),
-		DATA_INSTRUMENT(3, SAMPLE_PIANO),
+		DATA_TEMPO(180),
+		DATA_INSTRUMENT(0, SAMPLE_MUSICBOX),
+		DATA_INSTRUMENT(1, SAMPLE_MUSICBOX),
+		DATA_INSTRUMENT(2, SAMPLE_MUSICBOX),
+		DATA_INSTRUMENT(3, SAMPLE_MUSICBOX),
 		DATA_VOLUME(0, 80),
 		DATA_VOLUME(1, 80),
 		DATA_VOLUME(2, 80),
-		DATA_VOLUME(3, 128),
-//		DATA_PLAY(0, NOTE_E4, 1),
-//		DATA_PLAY(0, NOTE_E3, 1),
+		DATA_VOLUME(3, 80),
+		DATA_PLAY(0, NOTE_E5, 1),
+		DATA_PLAY(0, NOTE_Eb5, 1),
+		DATA_PLAY(0, NOTE_E5, 1),
+		DATA_PLAY(0, NOTE_Eb5, 1),
+		DATA_PLAY(0, NOTE_E5, 1),
+		DATA_PLAY(0, NOTE_B4, 1),
+		DATA_PLAY(0, NOTE_D5, 1),
+		DATA_PLAY(0, NOTE_C5, 1),
+		DATA_PLAY(0, NOTE_A3, 0),
+		DATA_PLAY(0, NOTE_A4, 4),
 
-
-		DATA_INSTRUMENT(0, SAMPLE_OVERDRIVE),
-		DATA_INSTRUMENT(3, SAMPLE_OVERDRIVE),
-//		DATA_PLAY(0, NOTE_G2, 0),
-		DATA_PLAY(0, NOTE_C2, 1),
-//		DATA_PLAY(3, NOTE_C4, 0),
-//		DATA_PLAY(2, NOTE_C3, 0),
-//		DATA_PLAY(1, NOTE_E3, 0),
-//		DATA_PLAY(0, NOTE_G3, 0),
-		DATA_PLAY(0, NOTE_C3, 1),
-
-		DATA_TEMPO(220),
-		DATA_INSTRUMENT(0, SAMPLE_OVERDRIVE),
-		DATA_PLAY(0, NOTE_C3 | OVERDRIVE_SHORT, 1),
-		DATA_PLAY(0, NOTE_D3 | OVERDRIVE_SHORT, 1),
-		DATA_PLAY(0, NOTE_E3 | OVERDRIVE_SHORT, 1),
-		DATA_PLAY(0, NOTE_F3, 4),
 		DATA_END()
 };
 
@@ -100,6 +93,7 @@ int main(void)
 	setSample(SAMPLE_HARMONICA, playHarmonica);
 	setSample(SAMPLE_BASS, playBassGuitar);
 	setSample(SAMPLE_OVERDRIVE, playOverdrivenGuitarChord);
+	setSample(SAMPLE_MUSICBOX, playMusicbox);
 
 	sei();
 
