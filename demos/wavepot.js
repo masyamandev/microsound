@@ -92,14 +92,15 @@ var PERCUSSION_BAR_L = 3;
  * Data 
  */
 
-var CHANNELS = 4;
+var simulate8bits = true;
+var CHANNELS = 5;
 
 var PERC = 0;
 var BASS = 1;
 var HRMN = 2;
 var OVRD = 3;
 
- soundData = [
+var soundData = [
 		DATA_TEMPO(480),
 		DATA_INSTRUMENT(PERC, SAMPLE_PERCUSSION),
 		DATA_INSTRUMENT(BASS, SAMPLE_BASS),
@@ -117,16 +118,16 @@ var OVRD = 3;
 		// DATA_VOLUME(BASS, 0),
 		// DATA_VOLUME(OVRD, 0),
 
-		DATA_PLAY(PERC, PERCUSSION_HAT_H, 1),
-		DATA_PLAY(PERC, PERCUSSION_HAT_L, 1),
-		DATA_PLAY(PERC, PERCUSSION_BAR_H, 1),
-		DATA_PLAY(PERC, PERCUSSION_BAR_L, 1),
-		DATA_PLAY(PERC, PERCUSSION_HAT_H, 2),
-		DATA_PLAY(PERC, PERCUSSION_HAT_L, 2),
-		DATA_PLAY(PERC, PERCUSSION_BAR_H, 2),
-		DATA_PLAY(PERC, PERCUSSION_BAR_L, 2),
-		DATA_PLAY(PERC, PERCUSSION_HAT_H, 2),
-    // DATA_END(),
+		// DATA_PLAY(PERC, PERCUSSION_HAT_H, 1),
+		// DATA_PLAY(PERC, PERCUSSION_HAT_L, 1),
+		// DATA_PLAY(PERC, PERCUSSION_BAR_H, 1),
+		// DATA_PLAY(PERC, PERCUSSION_BAR_L, 1),
+		// DATA_PLAY(PERC, PERCUSSION_HAT_H, 2),
+		// DATA_PLAY(PERC, PERCUSSION_HAT_L, 2),
+		// DATA_PLAY(PERC, PERCUSSION_BAR_H, 2),
+		// DATA_PLAY(PERC, PERCUSSION_BAR_L, 2),
+		// DATA_PLAY(PERC, PERCUSSION_HAT_H, 2),
+		// DATA_END(),
 
 		DATA_PLAY(HRMN, NOTE_C4, 1),
 		DATA_PLAY(HRMN, NOTE_D4, 0),
@@ -547,8 +548,6 @@ function SAMPLE_PERCUSSION(channel, data, t) {
  * Engine 
  */
 
-var simulate8bits = false;
-
 var channels = [];
 
 var dataIndex = 0;
@@ -582,7 +581,7 @@ function playNote(waveSample, t) {
 function clear() {
   dataIndex = 0;
   
-  noiseStart = 999;
+  noiseStart = -999;
   noiseVolumeForm = [0];
   noiseVolume = 0;
   

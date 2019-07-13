@@ -23,7 +23,7 @@
 #endif
 
 
-#define BUFFER_MASK (BUFFER_SIZE - 1)
+#define BUFFER_MASK ((uint8_t)(BUFFER_SIZE - 1))
 volatile soundSample soundBuffer[BUFFER_SIZE];
 volatile uint8_t bufferRead;
 uint8_t bufferWrite;

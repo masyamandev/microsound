@@ -15,6 +15,7 @@
 #define SAMPLE_OVERDRIVE	4
 #define SAMPLE_MUSICBOX		5
 
+//#define BUFFER_BITS	16
 //#define BUFFER_SIZE 128
 //#define MICROSOUND_FREQUENCY_DIVIDER	4
 //#define INTERPOLATION_STRENGTH	2
@@ -99,7 +100,7 @@ int main(void)
 		while (samplesInBuffer > 4) {};
 
 		if (isMusicStopped) {
-			playMusic(ohSusannaSong);
+			playMusic(forElise);
 		}
 
 	}
