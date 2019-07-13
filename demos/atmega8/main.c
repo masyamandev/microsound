@@ -37,29 +37,20 @@
 
 //#include "../../microsound/samples/singlechannel.h"
 #include "../../microsound/samples/oh_susanna.h"
+#include "../../microsound/samples/for_elise.h"
 
 
 
 const uint8_t test[] PROGMEM = {
-		DATA_TEMPO(180),
+		DATA_TEMPO(480),
 		DATA_INSTRUMENT(0, SAMPLE_MUSICBOX),
-//		DATA_INSTRUMENT(1, SAMPLE_MUSICBOX),
-//		DATA_INSTRUMENT(2, SAMPLE_MUSICBOX),
-//		DATA_INSTRUMENT(3, SAMPLE_MUSICBOX),
+		DATA_INSTRUMENT(1, SAMPLE_MUSICBOX),
+		DATA_INSTRUMENT(2, SAMPLE_MUSICBOX),
+		DATA_INSTRUMENT(3, SAMPLE_MUSICBOX),
 		DATA_VOLUME(0, 80),
-//		DATA_VOLUME(1, 80),
-//		DATA_VOLUME(2, 80),
-//		DATA_VOLUME(3, 80),
-		DATA_PLAY(0, NOTE_E5, 1),
-		DATA_PLAY(0, NOTE_Eb5, 1),
-		DATA_PLAY(0, NOTE_E5, 1),
-		DATA_PLAY(0, NOTE_Eb5, 1),
-		DATA_PLAY(0, NOTE_E5, 1),
-		DATA_PLAY(0, NOTE_B4, 1),
-		DATA_PLAY(0, NOTE_D5, 1),
-		DATA_PLAY(0, NOTE_C5, 1),
-//		DATA_PLAY(1, NOTE_A3, 0),
-		DATA_PLAY(0, NOTE_A4, 4),
+		DATA_VOLUME(1, 80),
+		DATA_VOLUME(2, 80),
+		DATA_VOLUME(3, 80),
 
 		DATA_END()
 };
