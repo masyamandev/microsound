@@ -28,20 +28,7 @@ inline void setSample(uint8_t id, sampleSource sample) {
 	samples[id] = sample;
 }
 
-#define COMMAND_PLAY		0b10000000
-#define COMMAND_WAIT		0b01000000
-#define COMMAND_VOLUME		0b00100000
-#define COMMAND_INSTRUMENT	0b00010000
-#define COMMAND_TEMPO		0b00000001
-#define COMMAND_END			0b00000000
-
-#define DATA_PLAY(channel, note, wait)			(COMMAND_PLAY | ((wait) << 4) | (channel)), (note)
-#define DATA_WAIT(wait)							(COMMAND_WAIT | (wait))
-#define DATA_VOLUME(channel, vol)				(COMMAND_VOLUME | (channel)), (vol)
-#define DATA_INSTRUMENT(channel, instrument)	(COMMAND_INSTRUMENT | (channel)), (instrument)
-#define DATA_TEMPO(bpm)							(COMMAND_TEMPO), ((fromBpm(bpm) >> 8) & 0xFF), (fromBpm(bpm) & 0xFF)
-#define DATA_END()								(COMMAND_END)
-
+#include "commands.h"
 
 // Update channels data from music array
 inline void updateMusicData() {
