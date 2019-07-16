@@ -56,5 +56,5 @@ ISR(TIMER2_OVF_vect) {
 		return;
 	}
 #endif
-	OCR1A = sampleToUint8(getNextInterpolatedSample());
+	OCR1AL = sampleToUint8(getNextInterpolatedSample());
 }
