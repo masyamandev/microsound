@@ -19,7 +19,7 @@ inline void initSound() {
     GTCCR =   (1<<PWM1B) | (1<<COM1B1);
 
 	TCNT1 = 0x00;
-	OCR1A = 127;
+	OCR1B = 127;
 	OCR1C = 0xFF;
 
 	// Init timer 0 interrupts
@@ -39,5 +39,5 @@ inline void initSound() {
 
 // Timer0 interrupt
 ISR(TIMER0_COMPA_vect) {
-	OCR1A = sampleToUint8(getNextInterpolatedSample());
+	OCR1B = sampleToUint8(getNextInterpolatedSample());
 }
