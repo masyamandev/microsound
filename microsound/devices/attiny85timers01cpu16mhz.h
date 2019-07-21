@@ -1,8 +1,4 @@
 
-#ifndef MICROSOUND_FREQUENCY_DIVIDER
-#define MICROSOUND_FREQUENCY_DIVIDER	1 // 2^n
-#endif
-
 #include "../microsound.h"
 
 #include "../globalSoundInterpolation.h"
@@ -27,9 +23,12 @@ inline void initSound() {
 	OCR1C = 0xFF;
 
 	// Init timer 0 interrupts
-	TCCR0B = (1<<CS00);
+	TCCR0A = (1<<CS01);
+	TCCR0B = (1<<WGM01);
+	OCR0A = (F_CPU / 8 / MICROSOUND_FREQUENCY);
 
-	TIMSK = (1<<TOIE0);
+//	TIMSK = (1<<TOIE0);
+	TIMSK = (1<<OCIE0A);
 
 	// Set PB1 as output (pin2)
 	DDRB = 0xFF;//0x02;
@@ -38,13 +37,7 @@ inline void initSound() {
 }
 
 
-uint8_t cnt;
 // Timer0 interrupt
-ISR(TIMER0_OVF_vect) {
-#if (MICROSOUND_FREQUENCY_DIVIDER > 1) && ((!defined INTERPOLATION_STRENGTH) || (INTERPOLATION_STRENGTH == 0))
-	if ((cnt++) & (MICROSOUND_FREQUENCY_DIVIDER - 1)) {
-		return;
-	}
-#endif
+ISR(TIMER0_COMPA_vect) {
 	OCR1A = sampleToUint8(getNextInterpolatedSample());
 }
