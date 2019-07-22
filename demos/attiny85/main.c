@@ -14,15 +14,14 @@
 #define SAMPLE_OVERDRIVE	4
 #define SAMPLE_MUSICBOX		5
 
-
-#define MICROSOUND_FREQUENCY	16000 //(31250 / 2)
+#define SPEED_OPTIMIZED_MULTIPLICATION
+#define MICROSOUND_FREQUENCY	32000
 //#define MICROSOUND_STATIC_VOLUME	2
 //#define BUFFER_BITS	16
 #define BUFFER_SIZE 64
-#define MICROSOUND_FREQUENCY_DIVIDER	4
 #define CHANNELS_SIZE	5
 #define SAMPLES_SIZE	16
-#define USE_NOISE_CHANNEL
+//#define USE_NOISE_CHANNEL
 
 #include "../../microsound/devices/attiny85timers01cpu16mhz.h"
 #include "../../microsound/micromusic.h"

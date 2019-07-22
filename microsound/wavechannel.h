@@ -18,7 +18,7 @@ inline int16_t nextSample() {
 	#endif
 	channelData.waveSample += channelData.waveStep;
 
-	return tone * channelData.currentVolume;
+	return mulSignedUnsigned(tone, channelData.currentVolume);
 }
 
 

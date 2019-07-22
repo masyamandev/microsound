@@ -36,5 +36,5 @@ inline int16_t noiseNextSample() {
 		nextSemirandom();
 //	}
 
-	return ((int8_t)semirandomValue) * noiseCurrentVolume;
+	return mulSignedUnsigned((int8_t)semirandomValue, noiseCurrentVolume);
 }
