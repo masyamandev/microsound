@@ -24,7 +24,7 @@ inline int16_t noiseNextSample() {
 	if (beatTickCounter != prevBeatTickCounter) {
 		prevBeatTickCounter = beatTickCounter;
 		noiseFramesRemain--;
-		noiseCurrentVolume = (pgm_read_byte(noiseVolume++) * noiseCurrentVolume) >> 8;
+		noiseCurrentVolume = mulUnsigned8bits(pgm_read_byte(noiseVolume++), noiseCurrentVolume);
 	}
 
 	if (noiseFramesRemain == 0) {

@@ -171,7 +171,7 @@ inline void recalculateVolume(waveChannel* channel) {
 #ifdef MICROSOUND_STATIC_VOLUME
 	channel->currentVolume = (pgm_read_byte(channel->volumeForm)) >> MICROSOUND_STATIC_VOLUME;
 #else
-	channel->currentVolume = (pgm_read_byte(channel->volumeForm) * channel->instrumentVolume) >> 8;
+	channel->currentVolume = mulUnsigned8bits(pgm_read_byte(channel->volumeForm), channel->instrumentVolume);
 #endif
 
 }
