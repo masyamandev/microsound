@@ -22,7 +22,7 @@
 #define BUFFER_SIZE 64
 #define CHANNELS_SIZE	5
 #define SAMPLES_SIZE	16
-//#define USE_NOISE_CHANNEL
+#define USE_NOISE_CHANNEL
 
 #include "../../microsound/devices/attiny85timers01cpu16mhz.h"
 #include "../../microsound/micromusic.h"

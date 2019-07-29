@@ -12,67 +12,61 @@
 
 	// Use software speed optimized multiplication
 
+	// LIMIT: ms = [-127..127], mu = [0..255]
 	inline int16_t mulSignedUnsigned(int8_t ms, uint8_t mu) {
-		// TODO try to optimize
-		// This implementation returns 16 bits result in 43ck
+		// This implementation returns 16 bits result in 40ck
 		// No need to use it for atmega MCUs or others which has hardware multiplication
 		int16_t result;
 		asm(
-
-				// invert sign if needed
-				"mov __tmp_reg__, %[muls]" "\n\r"
-				"sbrc __tmp_reg__, 7" "\n\r"
-				"neg __tmp_reg__" "\n\r"
-
-				// multiply unsigned
 				"clr %B[result]" "\n\r"
-				"mov %A[result], %[mulu]" "\n\r"
+				"mov %A[result], %[muls]" "\n\r"
+				"sbrc %A[result], 7" "\n\r"
+				"neg %A[result]" "\n\r"
 
 				"lsr %A[result]" "\n\r"
 
 				"brcc .+2" "\n\r"
-				"add %B[result], __tmp_reg__" "\n\r"
+				"add %B[result], %[mulu]" "\n\r"
 				"ror %B[result]" "\n\r"
 				"ror %A[result]" "\n\r"
 
 				"brcc .+2" "\n\r"
-				"add %B[result], __tmp_reg__" "\n\r"
+				"add %B[result], %[mulu]" "\n\r"
 				"ror %B[result]" "\n\r"
 				"ror %A[result]" "\n\r"
 
 				"brcc .+2" "\n\r"
-				"add %B[result], __tmp_reg__" "\n\r"
+				"add %B[result], %[mulu]" "\n\r"
 				"ror %B[result]" "\n\r"
 				"ror %A[result]" "\n\r"
 
 				"brcc .+2" "\n\r"
-				"add %B[result], __tmp_reg__" "\n\r"
+				"add %B[result], %[mulu]" "\n\r"
 				"ror %B[result]" "\n\r"
 				"ror %A[result]" "\n\r"
 
 				"brcc .+2" "\n\r"
-				"add %B[result], __tmp_reg__" "\n\r"
+				"add %B[result], %[mulu]" "\n\r"
 				"ror %B[result]" "\n\r"
 				"ror %A[result]" "\n\r"
 
 				"brcc .+2" "\n\r"
-				"add %B[result], __tmp_reg__" "\n\r"
+				"add %B[result], %[mulu]" "\n\r"
 				"ror %B[result]" "\n\r"
 				"ror %A[result]" "\n\r"
 
 				"brcc .+2" "\n\r"
-				"add %B[result], __tmp_reg__" "\n\r"
+				"add %B[result], %[mulu]" "\n\r"
 				"ror %B[result]" "\n\r"
 				"ror %A[result]" "\n\r"
 
-				"brcc .+2" "\n\r"
-				"add %B[result], __tmp_reg__" "\n\r"
-				"ror %B[result]" "\n\r"
+				// Bit7 is 0. This optimized block will cause issue on muls = -128. To avoid this use block similar to above.
+				"lsr %B[result]" "\n\r"
 				"ror %A[result]" "\n\r"
 
-				// invert result sign
-				"cp __tmp_reg__, %[muls]" "\n\r"
-				"breq .+6" "\n\r"
+				// Invert result sign
+				"tst %[muls]" "\n\r"
+				"brlt .+6" "\n\r"
 				"com %B[result]" "\n\r"
 				"neg %A[result]" "\n\r"
 				"sbci %B[result], 255" "\n\r"
