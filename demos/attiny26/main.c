@@ -12,6 +12,8 @@
 #define SAMPLE_BASS			0
 #define SAMPLE_MUSICBOX		0
 
+//#define SPEED_OPTIMIZED_MULTIPLICATION
+//#define SIMPLIFIED_MULTIPLICATION
 #define MICROSOUND_STATIC_VOLUME	2
 //#define BUFFER_BITS	16
 //#define BUFFER_SIZE 64
@@ -115,12 +117,12 @@ int main(void)
 
 	while (1) {
 
-		PORTB |= 0x10;
+//		PORTB |= 0x10;
 		fillMusicBuffer();
-		PORTB &= ~0x10;
+//		PORTB &= ~0x10;
 
 		// Simulate other CPU usage
-		while (samplesInBuffer > 4) {};
+//		while (samplesInBuffer > 4) {};
 
 		if (isMusicStopped) {
 			playMusic(test);
