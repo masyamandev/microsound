@@ -31,17 +31,17 @@ void fillBufferAtLeastMs(uint8_t delay);
 #include "../../microsound/devices/atmega8timer2cpu8mhz.h"
 #include "../../microsound/micromusic.h"
 
-#include "../../microsound/instruments/piano.h"
-#include "../../microsound/instruments/bassGuitar.h"
-//#include "../../microsound/instruments/accordion.h"
-#include "../../microsound/instruments/harmonica.h"
-#include "../../microsound/instruments/overdrivenGuitarChord.h"
-#include "../../microsound/instruments/percussion.h"
+//#include "../../microsound/instruments/piano.h"
+//#include "../../microsound/instruments/bassGuitar.h"
+////#include "../../microsound/instruments/accordion.h"
+//#include "../../microsound/instruments/harmonica.h"
+//#include "../../microsound/instruments/overdrivenGuitarChord.h"
+//#include "../../microsound/instruments/percussion.h"
 #include "../../microsound/instruments/musicbox.h"
 
 
 //#include "../../microsound/samples/singlechannel.h"
-#include "../../microsound/samples/oh_susanna.h"
+//#include "../../microsound/samples/oh_susanna.h"
 #include "../../microsound/samples/for_elise.h"
 
 #include "../../lcd1602/lcd1602.h"
@@ -101,11 +101,11 @@ int main(void)
 	}
 
 	initMusic();
-	setSample(SAMPLE_PERCUSSION, playPercussion);
-	setSample(SAMPLE_PIANO, playPiano);
-	setSample(SAMPLE_HARMONICA, playHarmonica);
-	setSample(SAMPLE_BASS, playBassGuitar);
-	setSample(SAMPLE_OVERDRIVE, playOverdrivenGuitarChord);
+//	setSample(SAMPLE_PERCUSSION, playPercussion);
+//	setSample(SAMPLE_PIANO, playPiano);
+//	setSample(SAMPLE_HARMONICA, playHarmonica);
+//	setSample(SAMPLE_BASS, playBassGuitar);
+//	setSample(SAMPLE_OVERDRIVE, playOverdrivenGuitarChord);
 	setSample(SAMPLE_MUSICBOX, playMusicbox);
 
 	sei();
