@@ -156,7 +156,7 @@ int main(void)
 				cursor(0, pos);
 
 				printChar(currentChar);
-				initChar(currentChar, &customChar);
+				initChar(currentChar, customChar);
 				currentChar++;
 				if (currentChar >= CUSTOMM_CHARS) {
 					currentChar = 0;

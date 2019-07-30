@@ -107,7 +107,7 @@ void initChar(uint8_t c, uint8_t* tile)
     }
 }
 
-void initCharProgmem(uint8_t c, uint8_t* tile)
+void initCharProgmem(uint8_t c, const uint8_t* tile)
 {
     sendByte(0b01000000 | (c << 3), 0);
     for (int i = 0; i < 8; i++) {
