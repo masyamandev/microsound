@@ -28,7 +28,7 @@ void fillBufferAtLeastMs(uint8_t delay);
 //#define _delay_ms	fillBufferAtLeastMs
 
 
-#include "../../microsound/devices/atmega8timer2cpu8mhz.h"
+#include "../../microsound/devices/atmega8timer1cpu8mhz.h"
 #include "../../microsound/micromusic.h"
 
 //#include "../../microsound/instruments/piano.h"
