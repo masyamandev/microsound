@@ -17,7 +17,7 @@
 
 //#define BUFFER_BITS	16
 #define BUFFER_SIZE 64
-#define MICROSOUND_FREQUENCY_DIVIDER	4
+//#define MICROSOUND_FREQUENCY_DIVIDER	4
 //#define INTERPOLATION_STRENGTH	2
 //#define INTERPOLATE_WAVE
 #define CHANNELS_SIZE	5
@@ -82,7 +82,7 @@ void fillBufferAtLeastMs(uint8_t delay) {
 	fillMusicBuffer();
 }
 
-#define CUSTOMM_CHARS	4
+#define CUSTOM_CHARS	4 // For some reason it's buggy on my LCD when value 5 is set
 
 int main(void)
 {
@@ -116,11 +116,9 @@ int main(void)
 
 		cursor(0, 0);
 
-//		fillBufferAtLeastMs(0);
-
 		uint8_t pos;
 		uint8_t currentChar = 0;
-		static uint8_t customCharsPos[CUSTOMM_CHARS];
+		static uint8_t customCharsPos[CUSTOM_CHARS];
 
 		for (pos = 0; pos < 16; pos++) {
 			uint8_t note1 = 0;
@@ -139,7 +137,7 @@ int main(void)
 			}
 
 			if (note1 + note2 + note3 > 0) {
-				static uint8_t customChar[8];
+			    uint8_t customChar[8];
 				uint8_t k;
 				for (k = 0; k < 8; k++) {
 					customChar[7 - k] = ((note1 > (k << 3)) ? 0b10000 : 0) |
@@ -158,7 +156,7 @@ int main(void)
 				printChar(currentChar);
 				initChar(currentChar, customChar);
 				currentChar++;
-				if (currentChar >= CUSTOMM_CHARS) {
+				if (currentChar >= CUSTOM_CHARS) {
 					currentChar = 0;
 				}
 			} else {
