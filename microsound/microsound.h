@@ -17,12 +17,18 @@
 #define MICROSOUND_FREQUENCY 		(F_CPU / 256 / MICROSOUND_FREQUENCY_DIVIDER) // PCM sample rate
 #endif
 
+#define toByteConstant(x)	((x >= 255) ? 255 : ((uint8_t) (x)))
+
 // 1 tick = 4ms. 8-bit divider of frequency should handle up to 65kHz (up to 16MHz CPU). 8-bit multiplier can handle up to 1 second.
 #define TICKS_PER_SECOND	250
-#define SAMPLES_PER_TICK	(MICROSOUND_FREQUENCY / TICKS_PER_SECOND) // TODO fmin(MICROSOUND_FREQUENCY / TICKS_PER_SECOND, 255)
+#define SAMPLES_PER_TICK	toByteConstant(MICROSOUND_FREQUENCY / TICKS_PER_SECOND)
+
+#if (MICROSOUND_FREQUENCY / TICKS_PER_SECOND >= 255)
+#warning "Sampling frequency is too high. It should be lower than 65kHz. Incorrect timings are possible."
+#endif
 
 // Support up to 1 beat per second
-#define fromBpm(beatsPerMinute)		(60L * TICKS_PER_SECOND / (beatsPerMinute)) // TODO fmin((60L * TICKS_PER_SECOND / (beatsPerMinute)), 255)
+#define fromBpm(beatsPerMinute)		toByteConstant(60L * TICKS_PER_SECOND / (beatsPerMinute))
 
 uint8_t tickSampleCounter;
 uint8_t beatTickCounter;
