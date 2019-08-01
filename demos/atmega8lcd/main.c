@@ -82,6 +82,8 @@ void fillBufferAtLeastMs(uint8_t delay) {
 	fillMusicBuffer();
 }
 
+
+#define DISPLAY_WIDTH	16
 #define CUSTOM_CHARS	5
 
 int main(void)
@@ -93,7 +95,7 @@ int main(void)
 	initCharProgmem(7, PIANO_CHAR_C);
 	cursor(1, 0);
 	uint8_t i;
-	for(i = 0; i < 5; i++) {
+	for(i = 0; i < DISPLAY_WIDTH / 4; i++) {
 		printChar(5);
 		printChar(6);
 		printChar(7);
@@ -108,6 +110,18 @@ int main(void)
 //	setSample(SAMPLE_OVERDRIVE, playOverdrivenGuitarChord);
 	setSample(SAMPLE_MUSICBOX, playMusicbox);
 
+
+	static uint8_t freeCustomCharsIndex;
+	static uint8_t freeCustomChars[CUSTOM_CHARS];
+	static uint8_t displayString[DISPLAY_WIDTH];
+
+	for (freeCustomCharsIndex = 0; freeCustomCharsIndex < CUSTOM_CHARS; freeCustomCharsIndex++) {
+		freeCustomChars[freeCustomCharsIndex] = freeCustomCharsIndex;
+	}
+	for (i = 0; i < DISPLAY_WIDTH; i++) {
+		displayString[i] = ' ';
+	}
+
 	sei();
 
 	while (1) {
@@ -117,10 +131,7 @@ int main(void)
 		cursor(0, 0);
 
 		uint8_t pos;
-		uint8_t currentChar = 0;
-		static uint8_t customCharsPos[CUSTOM_CHARS];
-
-		for (pos = 0; pos < 16; pos++) {
+		for (pos = 0; pos < DISPLAY_WIDTH; pos++) {
 			uint8_t note1 = 0;
 			uint8_t note2 = 0;
 			uint8_t note3 = 0;
@@ -137,30 +148,32 @@ int main(void)
 			}
 
 			if (note1 + note2 + note3 > 0) {
-			    static uint8_t customChar[8];
-				uint8_t k;
-				for (k = 0; k < 8; k++) {
-					customChar[7 - k] = ((note1 > (k << 3)) ? 0b10000 : 0) |
-							((note2 > (k << 3)) ? 0b00100 : 0) |
-							((note3 > (k << 3)) ? 0b00001 : 0);
-				}
 				fillBufferAtLeastMs(0);
 
-				if (customCharsPos[currentChar] != pos && customCharsPos[currentChar] < 16) {
-					cursor(0, customCharsPos[currentChar]);
-					printChar(' ');
-					customCharsPos[currentChar] = pos;
+				uint8_t currentChar = displayString[pos];
+				if (currentChar >= CUSTOM_CHARS && freeCustomCharsIndex > 0) {
+					currentChar = freeCustomChars[--freeCustomCharsIndex];
 				}
-				initChar(currentChar, customChar);
-				cursor(0, pos);
-				printChar(currentChar);
 
-				currentChar++;
-				if (currentChar >= CUSTOM_CHARS) {
-					currentChar = 0;
+				if (currentChar < CUSTOM_CHARS) {
+				    static uint8_t customChar[8];
+					uint8_t k;
+					for (k = 0; k < 8; k++) {
+						customChar[7 - k] = ((note1 > (k << 3)) ? 0b10000 : 0) |
+								((note2 > (k << 3)) ? 0b00100 : 0) |
+								((note3 > (k << 3)) ? 0b00001 : 0);
+					}
+					initChar(currentChar, customChar);
+					cursor(0, pos);
 				}
+				printChar(currentChar);
+				displayString[pos] = currentChar;
 			} else {
 				printChar(' ');
+				if (displayString[pos] < CUSTOM_CHARS) {
+					freeCustomChars[freeCustomCharsIndex++] = displayString[pos];
+					displayString[pos] = ' ';
+				}
 			}
 
 			fillBufferAtLeastMs(0);
