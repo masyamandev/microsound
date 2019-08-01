@@ -82,7 +82,7 @@ void fillBufferAtLeastMs(uint8_t delay) {
 	fillMusicBuffer();
 }
 
-#define CUSTOM_CHARS	4 // For some reason it's buggy on my LCD when value 5 is set
+#define CUSTOM_CHARS	5
 
 int main(void)
 {
@@ -137,7 +137,7 @@ int main(void)
 			}
 
 			if (note1 + note2 + note3 > 0) {
-			    uint8_t customChar[8];
+			    static uint8_t customChar[8];
 				uint8_t k;
 				for (k = 0; k < 8; k++) {
 					customChar[7 - k] = ((note1 > (k << 3)) ? 0b10000 : 0) |
@@ -151,10 +151,10 @@ int main(void)
 					printChar(' ');
 					customCharsPos[currentChar] = pos;
 				}
-				cursor(0, pos);
-
-				printChar(currentChar);
 				initChar(currentChar, customChar);
+				cursor(0, pos);
+				printChar(currentChar);
+
 				currentChar++;
 				if (currentChar >= CUSTOM_CHARS) {
 					currentChar = 0;
