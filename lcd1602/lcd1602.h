@@ -7,29 +7,29 @@
 #define LCD_PIN_DATA_MASK	((1 << LCD_PIN_D4) | (1 << (LCD_PIN_D4 + 1)) | (1 << (LCD_PIN_D4 + 2)) | (1 << (LCD_PIN_D4 + 3)))
 #define LCD_PIN_MASK		(LCD_PIN_DATA_MASK | (1 << LCD_PIN_EN) | (1 << LCD_PIN_RS))
 
-#include <avr/delay.h>
+#include <util/delay.h>
 
 
-inline void __lcd_delay() {
+inline static void __lcd_delay() {
 //	fillBufferAtLeastMs(0);
 	_delay_ms(0.05);
 //	fillBufferAtLeastMs(0);
 }
 
-inline void __lcd_longDelay() {
+inline static void __lcd_longDelay() {
 //	fillBufferAtLeastMs(0);
 //	_delay_ms(1.1);
 	_delay_ms(4.1);
 //	fillBufferAtLeastMs(0);
 }
 
-inline void __lcd_initDelay() {
+inline static void __lcd_initDelay() {
 	_delay_ms(15);
 }
 
 
 
-inline void pulseLcd()
+inline static void pulseLcd()
 {
 //    __lcd_delay(); // TODO remove?
 //    LCD_PORT &= ~(1 << LCD_PIN_EN);
@@ -80,7 +80,7 @@ void clearLcdScreen()
     __lcd_longDelay();
 }
 
-inline void initLCD() {
+inline static void initLCD() {
 
 	LCD_DDR |= LCD_PIN_MASK;
 
