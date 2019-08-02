@@ -115,6 +115,7 @@ int main(void)
 
 	sei();
 
+//	DDRB |= 0x10;
 	while (1) {
 
 //		PORTB |= 0x10;

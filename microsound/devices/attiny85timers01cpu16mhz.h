@@ -27,11 +27,10 @@ inline void initSound() {
 	TCCR0B = (1<<WGM01);
 	OCR0A = (F_CPU / 8 / MICROSOUND_FREQUENCY);
 
-//	TIMSK = (1<<TOIE0);
 	TIMSK = (1<<OCIE0A);
 
-	// Set PB1 as output (pin2)
-	DDRB = 0xFF;//0x02;
+	// Set PB4 as output (pin3)
+	DDRB |= 0x10;
 
 	resetSound();
 }

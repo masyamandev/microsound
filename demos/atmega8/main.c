@@ -90,6 +90,7 @@ int main(void)
 
 	sei();
 
+	DDRB |= 0x01;
 	while (1) {
 
 		PORTB |= 0x01;

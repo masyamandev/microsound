@@ -28,7 +28,7 @@ inline void initSound() {
 	TIMSK = (1<<TOIE0);
 
 	// Set PB1 as output (pin2)
-	DDRB = 0xFF;//0x02;
+	DDRB |= 0x02;
 
 	resetSound();
 }

@@ -52,11 +52,12 @@ int main(void)
 
 	sei();
 
+	DDRB |= 0x01;
 	while (1) {
 
-		PORTB |= 0x1;
+		PORTB |= 0x01;
 		fillMusicBuffer();
-		PORTB &= ~0x1;
+		PORTB &= ~0x01;
 
 		// Simulate other CPU usage
 //		while (samplesInBuffer > 4) {};

@@ -16,18 +16,17 @@ inline void initSound() {
 	// Init PWM on timer2
 	TCCR2=(1<<WGM21)|(1<<WGM20)|(1<<CS20)|(1<<COM21); // Fast PWM
 
-	DDRB = 0xFF;//0x08 | 0x04 | 0x02 | 0x01;
+	// Set PB3 as output
+	DDRB |= 0x08;
 
 	resetSound();
 }
 
-
-uint8_t cnt;
 // Timer interrupt
 ISR(TIMER2_OVF_vect) {
-//ISR(TIMER0_OVF_vect) {
 #if (MICROSOUND_FREQUENCY_DIVIDER > 1) && ((!defined INTERPOLATION_STRENGTH) || (INTERPOLATION_STRENGTH == 0))
-	if ((cnt++) & (MICROSOUND_FREQUENCY_DIVIDER - 1)) {
+	static uint8_t microsampleSampleSkipCounter;
+	if ((microsampleSampleSkipCounter++) & (MICROSOUND_FREQUENCY_DIVIDER - 1)) {
 		return;
 	}
 #endif
