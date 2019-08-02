@@ -47,9 +47,9 @@ void fillBufferAtLeastMs(uint8_t delay);
 #include "../../lcd1602/lcd1602.h"
 
 const uint8_t PIANO_CHAR_A[] PROGMEM = {
+		0b10001,
 		0b10101,
-		0b10101,
-		0b10101,
+		0b10001,
 		0b10101,
 		0b10001,
 		0b11011,
@@ -57,9 +57,9 @@ const uint8_t PIANO_CHAR_A[] PROGMEM = {
 		0b11011
 };
 const uint8_t PIANO_CHAR_B[] PROGMEM = {
+		0b00101,
 		0b10101,
-		0b10101,
-		0b10101,
+		0b00101,
 		0b10101,
 		0b00101,
 		0b01101,
@@ -67,9 +67,9 @@ const uint8_t PIANO_CHAR_B[] PROGMEM = {
 		0b01101
 };
 const uint8_t PIANO_CHAR_C[] PROGMEM = {
+		0b00100,
 		0b10101,
-		0b10101,
-		0b10101,
+		0b00100,
 		0b10101,
 		0b00100,
 		0b01110,
