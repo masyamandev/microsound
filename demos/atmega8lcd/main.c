@@ -44,7 +44,7 @@ void fillBufferAtLeastMs(uint8_t delay);
 //#include "../../microsound/samples/oh_susanna.h"
 #include "../../microsound/samples/for_elise.h"
 
-#include "../../lcd1602/lcd1602.h"
+#include "../../lcd/lcd1602.h"
 
 const uint8_t PIANO_CHAR_A[] PROGMEM = {
 		0b10001,
