@@ -31,7 +31,7 @@ inline void setSample(uint8_t id, sampleSource sample) {
 #include "commands.h"
 
 // Update channels data from music array
-inline void updateMusicData() {
+void updateMusicData() {
 	if (isMusicStopped) {
 		return;
 	}
@@ -68,13 +68,9 @@ inline void updateMusicData() {
 
 // Fill buffer until it's full
 inline void fillMusicBuffer() {
-//	fillBuffer();
-//	updateMusicData();
-//	fillBuffer();
-
 	// Smaller value requires bigger overhead for writing remain of the buffer
 	while ((samplesToWrite) > 4) {
-		fillBufferTick();
+		fillBuffer(SAMPLES_PER_TICK);
 		updateMusicData();
 	}
 }

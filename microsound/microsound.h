@@ -238,25 +238,55 @@ inline soundSample getNextSample() {
 
 }
 
+// Fill buffer until maxSamples is read or buffer is full
+void fillBuffer(uint8_t maxSamples) {
+	uint8_t sampleCounterAtStart = bufferReadCounter;
 
-// Fill buffer until it's full
-inline void fillBuffer() {
-	while (isBufferNotFull) {
-		writeToBuffer(getNextSample());
-	}
-}
+//	while (1) {
+//		uint8_t currentCounter = bufferReadCounter;
+//		if (((uint8_t)(currentCounter - sampleCounterAtStart)) > maxSamples || (currentCounter & BUFFER_MASK) == bufferWrite) {
+//			return;
+//		}
+//		writeToBuffer(getNextSample());
+//	}
 
-// Fill buffer until tick after the next or until buffer is full
-inline void fillBufferTick() {
-	uint8_t ticks = 1;
-	while (isBufferNotFull) {
+	uint8_t limit = maxSamples;
+	uint8_t currentCounter = sampleCounterAtStart;
+	while ((currentCounter & BUFFER_MASK) != bufferWrite) {
 		writeToBuffer(getNextSample());
-		if (!tickSampleCounter) {
-			if ((ticks--) == 0) {
+		currentCounter = bufferReadCounter;
+
+		if (!(--limit)) {
+			limit = currentCounter - sampleCounterAtStart;
+			if (limit > maxSamples) { // overflow
 				return;
 			}
 		}
 	}
+
+//	uint8_t toWrite = samplesToWrite;
+//	if (toWrite > maxSamples) {
+//		toWrite = maxSamples;
+//	}
+//
+//	while (1) {
+//		if (!(toWrite--)) {
+//			uint8_t currentCounter = bufferReadCounter;
+//			if (((uint8_t)(currentCounter - sampleCounterAtStart)) > maxSamples) {
+//				return;
+//			}
+//			maxSamples -= (uint8_t)(currentCounter - sampleCounterAtStart);
+//			toWrite = (((uint8_t)((currentCounter & BUFFER_MASK) - bufferWrite)) & BUFFER_MASK);
+//			if (toWrite < 0) {
+//				return;
+//			}
+//			if (toWrite > maxSamples) {
+//				toWrite = maxSamples;
+//			}
+//			sampleCounterAtStart = currentCounter;
+//		}
+//		writeToBuffer(getNextSample());
+//	}
 }
 
 #endif

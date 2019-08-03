@@ -24,9 +24,6 @@
 #define SAMPLES_SIZE	16
 #define USE_NOISE_CHANNEL
 
-void fillBufferAtLeastMs(uint8_t delay);
-//#define _delay_ms	fillBufferAtLeastMs
-
 
 #include "../../microsound/devices/atmega8timer1cpu8mhz.h"
 #include "../../microsound/micromusic.h"
@@ -43,6 +40,8 @@ void fillBufferAtLeastMs(uint8_t delay);
 //#include "../../microsound/samples/singlechannel.h"
 //#include "../../microsound/samples/oh_susanna.h"
 #include "../../microsound/samples/for_elise.h"
+
+#include "../../microsound/delay.h"
 
 #include "../../lcd/lcd1602.h"
 
@@ -77,17 +76,13 @@ const uint8_t PIANO_CHAR_C[] PROGMEM = {
 		0b01110
 };
 
-
-void fillBufferAtLeastMs(uint8_t delay) {
-	fillMusicBuffer();
-}
-
-
 #define DISPLAY_WIDTH	16
 #define CUSTOM_CHARS	5
 
 int main(void)
 {
+	initMusic();
+	sei();
 	initLCD();
 
 	initCharProgmem(5, PIANO_CHAR_A);
@@ -102,7 +97,6 @@ int main(void)
 		printChar(5);
 	}
 
-	initMusic();
 //	setSample(SAMPLE_PERCUSSION, playPercussion);
 //	setSample(SAMPLE_PIANO, playPiano);
 //	setSample(SAMPLE_HARMONICA, playHarmonica);
@@ -122,16 +116,28 @@ int main(void)
 		displayString[i] = ' ';
 	}
 
-	sei();
 
+//	static uint8_t a = 0;
+//	static uint8_t b = 0;
 	while (1) {
 
-		fillBufferAtLeastMs(0);
+		fillMusicBuffer();
 
 		cursor(0, 0);
 
+//		delaySamples(MICROSOUND_FREQUENCY);
+//		printChar('0' + b);
+//		printChar('0' + a);
+//		a++;
+//		if (a >= 10) {
+//			a = 0;
+//			b++;
+//		}
+
 		uint8_t pos;
 		for (pos = 0; pos < DISPLAY_WIDTH; pos++) {
+			fillMusicBuffer();
+
 			uint8_t note1 = 0;
 			uint8_t note2 = 0;
 			uint8_t note3 = 0;
@@ -148,8 +154,6 @@ int main(void)
 			}
 
 			if (note1 + note2 + note3 > 0) {
-				fillBufferAtLeastMs(0);
-
 				uint8_t currentChar = displayString[pos];
 				if (currentChar >= CUSTOM_CHARS && freeCustomCharsIndex > 0) {
 					currentChar = freeCustomChars[--freeCustomCharsIndex];
@@ -176,7 +180,6 @@ int main(void)
 				}
 			}
 
-			fillBufferAtLeastMs(0);
 		}
 
 
