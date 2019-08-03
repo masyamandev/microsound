@@ -33,11 +33,19 @@ void delaySamples(DELAY_SAMPLE_COUNTER_TYPE samples) {
 
 		uint8_t samplesPassed = bufferReadCounter - prevSampleCounter;
 		prevSampleCounter += samplesPassed;
-		samples -= (DELAY_SAMPLE_COUNTER_TYPE) samplesPassed;
+		samples -= samplesPassed;
 	}
-	fillBuffer(samples);
+	// samples is 8-bits after this while loop
 
-	noUpdatesCounter -= samples;
+	// Avoid invocation fillBuffer with too high value close to 255
+	if (((uint8_t) samples) > SAMPLES_PER_TICK) {
+		fillBuffer(SAMPLES_PER_TICK);
+		samples -= SAMPLES_PER_TICK;
+	}
+
+	fillBuffer((uint8_t) samples);
+
+	noUpdatesCounter -= (uint8_t) samples;
 	// Overflow, too long time passed since last buffer update
 	if (noUpdatesCounter > SAMPLES_PER_TICK) {
 		updateMusicData();

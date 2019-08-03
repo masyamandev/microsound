@@ -247,7 +247,7 @@ inline soundSample getNextSample() {
 
 }
 
-// Fill buffer until maxSamples is read or buffer is full
+// Fill buffer until maxSamples is read or buffer is full. May cause bugs if maxSamples is too close to 255.
 INLINE_BUFFER_FILL
 void fillBuffer(uint8_t maxSamples) {
 	uint8_t sampleCounterAtStart = bufferReadCounter;
