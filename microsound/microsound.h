@@ -30,6 +30,15 @@
 // Support up to 1 beat per second
 #define fromBpm(beatsPerMinute)		toByteConstant(60L * TICKS_PER_SECOND / (beatsPerMinute))
 
+// Control code inlining. To inline use `#define INLINE_... inline`
+#ifndef INLINE_BUFFER_FILL
+#define INLINE_BUFFER_FILL
+#endif
+#ifndef INLINE_SOUND_CONTROL
+#define INLINE_SOUND_CONTROL
+#endif
+
+
 uint8_t tickSampleCounter;
 uint8_t beatTickCounter;
 uint8_t beatIncrementAt;
@@ -126,7 +135,7 @@ inline void resetChannel(waveChannel* channel) {
 }
 
 // Clean data for all channels
-inline void resetSound() {
+void resetSound() {
 	setBpm(fromBpm(60)); // Avoid too high BPM at MCU start
 	beatCounter = 0;
 
@@ -239,9 +248,11 @@ inline soundSample getNextSample() {
 }
 
 // Fill buffer until maxSamples is read or buffer is full
+INLINE_BUFFER_FILL
 void fillBuffer(uint8_t maxSamples) {
 	uint8_t sampleCounterAtStart = bufferReadCounter;
 
+	// Less code but slower
 //	while (1) {
 //		uint8_t currentCounter = bufferReadCounter;
 //		if (((uint8_t)(currentCounter - sampleCounterAtStart)) > maxSamples || (currentCounter & BUFFER_MASK) == bufferWrite) {
@@ -263,30 +274,6 @@ void fillBuffer(uint8_t maxSamples) {
 			}
 		}
 	}
-
-//	uint8_t toWrite = samplesToWrite;
-//	if (toWrite > maxSamples) {
-//		toWrite = maxSamples;
-//	}
-//
-//	while (1) {
-//		if (!(toWrite--)) {
-//			uint8_t currentCounter = bufferReadCounter;
-//			if (((uint8_t)(currentCounter - sampleCounterAtStart)) > maxSamples) {
-//				return;
-//			}
-//			maxSamples -= (uint8_t)(currentCounter - sampleCounterAtStart);
-//			toWrite = (((uint8_t)((currentCounter & BUFFER_MASK) - bufferWrite)) & BUFFER_MASK);
-//			if (toWrite < 0) {
-//				return;
-//			}
-//			if (toWrite > maxSamples) {
-//				toWrite = maxSamples;
-//			}
-//			sampleCounterAtStart = currentCounter;
-//		}
-//		writeToBuffer(getNextSample());
-//	}
 }
 
 #endif
