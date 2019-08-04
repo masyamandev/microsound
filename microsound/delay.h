@@ -24,32 +24,23 @@ static uint8_t noUpdatesCounter;
 void delaySamples(DELAY_SAMPLE_COUNTER_TYPE samples) {
 	uint8_t prevSampleCounter = bufferReadCounter;
 
-	// Checking high byte only can cause delay in update music, up to 255 samples.
-	while (samples >> 8) {
-		fillBuffer(SAMPLES_PER_TICK);
-
-		updateMusicData();
-		noUpdatesCounter = SAMPLES_PER_TICK;
+	while (1) {
+		fillBuffer((samples > SAMPLES_PER_TICK) ? SAMPLES_PER_TICK : samples);
 
 		uint8_t samplesPassed = bufferReadCounter - prevSampleCounter;
 		prevSampleCounter += samplesPassed;
+
+		noUpdatesCounter -= (uint8_t) samplesPassed;
+		// Overflow, too long time passed since last buffer update
+		if (noUpdatesCounter >= SAMPLES_PER_TICK) {
+			updateMusicData();
+			noUpdatesCounter = SAMPLES_PER_TICK - 1;
+		}
+
+		if (samplesPassed >= samples) {
+			return;
+		}
 		samples -= samplesPassed;
-	}
-	// samples is 8-bits after this while loop
-
-	// Avoid invocation fillBuffer with too high value close to 255
-	if (((uint8_t) samples) > SAMPLES_PER_TICK) {
-		fillBuffer(SAMPLES_PER_TICK);
-		samples -= SAMPLES_PER_TICK;
-	}
-
-	fillBuffer((uint8_t) samples);
-
-	noUpdatesCounter -= (uint8_t) samples;
-	// Overflow, too long time passed since last buffer update
-	if (noUpdatesCounter > SAMPLES_PER_TICK) {
-		updateMusicData();
-		noUpdatesCounter = SAMPLES_PER_TICK;
 	}
 }
 

@@ -125,7 +125,10 @@ int main(void)
 
 		cursor(0, 0);
 
-//		delaySamples(MICROSOUND_FREQUENCY);
+//		for (i = 0; i < 100; i++) {
+//			_delay_ms(1);
+//		}
+//		// delaySamples(MICROSOUND_FREQUENCY);
 //		printChar('0' + b);
 //		printChar('0' + a);
 //		a++;
