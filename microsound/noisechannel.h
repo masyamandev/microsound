@@ -7,9 +7,9 @@
 
 const uint8_t* noiseVolume;
 uint8_t noiseFramesRemain;
-uint8_t prevBeatTickCounter;
 uint8_t noiseCurrentVolume;
 uint8_t noiseDataVolume;
+uint8_t toNextVolumeCounter;
 
 inline void resetNoise() {
 	noiseFramesRemain = 0;
@@ -17,9 +17,9 @@ inline void resetNoise() {
 
 inline void playNoise(const uint8_t* noiseData, uint8_t dataLength, uint8_t volume) {
 	noiseVolume = noiseData;
-	noiseFramesRemain = dataLength;
+	noiseFramesRemain = dataLength + 1;
 	noiseDataVolume = volume;
-	noiseCurrentVolume = (*noiseData * volume) >> 8;
+	toNextVolumeCounter = 0;
 }
 
 inline int16_t noiseNextSample() {
@@ -31,10 +31,10 @@ inline int16_t noiseNextSample() {
 #endif
 	}
 
-	if (beatTickCounter != prevBeatTickCounter) {
-		prevBeatTickCounter = beatTickCounter;
+	if (!(toNextVolumeCounter--)) {
+		toNextVolumeCounter = SAMPLES_PER_TICK;
 		noiseFramesRemain--;
-		noiseCurrentVolume = mulUnsigned8bits(pgm_read_byte(noiseVolume++), noiseCurrentVolume);
+		noiseCurrentVolume = mulUnsigned8bits(pgm_read_byte(noiseVolume++), noiseDataVolume);
 	}
 
 

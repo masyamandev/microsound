@@ -6,7 +6,7 @@
 	// Use hardware multiplication if possible
 
 	#define mulSignedUnsigned(ms, mu)	((ms) * (mu))
-	#define mulUnsigned8bits(a, b)		((uint8_t) ((a) * (b) >> 8))
+	#define mulUnsigned8bits(a, b)		((uint8_t) (((a) * (b)) >> 8))
 
 #elif !defined SIMPLIFIED_MULTIPLICATION
 
