@@ -12,14 +12,14 @@
 
 #if BUFFER_BITS == 8
 	typedef uint8_t soundSample;
-	#define toSample(uint16)		(uint16 >> 8)
-	#define sampleToUint8(sample)	(sample)
-	#define sampleToUint16(sample)	(sample << 8)
+	#define toSample(uint16)		((soundSample) (uint16 >> 8))
+	#define sampleToUint8(sample)	((uint8_t) (sample))
+	#define sampleToUint16(sample)	((uint16_t) (sample << 8))
 #elif BUFFER_BITS == 16
 	typedef uint16_t soundSample;
-	#define toSample(uint16)		(uint16)
-	#define sampleToUint8(sample)	(sample >> 8)
-	#define sampleToUint16(sample)	(sample)
+	#define toSample(uint16)		((soundSample) (uint16))
+	#define sampleToUint8(sample)	((uint8_t) (sample >> 8))
+	#define sampleToUint16(sample)	((uint16_t) (sample))
 #endif
 
 

@@ -196,7 +196,7 @@ inline void recalculateVolume(waveChannel* channel) {
 inline soundSample getNextSample() {
 
 	if ((tickSampleCounter--) == 0) {
-		tickSampleCounter = SAMPLES_PER_TICK;
+		tickSampleCounter = SAMPLES_PER_TICK - 1;
 		if ((beatTickCounter--) == 0) {
 			beatTickCounter = beatIncrementAt;
 			beatCounter++;
