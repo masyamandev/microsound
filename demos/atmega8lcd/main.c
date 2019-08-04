@@ -116,6 +116,7 @@ int main(void)
 		displayString[i] = ' ';
 	}
 
+	uint8_t startNote;
 
 //	static uint8_t a = 0;
 //	static uint8_t b = 0;
@@ -145,13 +146,13 @@ int main(void)
 			uint8_t note2 = 0;
 			uint8_t note3 = 0;
 			for (i = 0; i < CHANNELS_SIZE; i++) {
-				if (channels[i]->waveStep == pgm_read_word(&frequencies[NOTE_C2 + pos * 3])) {
+				if (channels[i]->waveStep == pgm_read_word(&frequencies[startNote + pos * 3])) {
 					note1 += channels[i]->currentVolume;
 				}
-				if (channels[i]->waveStep == pgm_read_word(&frequencies[NOTE_C2 + pos * 3 + 1])) {
+				if (channels[i]->waveStep == pgm_read_word(&frequencies[startNote + pos * 3 + 1])) {
 					note2 += channels[i]->currentVolume;
 				}
-				if (channels[i]->waveStep == pgm_read_word(&frequencies[NOTE_C2 + pos * 3 + 2])) {
+				if (channels[i]->waveStep == pgm_read_word(&frequencies[startNote + pos * 3 + 2])) {
 					note3 += channels[i]->currentVolume;
 				}
 			}
@@ -187,6 +188,9 @@ int main(void)
 
 
 		if (isMusicStopped) {
+//			startNote = NOTE_C1;
+//			playMusic(ohSusannaSong);
+			startNote = NOTE_C2;
 			playMusic(forElise);
 		}
 

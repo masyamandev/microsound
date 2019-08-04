@@ -101,7 +101,7 @@ int main(void)
 		while (samplesInBuffer > 4) {};
 
 		if (isMusicStopped) {
-			playMusic(forElise);
+			playMusic(ohSusannaSong);
 		}
 
 	}
