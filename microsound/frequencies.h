@@ -1,5 +1,11 @@
+/*
+ * Constants for notes and frequencies.
+ * Wave table sample length is required to be defined for correct calculations.
+ */
 
+#ifndef SAMPLE_LENGTH
 #define SAMPLE_LENGTH 	256 // Number of samples per period, 2^n
+#endif
 #define SAMPLE_MASK 	(SAMPLE_LENGTH - 1)
 
 #define freqStep(freq) ((uint16_t) (256L * freq * SAMPLE_LENGTH / MICROSOUND_FREQUENCY))

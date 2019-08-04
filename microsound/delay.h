@@ -1,6 +1,17 @@
 #ifndef MICROMUSIC_DALAY_INIT
 #define MICROMUSIC_DALAY_INIT
 
+/*
+ * Control delays using function  similar to <util/delay.h>.
+ * During delay sound buffer is filled with sound data.
+ *
+ * Currently delay is not too accurate, especially with small values.
+ * It's recommended to use delays in range [0.2 ... 1000] milliseconds. If longer delays are needed it's possible
+ * to use 32 bits sample counter:
+ * #define DELAY_SAMPLE_COUNTER_TYPE	uint32_t
+ */
+
+
 #include "micromusic.h"
 
 

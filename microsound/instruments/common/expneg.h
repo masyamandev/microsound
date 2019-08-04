@@ -1,6 +1,10 @@
 #ifndef EXP_NEG_TABLE_DEFINED
 #define EXP_NEG_TABLE_DEFINED
 
+/*
+ * Table for e^(-x).
+ */
+
 const uint8_t expNegTable[] PROGMEM = {
 		255, 249, 244, 238, 233, 228, 223, 219, 214, 209, 205, 200, 196, 192, 188, 184,
 		180, 176, 172, 168, 165, 161, 158, 154, 151, 148, 145, 142, 139, 136, 133, 130,

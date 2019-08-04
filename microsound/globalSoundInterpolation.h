@@ -1,5 +1,9 @@
-
-// INTERPOLATION_STRENGTH: interpolate (2^N-1) points.
+/*
+ * Takes care about sound interpolation.
+ * This implementation provides simple linear interpolation.
+ *
+ * Value INTERPOLATION_STRENGTH means interpolation of (2^N-1) intermediate points.
+ */
 
 #if INTERPOLATION_STRENGTH > 0
 

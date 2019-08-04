@@ -2,6 +2,16 @@
 #ifndef MICROSOUND_INIT
 #define MICROSOUND_INIT
 
+/*
+ * Generates multi-channel sound.
+ *
+ * Generated sound contains of several wave channels and optionally single noise channel.
+ * Wave channel is a repeated wave of specified form and it's volume changed over time.
+ * Noise channel is a randomized values changing it's volume over time.
+ *
+ * All channels are mixed up according to channel volumes.
+ */
+
 // Amount of wave channels
 #ifndef CHANNELS_SIZE
 #define CHANNELS_SIZE	1

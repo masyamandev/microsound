@@ -1,3 +1,8 @@
+/*
+ * Wave channel.
+ * Generates wave of specific form with specific volume changed over time.
+ */
+
 #include "utils/concat.h"
 
 // functions

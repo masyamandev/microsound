@@ -1,6 +1,10 @@
 #ifndef SIN_TABLE_DEFINED
 #define SIN_TABLE_DEFINED
 
+/*
+ * Table for sin(x).
+ */
+
 const int8_t sinTable[] PROGMEM = {
 		0, 3, 6, 9, 12, 15, 18, 21, 24, 27, 30, 33, 36, 39, 42, 45,
 		48, 51, 54, 57, 59, 62, 65, 67, 70, 73, 75, 78, 80, 82, 85, 87,

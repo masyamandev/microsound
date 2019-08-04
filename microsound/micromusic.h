@@ -1,6 +1,19 @@
 #ifndef MICROMUSIC_INIT
 #define MICROMUSIC_INIT
 
+/*
+ * Control flow of music data and translate this data to sound generator.
+ *
+ * Simplified usage:
+ * initMusic(); // Init music data and sound control
+ * sei(); // Enable interrupts, silence sound should be generated
+ * setSample(0, instrument1); // Use instrument1 as sample 0
+ * setSample(1, instrument2); // Init all other instruments...
+ *
+ * playMusic(mySong); // Start playing music at pointer mySong
+ * while(1) fillMusicBuffer(); // Fill music buffer in loop
+ */
+
 #include "microsound.h"
 
 

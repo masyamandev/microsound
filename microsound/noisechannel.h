@@ -1,3 +1,7 @@
+/*
+ * Noise channel.
+ * Generates noise with specific volume changed over time.
+ */
 
 #include "instruments/common/semirandom.h"
 

@@ -1,3 +1,13 @@
+/*
+ * Control sound buffer.
+ *
+ * By default buffer is 8 samples long but this value can be increased via BUFFER_SIZE for longer user code execution.
+ * Buffer size is 8 bits and is 2^n. Max buffer size is 256 samples.
+ *
+ * By default buffer contains 8 bits values but it can be switched to 16 bits.
+ *
+ * Additionally code allows to measure small periods of time via bufferReadCounter. On each buffer read value is incremented.
+ */
 
 // Length of a buffer, samples, valid values are 2^n
 #ifndef BUFFER_SIZE
