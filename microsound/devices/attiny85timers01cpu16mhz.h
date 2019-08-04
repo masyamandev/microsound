@@ -1,3 +1,13 @@
+/*
+ * 8 bits PWM driver for AtTiny25/45/85.
+ *
+ * It uses timer1 for high frequency PWM and timer0 for overflow interrupt.
+ *
+ * This implementation supports custom sample rates. Interrupt frequency will be
+ * calculated according to MICROSOUND_FREQUENCY.
+ *
+ * Output pin is PB4.
+ */
 
 #include "../microsound.h"
 

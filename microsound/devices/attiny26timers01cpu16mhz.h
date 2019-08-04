@@ -1,3 +1,17 @@
+/*
+ * 8 bits PWM driver for AtTiny26.
+ *
+ * It uses timer1 for high frequency PWM and timer0 for overflow interrupt.
+ *
+ * Sample rate is F_CPU / 256 which is equal to 31250 Hz for 8MHz clock or 62500 Hz for 16MHz clock.
+ * Sample rate can be lowered by 2, 4 or 8 by using MICROSOUND_FREQUENCY_DIVIDER.
+ * Lowered sample rate can be extrapolated back to it's original frequency using
+ * INTERPOLATION_STRENGTH values 1, 2 or 3 accordingly.
+ *
+ * This implementation does not support custom sample rates.
+ *
+ * Output pin is PB2.
+ */
 
 #ifndef MICROSOUND_FREQUENCY_DIVIDER
 #define MICROSOUND_FREQUENCY_DIVIDER	1 // 2^n
