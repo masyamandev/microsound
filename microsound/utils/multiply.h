@@ -72,7 +72,7 @@
 				"sbci %B[result], 255" "\n\r"
 
 
-				: [result] "+d" (result)
+				: [result] "=&d" (result)
 				: [muls] "r" (ms), [mulu] "r" (mu)
 				  );
 		return result;
@@ -128,7 +128,7 @@
 				"ror %B[result]" "\n\r"
 				"ror %A[result]" "\n\r"
 
-				: [result] "+r" (result)
+				: [result] "=&r" (result)
 				: [muls] "r" (a), [mulu] "r" (b)
 				  );
 		return result;
@@ -189,7 +189,7 @@
 				"neg %B[result]" "\n\r"
 
 
-				: [result] "+d" (result)
+				: [result] "=&d" (result)
 				: [muls] "r" (ms), [mulu] "r" (mu)
 				  );
 		return result;
@@ -228,7 +228,7 @@
 				"add %[result], %[muls]" "\n\r"
 				"lsr %[result]" "\n\r"
 
-				: [result] "+r" (result)
+				: [result] "=&r" (result)
 				: [muls] "r" (b), [mulu] "r" (a)
 				  );
 		return result;
