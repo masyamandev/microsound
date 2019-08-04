@@ -240,8 +240,6 @@ inline soundSample getNextSample() {
 		val += channel7NextSample();
 	#endif
 
-//	nextSemirandom();
-//	val += semirandomValue;
 
 	return toSample(val);
 

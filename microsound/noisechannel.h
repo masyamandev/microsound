@@ -20,6 +20,12 @@ inline void playNoise(const uint8_t* noiseData, uint8_t dataLength, uint8_t volu
 
 inline int16_t noiseNextSample() {
 
+	if (noiseFramesRemain == 0) {
+		noiseCurrentVolume = 0;
+#ifndef NOISE_CALCULATION_WHEN_UNUSED // Useful for speed debug
+		return 0;
+#endif
+	}
 
 	if (beatTickCounter != prevBeatTickCounter) {
 		prevBeatTickCounter = beatTickCounter;
@@ -27,10 +33,6 @@ inline int16_t noiseNextSample() {
 		noiseCurrentVolume = mulUnsigned8bits(pgm_read_byte(noiseVolume++), noiseCurrentVolume);
 	}
 
-	if (noiseFramesRemain == 0) {
-		noiseCurrentVolume = 0; // TODO move up and return
-//		return 0;
-	}
 
 //	if (!(tickSampleCounter & 0x3)) {
 		nextSemirandom();
