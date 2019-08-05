@@ -17,6 +17,10 @@
 #define CHANNELS_SIZE	1
 #endif
 
+#if CHANNELS_SIZE > 8
+#warning "Currently maximum amount of channels is 8"
+#endif
+
 // Divide default PCM sample rate onto this value
 #ifndef MICROSOUND_FREQUENCY_DIVIDER
 #define MICROSOUND_FREQUENCY_DIVIDER	1

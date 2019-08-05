@@ -1,6 +1,10 @@
 
 // http://elm-chan.org/works/mxb/report.html
 
+#if CHANNELS_SIZE < 5
+#warning "Included music file requires 5 channels"
+#endif
+
 const uint8_t forElise[] PROGMEM = {
 		DATA_TEMPO(480),
 

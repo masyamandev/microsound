@@ -1,4 +1,8 @@
 
+#if CHANNELS_SIZE < 4
+#warning "Included music file requires 4 channels"
+#endif
+
 #define PERC	0
 #define HRMN	1
 #define BASS	2
