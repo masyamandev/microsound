@@ -25,9 +25,11 @@ inline void playNoise(const uint8_t* noiseData, uint8_t dataLength, uint8_t volu
 inline int16_t noiseNextSample() {
 
 	if (noiseFramesRemain == 0) {
-		noiseCurrentVolume = 0;
 #ifndef NOISE_CALCULATION_WHEN_UNUSED // Useful for speed debug
 		return 0;
+#else
+		noiseCurrentVolume = 0;
+		toNextVolumeCounter++; // Avoid next if statement to become true
 #endif
 	}
 
