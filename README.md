@@ -1,4 +1,4 @@
-* Microsound
+# Microsound
 
 Microsound is a sound generation engine for 8-bits AVR microcontroller based on wave table.
 
@@ -15,7 +15,7 @@ Supported MCUs are:
 
 Even through 2kBytes MCUs are supported it's strongly recommended to use 4+kBytes MCUs.
 
-* Software requirements
+# Software requirements
 
 Code is writtenn in c with some inline assebler for AtTiny devices. Tools are used to build demos:
 - `make` as build system
@@ -28,7 +28,7 @@ make clean hex
 make program
 ```
 
-* Dir structure
+# Dir structure
 
 Project has the following dir structure:
 - microsound: main codebase for sound generator.
@@ -40,7 +40,7 @@ for different timer usage.
 - demos: demos for different MCUs. Most of demos contain minimal examples for building working example.
 - lcd: driver for LCD display used in some demos.
 
-* Usage
+# Usage
 
 Basic usage contains of several steps:
 ```
@@ -90,7 +90,7 @@ multiplication implementations for AtTiny.
 
 For more detailed information see `demos` and `micromusic/commands.h`.
 
-* Writing own melodies
+# Writing own melodies
 
 There is a port of microsound engine to JavaScript `demos/wavepot.js`. 
 This port can be used to play byte stream on site wavepot.com. This port does *not* have limitations
