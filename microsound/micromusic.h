@@ -11,7 +11,7 @@
  * setSample(1, instrument2); // Init all other instruments...
  *
  * playMusic(mySong); // Start playing music at pointer mySong
- * while(1) fillMusicBuffer(); // Fill music buffer in loop
+ * while (!isMusicStopped) fillMusicBuffer(); // Fill music buffer in loop
  */
 
 #include "microsound.h"
