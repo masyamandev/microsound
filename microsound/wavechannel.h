@@ -9,10 +9,14 @@
 #define channelData		CONCAT2(CHANNEL_ID, ChannelData)
 #define nextSample		CONCAT2(CHANNEL_ID, NextSample)
 
+#ifndef INLINE_WAVETABLE_SOUND_GENERATOR
+#define INLINE_WAVETABLE_SOUND_GENERATOR inline /* inline by default */
+#endif
 
 waveChannel channelData;
 
-inline int16_t nextSample() {
+INLINE_WAVETABLE_SOUND_GENERATOR
+int16_t nextSample() {
 	// Get wave
 	uint16_t sample = channelData.waveSample;
 	uint8_t sampleId = ((uint8_t)(sample >> 8)) & SAMPLE_MASK;

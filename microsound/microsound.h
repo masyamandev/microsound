@@ -46,10 +46,10 @@
 
 // Control code inlining. To inline use `#define INLINE_... inline`
 #ifndef INLINE_BUFFER_FILL
-#define INLINE_BUFFER_FILL
+#define INLINE_BUFFER_FILL /* do not inline  by default */
 #endif
 #ifndef INLINE_SOUND_CONTROL
-#define INLINE_SOUND_CONTROL
+#define INLINE_SOUND_CONTROL /* do not inline by default */
 #endif
 
 

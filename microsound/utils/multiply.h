@@ -1,6 +1,13 @@
 
 // Can be useful for attiny MCUs which does not have hardware multiplication
 
+#ifndef INLINE_MULTIPLICATION_SIGNED_UNSIGNED
+#define INLINE_MULTIPLICATION_SIGNED_UNSIGNED inline /* inline by default */
+#endif
+#ifndef INLINE_MULTIPLICATION_UNSIGNED_UNSIGNED
+#define INLINE_MULTIPLICATION_UNSIGNED_UNSIGNED inline /* inline by default */
+#endif
+
 #if !defined SPEED_OPTIMIZED_MULTIPLICATION
 
 	// Use hardware multiplication if possible
@@ -13,7 +20,8 @@
 	// Use software speed optimized multiplication
 
 	// LIMIT: ms = [-127..127], mu = [0..255]
-	inline int16_t mulSignedUnsigned(int8_t ms, uint8_t mu) {
+	INLINE_MULTIPLICATION_SIGNED_UNSIGNED
+	int16_t mulSignedUnsigned(int8_t ms, uint8_t mu) {
 		// This implementation returns 16 bits result in 40ck
 		// No need to use it for atmega MCUs or others which has hardware multiplication
 		int16_t result;
@@ -78,7 +86,7 @@
 		return result;
 	}
 
-	inline uint16_t mulUnsigned(uint8_t a, uint8_t b) {
+	INLINE_MULTIPLICATION_UNSIGNED_UNSIGNED uint16_t mulUnsigned(uint8_t a, uint8_t b) {
 		// This implementation returns 16 bits result in 35ck
 		// No need to use it for atmega MCUs or others which has hardware multiplication
 		uint16_t result;
@@ -144,7 +152,8 @@
 	// Also it requires instruments to have volume 127 or less.
 
 	// LIMIT: return only high byte of multiplication result, low byte is 0
-	inline int16_t mulSignedUnsigned(int8_t ms, uint8_t mu) {
+	INLINE_MULTIPLICATION_SIGNED_UNSIGNED
+	int16_t mulSignedUnsigned(int8_t ms, uint8_t mu) {
 		// This implementation returns high byte of 16 bits result in 31ck
 		// No need to use it for atmega MCUs or others which has hardware multiplication
 		int16_t result;
@@ -196,7 +205,8 @@
 	}
 
 	// LIMIT: a = [0..255], b = [0..127]
-	inline uint8_t mulUnsigned8bits(uint8_t a, uint8_t b) {
+	INLINE_MULTIPLICATION_UNSIGNED_UNSIGNED
+	uint8_t mulUnsigned8bits(uint8_t a, uint8_t b) {
 		// This is a simplified implementation returns high byte 8 bits result in 25ck
 		// No need to use it for atmega MCUs or others which has hardware multiplication
 		uint8_t result;
