@@ -1,6 +1,8 @@
 /*
  * Wave channel.
  * Generates wave of specific form with specific volume changed over time.
+ *
+ * Author: Aleksandr Maksymenko aka masyaman
  */
 
 #include "utils/concat.h"

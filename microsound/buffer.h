@@ -7,6 +7,8 @@
  * By default buffer contains 8 bits values but it can be switched to 16 bits.
  *
  * Additionally code allows to measure small periods of time via bufferReadCounter. On each buffer read value is incremented.
+ *
+ * Author: Aleksandr Maksymenko aka masyaman
  */
 
 // Length of a buffer, samples, valid values are 2^n

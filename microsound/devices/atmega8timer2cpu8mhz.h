@@ -11,6 +11,8 @@
  * This implementation does not support custom sample rates.
  *
  * Output pin is PB3.
+ *
+ * Author: Aleksandr Maksymenko aka masyaman
  */
 
 #ifndef MICROSOUND_FREQUENCY_DIVIDER

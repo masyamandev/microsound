@@ -1,3 +1,6 @@
+/*
+ * Author: Aleksandr Maksymenko aka masyaman
+ */
 
 const int8_t harmonicaWaveTable[] PROGMEM = {
 		0, -11, -29, -39, -39, -37, -37, -45, -53, -53, -49, -43, -34, -24, -22, -17,

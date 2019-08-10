@@ -1,3 +1,6 @@
+/*
+ * Author: Aleksandr Maksymenko aka masyaman
+ */
 
 #if CHANNELS_SIZE < 4
 #warning "Included music file requires 4 channels"

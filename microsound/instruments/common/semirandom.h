@@ -3,6 +3,8 @@
 
 /*
  * Fast semirandom values generator. Used for noise generation.
+ *
+ * Author: Aleksandr Maksymenko aka masyaman
  */
 
 uint8_t semirandomA, semirandomB, semirandomC, semirandomValue;

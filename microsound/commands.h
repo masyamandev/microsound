@@ -1,7 +1,6 @@
 #ifndef MICROMUSIC_COMMANDS_INIT
 #define MICROMUSIC_COMMANDS_INIT
 
-
 /*
  * Commands for music data.
  * This command set supports up to 256 samples (instruments, SAMPLES_SIZE) and 16 channels (voices, CHANNELS_SIZE).
@@ -9,6 +8,8 @@
  * - COMMAND_PLAY handles 3 bits for wait time, up to 7 beats before next command;
  * - COMMAND_WAIT handles 6 bits for wait time, up to 63 beats before next command;
  * For longer pauses COMMAND_WAIT should be used multiple times.
+ *
+ * Author: Aleksandr Maksymenko aka masyaman
  */
 
 #define COMMAND_PLAY		0b10000000	// 2 bytes:	[CWWWHHHH][NNNNNNNN]: C: command, HHHH: channelId, NNNNNNNN: note, WWW: wait

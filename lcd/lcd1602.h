@@ -1,3 +1,10 @@
+/*
+ * Library for 16x2 characters LCD displays.
+ *
+ * Author: Aleksandr Maksymenko aka masyaman
+ */
+
+
 #define LCD_DDR 	DDRD
 #define LCD_PORT	PORTD
 #define LCD_PIN_D4		0

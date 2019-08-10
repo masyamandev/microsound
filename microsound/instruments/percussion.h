@@ -1,3 +1,6 @@
+/*
+ * Author: Aleksandr Maksymenko aka masyaman
+ */
 
 #include "common/sin.h"
 #include "common/expneg.h"

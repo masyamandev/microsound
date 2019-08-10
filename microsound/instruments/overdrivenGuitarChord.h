@@ -1,3 +1,6 @@
+/*
+ * Author: Aleksandr Maksymenko aka masyaman
+ */
 
 #include "common/expneg.h"
 

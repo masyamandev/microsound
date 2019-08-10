@@ -3,6 +3,8 @@
 
 /*
  * Table for sin(x).
+ *
+ * Author: Aleksandr Maksymenko aka masyaman
  */
 
 const int8_t sinTable[] PROGMEM = {

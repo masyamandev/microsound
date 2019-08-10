@@ -1,3 +1,6 @@
+/*
+ * Author: Aleksandr Maksymenko aka masyaman
+ */
 
 const uint8_t phonecall[] PROGMEM = {
 		DATA_TEMPO(1600),

@@ -12,6 +12,8 @@
  *
  * playMusic(mySong); // Start playing music at pointer mySong
  * while (!isMusicStopped) fillMusicBuffer(); // Fill music buffer in loop
+ *
+ * Author: Aleksandr Maksymenko aka masyaman
  */
 
 #include "microsound.h"

@@ -1,3 +1,7 @@
+/*
+ * Author: Aleksandr Maksymenko aka masyaman
+ */
+
 #include <inttypes.h>
 #include <avr/io.h>
 //#include <avr/iom8.h>

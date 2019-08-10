@@ -7,6 +7,8 @@
  * calculated according to MICROSOUND_FREQUENCY.
  *
  * Output pin is PB4.
+ *
+ * Author: Aleksandr Maksymenko aka masyaman
  */
 
 #include "../microsound.h"

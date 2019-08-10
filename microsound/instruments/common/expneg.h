@@ -3,6 +3,8 @@
 
 /*
  * Table for e^(-x).
+ *
+ * Author: Aleksandr Maksymenko aka masyaman
  */
 
 const uint8_t expNegTable[] PROGMEM = {

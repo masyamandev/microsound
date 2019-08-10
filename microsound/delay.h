@@ -9,6 +9,8 @@
  * It's recommended to use delays in range [0.2 ... 1000] milliseconds. If longer delays are needed it's possible
  * to use 32 bits sample counter:
  * #define DELAY_SAMPLE_COUNTER_TYPE	uint32_t
+ *
+ * Author: Aleksandr Maksymenko aka masyaman
  */
 
 

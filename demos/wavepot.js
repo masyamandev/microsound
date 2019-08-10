@@ -1,7 +1,8 @@
-
 /*!
  * Test tool for microsound library. Use it on http://wavepot.com/
  * https://github.com/masyamandev/microsound
+ *
+ * Author: Aleksandr Maksymenko aka masyaman
  */
 
 

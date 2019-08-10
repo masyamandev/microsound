@@ -3,6 +3,8 @@
  * This implementation provides simple linear interpolation.
  *
  * Value INTERPOLATION_STRENGTH means interpolation of (2^N-1) intermediate points.
+ *
+ * Author: Aleksandr Maksymenko aka masyaman
  */
 
 #if INTERPOLATION_STRENGTH > 0

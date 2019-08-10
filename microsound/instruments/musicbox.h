@@ -1,3 +1,6 @@
+/*
+ * Author: Aleksandr Maksymenko aka masyaman
+ */
 
 const int8_t musicboxWaveTable[] PROGMEM = {
 		0, -5, -11, -18, -25, -33, -41, -46, -52, -56, -59, -62, -65, -69, -72, -75,

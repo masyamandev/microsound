@@ -1,3 +1,7 @@
+/*
+ * Author: Aleksandr Maksymenko aka masyaman
+ */
+
 #include "common/expneg.h"
 
 const int8_t pianoWaveTable[] PROGMEM = {

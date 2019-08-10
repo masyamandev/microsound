@@ -1,3 +1,6 @@
+/*
+ * Author: Aleksandr Maksymenko aka masyaman
+ */
 
 const int8_t accordionWaveTable[] PROGMEM = {
 		0, 5, 11, 11, 10, 10, 14, 18, 22, 24, 26, 29, 30, 32, 34, 34,

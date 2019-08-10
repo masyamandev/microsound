@@ -10,6 +10,8 @@
  * Noise channel is a randomized values changing it's volume over time.
  *
  * All channels are mixed up according to channel volumes.
+ *
+ * Author: Aleksandr Maksymenko aka masyaman
  */
 
 // Amount of wave channels

@@ -1,6 +1,8 @@
 /*
  * Constants for notes and frequencies.
  * Wave table sample length is required to be defined for correct calculations.
+ *
+ * Author: Aleksandr Maksymenko aka masyaman
  */
 
 #ifndef SAMPLE_LENGTH

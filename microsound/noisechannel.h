@@ -1,6 +1,8 @@
 /*
  * Noise channel.
  * Generates noise with specific volume changed over time.
+ *
+ * Author: Aleksandr Maksymenko aka masyaman
  */
 
 #include "instruments/common/semirandom.h"
