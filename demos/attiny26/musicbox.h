@@ -2,6 +2,10 @@
  * Simplified version of musicbox with 64 samples per period instead of 256
  */
 
+#if SAMPLE_LENGTH != 64
+#warning "Sound sample requires SAMPLE_LENGTH to be set to 64"
+#endif
+
 const int8_t musicboxWaveTable[] PROGMEM = {
 		0, -25, -52, -65,
 		-79, -90, -89,  -91,
