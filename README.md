@@ -3,21 +3,21 @@
 Microsound is a sound generation engine for 8-bits AVR microcontroller based on wave table.
 
 Engine is designed for small firmware size (2-8 kBytes depending on included instruments) and
-is able to play up to 5 notes simultaneously plus one noise channel on 8mHz MCU with hardware
-multiplication. AtTiny MCUs does not have hardware multiplication so performance is approximately 
-2 times slower. This means that AtTiny should use less channels or use higher frequency.
+is able to play up to 5 notes simultaneously plus one noise channel on 8MHz MCU with hardware
+multiplication. ATtiny MCUs does not have hardware multiplication so performance is approximately 
+2 times slower. This means that ATtiny should use less channels or use higher frequency.
 
 Supported MCUs are:
-- AtMega8
-- AtTiny25/45/85
-- AtTiny261/461/861
-- AtTiny26
+- ATmega8
+- ATtiny25/45/85
+- ATtiny261/461/861
+- ATtiny26
 
 Even through 2kBytes MCUs are supported it's strongly recommended to use 4+kBytes MCUs.
 
 # Software requirements
 
-Code is writtenn in c with some inline assebler for AtTiny devices. Tools are used to build demos:
+Code is writtenn in c with some inline assebler for ATtiny devices. Tools are used to build demos:
 - `make` as build system
 - `avr-gcc` as compiler
 - `avrdude` as MCU flashing tool
@@ -84,7 +84,7 @@ const uint8_t demoSample[] PROGMEM = {
 
 Commands are packed into 1-3 bytes and has some limitations:
 - DATA_VOLUME accepts volume values in range [0..255] or [0..127] in some software 
-multiplication implementations for AtTiny.
+multiplication implementations for ATtiny.
 - DATA_PLAY accepts wait values in range [0..7].
 - DATA_WAIT accepts wait values in range [0..63].
 

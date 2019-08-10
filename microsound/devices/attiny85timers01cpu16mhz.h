@@ -1,5 +1,5 @@
 /*
- * 8 bits PWM driver for AtTiny25/45/85.
+ * 8 bits PWM driver for ATtiny25/45/85.
  *
  * It uses timer1 for high frequency PWM and timer0 for overflow interrupt.
  *

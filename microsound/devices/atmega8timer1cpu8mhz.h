@@ -1,5 +1,5 @@
 /*
- * 8 bits PWM driver for AtMega8.
+ * 8 bits PWM driver for ATmega8.
  *
  * It uses timer1 both for PWM and overflow interrupt.
  *
