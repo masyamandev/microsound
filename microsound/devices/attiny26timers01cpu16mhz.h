@@ -51,10 +51,6 @@ inline void initSound() {
 uint8_t cnt;
 // Timer0 interrupt
 ISR(TIMER0_OVF0_vect) {
-#if (MICROSOUND_FREQUENCY_DIVIDER > 1) && ((!defined INTERPOLATION_STRENGTH) || (INTERPOLATION_STRENGTH == 0))
-	if ((cnt++) & (MICROSOUND_FREQUENCY_DIVIDER - 1)) {
-		return;
-	}
-#endif
+#include "common/skipSamples.h"
 	OCR1A = sampleToUint8(getNextInterpolatedSample());
 }
