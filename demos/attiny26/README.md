@@ -7,7 +7,7 @@ Minimalistic example of using microsound on ATtiny26.
 - MCU: ATtiny26
 - CPU frequency: 16MHz
 - Sound quality: 8bits, 31250Hz
-- Output: PWM on pin PB2
+- Output: PWM on pin PB3
 - Channels: 4 wavetable, no per-channel volume control
 
 # Circuit
@@ -17,7 +17,7 @@ Minimalistic example of using microsound on ATtiny26.
  ^    ATtiny26
  |   +--------+
  +---+VCC     |    R1
-     |     PB2+---/\/\--+-----> OUT
+     |     PB3+---/\/\--+-----> OUT
      |        |         |
  +---+GND     |        === C1
  |   +--------+         |
@@ -30,4 +30,4 @@ Minimalistic example of using microsound on ATtiny26.
 ```
 make clean hex 
 make program
-```
+```PB3

@@ -10,7 +10,7 @@
  *
  * This implementation does not support custom sample rates.
  *
- * Output pin is PB2.
+ * Output pin is PB3.
  *
  * Author: Aleksandr Maksymenko aka masyaman
  */
@@ -31,11 +31,11 @@ inline void initSound() {
 	PLLCSR |= (1 << PCKE);
 
 	// Init timer 1 fast PWM
-	TCCR1A=(1<<COM1A0)|(1<<PWM1A); // Fast PWM
+	TCCR1A=(1<<COM1B0)|(1<<PWM1B); // Fast PWM
 	TCCR1B=(1<<CS10);
 
 	TCNT1 = 0x00;
-	OCR1A = 127;
+	OCR1B = 127;
 	OCR1C = 0xFF;
 
 	// Init timer 0 interrupts
@@ -43,8 +43,8 @@ inline void initSound() {
 
 	TIMSK = (1<<TOIE0);
 
-	// Set PB1 as output (pin2)
-	DDRB |= 0x02;
+	// Set PB3 as output (pin4)
+	DDRB |= 0x08;
 
 	resetSound();
 }
@@ -54,5 +54,5 @@ uint8_t cnt;
 // Timer0 interrupt
 ISR(TIMER0_OVF0_vect) {
 #include "common/skipSamples.h"
-	OCR1A = sampleToUint8(getNextInterpolatedSample());
+	OCR1B = sampleToUint8(getNextInterpolatedSample());
 }
