@@ -41,47 +41,10 @@
 #include "../../microsound/instruments/musicbox.h"
 
 
-//#include "../../microsound/samples/singlechannel.h"
+//#include "../../microsound/samples/notifications_single_channel.h"
 #include "../../microsound/samples/oh_susanna.h"
 #include "../../microsound/samples/for_elise.h"
 
-
-
-const uint8_t test[] PROGMEM = {
-		DATA_TEMPO(480),
-		DATA_INSTRUMENT(0, SAMPLE_MUSICBOX),
-		DATA_INSTRUMENT(1, SAMPLE_MUSICBOX),
-		DATA_INSTRUMENT(2, SAMPLE_MUSICBOX),
-		DATA_INSTRUMENT(3, SAMPLE_MUSICBOX),
-		DATA_VOLUME(0, 80),
-		DATA_VOLUME(1, 80),
-		DATA_VOLUME(2, 80),
-		DATA_VOLUME(3, 80),
-
-		DATA_END()
-};
-
-const uint8_t testPercussion[] PROGMEM = {
-		DATA_TEMPO(480),
-		DATA_INSTRUMENT(0, SAMPLE_PERCUSSION),
-		DATA_VOLUME(0, 128),
-
-//		DATA_PLAY(0, PERCUSSION_HAT_L, 1),
-//		DATA_PLAY(0, PERCUSSION_HAT_H, 1),
-//		DATA_PLAY(0, PERCUSSION_BAR_L, 1),
-//		DATA_PLAY(0, PERCUSSION_BAR_H, 1),
-
-		DATA_PLAY(0, PERCUSSION_HAT_H, 1),
-		DATA_PLAY(0, PERCUSSION_HAT_L, 1),
-		DATA_PLAY(0, PERCUSSION_BAR_H, 1),
-		DATA_PLAY(0, PERCUSSION_BAR_L, 1),
-		DATA_PLAY(0, PERCUSSION_HAT_H, 2),
-		DATA_PLAY(0, PERCUSSION_HAT_L, 2),
-		DATA_PLAY(0, PERCUSSION_BAR_H, 2),
-		DATA_PLAY(0, PERCUSSION_BAR_L, 2),
-		DATA_PLAY(0, PERCUSSION_HAT_H, 2),
-		DATA_END()
-};
 
 int main(void)
 {

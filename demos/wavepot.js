@@ -344,6 +344,15 @@ function SAMPLE_PIANO(channel, data, t) {
 } 
 
 
+function SAMPLE_SYNTH_PIANO(channel, data, t) {
+  console.log("play synth piano at " + t);
+  channel.waveForm = sinTable;
+  channel.frequency = frequencies[data % 64];
+  channel.volumeForm = expNegTable;
+  channel.volumeTicksPerSample = 2;
+} 
+
+
 var bassGuitarWaveTable = [
 		4, 19, 33, 47, 60, 72, 83, 92, 101, 108, 114, 119, 122, 125, 126, 127,
 		126, 125, 123, 120, 116, 112, 108, 103, 98, 92, 87, 81, 75, 70, 64, 59,
@@ -634,7 +643,11 @@ function dsp(t) {
     
     prevT = t;
     
-    return Math.max(-1, Math.min(play(t), 1));
+    val = play(t);
+    // simulate overflow
+    while (val > 1) {val -= 2;}
+    while (val < -1) {val += 2;}
+    return val;
   } catch(error) {
     console.error(error);
     return 0;

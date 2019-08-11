@@ -40,7 +40,7 @@
 #include "../../microsound/instruments/musicbox.h"
 
 
-//#include "../../microsound/samples/singlechannel.h"
+//#include "../../microsound/samples/notifications_single_channel.h"
 //#include "../../microsound/samples/oh_susanna.h"
 #include "../../microsound/samples/for_elise.h"
 
