@@ -24,9 +24,7 @@
 #include "../globalSoundInterpolation.h"
 
 inline void initSound() {
-	// prescale timer to 1/1st the clock rate
-	TCCR0 |= (1<<CS00);
-	// enable timer overflow interrupt
+	// Enable timer overflow interrupt
 	TIMSK |= (1<<TOIE2);
 
 	// Init PWM on timer2

@@ -1,5 +1,5 @@
 /*
- * 8 bits PWM driver for ATmega8.
+ * 8 bits PWM driver for ATmega328p.
  *
  * It uses timer1 both for PWM and overflow interrupt.
  *
@@ -25,7 +25,7 @@
 
 inline void initSound() {
 	// Enable timer overflow interrupt
-	TIMSK |= (1<<TOIE1);
+	TIMSK1 |= (1<<TOIE1);
 
 	// Init PWM on timer1
 	TCCR1A=(1<<COM1A1)|(1<<WGM10); // Fast PWM
