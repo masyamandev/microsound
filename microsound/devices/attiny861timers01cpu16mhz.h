@@ -1,12 +1,12 @@
 /*
- * 8 bits PWM driver for ATtiny25/45/85.
+ * 8 bits PWM driver for ATtiny261/461/861.
  *
  * It uses timer1 for high frequency PWM and timer0 for overflow interrupt.
  *
  * This implementation supports custom sample rates. Interrupt frequency will be
  * calculated according to MICROSOUND_FREQUENCY.
  *
- * Output pin is PB4.
+ * Output pin is PB3.
  *
  * Author: Aleksandr Maksymenko aka masyaman
  */
@@ -23,27 +23,25 @@ inline void initSound() {
 	PLLCSR |= (1 << PCKE);
 
 	// Init timer 1 fast PWM
-    TCCR1 =
-            (1<<CTC1)	|
-            (1<<(CS10))	;
-//            (1<<PWM1A)   | Enable to use OCR1B and PIN6 as output
-//            (1<<COM1A1);
-    GTCCR = (1<<PWM1B)	|
+    TCCR1A =
+            (1<<PWM1B)	|
     		(1<<COM1B1);
+    TCCR1B =
+    		(1<<(CS10));
 
 	TCNT1 = 0x00;
 	OCR1B = 127;
-	OCR1C = 0xFF;
+//	OCR1C = 0xFF;
 
 	// Init timer 0 interrupts
-	TCCR0A = (1<<CS01);
-	TCCR0B = (1<<WGM01);
+	TCCR0B = (1<<CS01);
+	TCCR0A = (1<<CTC0);
 	OCR0A = (F_CPU / 8 / MICROSOUND_FREQUENCY);
 
 	TIMSK = (1<<OCIE0A);
 
-	// Set PB4 as output (pin3)
-	DDRB |= 0x10;
+	// Set PB3 as output (pin4)
+	DDRB |= 0x08;
 
 	resetSound();
 }
