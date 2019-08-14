@@ -4,12 +4,16 @@
  * Author: Aleksandr Maksymenko aka masyaman
  */
 
+#include "../utils/concat.h"
 
-#define LCD_DDR 	DDRD
-#define LCD_PORT	PORTD
+#define LCD_DDR_REGISTER 	CONCAT2(DDR, LCD_PORT)
+#define LCD_PORT_REGISTER	CONCAT2(PORT, LCD_PORT)
+
+#if !defined LCD_PIN_D4 && !defined LCD_PIN_RS && !defined LCD_PIN_EN
 #define LCD_PIN_D4		0
 #define LCD_PIN_RS		5
 #define LCD_PIN_EN		6
+#endif
 
 #define LCD_PIN_DATA_MASK	((1 << LCD_PIN_D4) | (1 << (LCD_PIN_D4 + 1)) | (1 << (LCD_PIN_D4 + 2)) | (1 << (LCD_PIN_D4 + 3)))
 #define LCD_PIN_MASK		(LCD_PIN_DATA_MASK | (1 << LCD_PIN_EN) | (1 << LCD_PIN_RS))
@@ -31,8 +35,8 @@ inline static void __lcd_initDelay() {
 
 inline static void pulseLcd()
 {
-    LCD_PORT |= (1 << LCD_PIN_EN);
-    LCD_PORT &= ~(1 << LCD_PIN_EN);
+    LCD_PORT_REGISTER |= (1 << LCD_PIN_EN);
+    LCD_PORT_REGISTER &= ~(1 << LCD_PIN_EN);
     __lcd_delay();
 }
 
@@ -45,12 +49,12 @@ void sendByte(uint8_t byteToSend, uint8_t isData)
 		dataBit |= (1 << LCD_PIN_RS);
 	}
 
-    LCD_PORT &= clear;
-    LCD_PORT |= ((byteToSend >> 4) << LCD_PIN_D4) | dataBit;
+    LCD_PORT_REGISTER &= clear;
+    LCD_PORT_REGISTER |= ((byteToSend >> 4) << LCD_PIN_D4) | dataBit;
     pulseLcd();
 
-    LCD_PORT &= clear;
-    LCD_PORT |= ((byteToSend & 0x0F) << LCD_PIN_D4) | dataBit;
+    LCD_PORT_REGISTER &= clear;
+    LCD_PORT_REGISTER |= ((byteToSend & 0x0F) << LCD_PIN_D4) | dataBit;
     pulseLcd();
 }
 
@@ -78,7 +82,7 @@ void clearLcdScreen()
 
 inline static void initLCD() {
 
-	LCD_DDR |= LCD_PIN_MASK;
+	LCD_DDR_REGISTER |= LCD_PIN_MASK;
 
     __lcd_initDelay();
 

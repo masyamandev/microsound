@@ -62,7 +62,7 @@ uint16_t beatCounter;
 
 uint8_t volumeRecalculationId;
 
-#include "utils/multiply.h"
+#include "../utils/multiply.h"
 #include "buffer.h"
 #include "frequencies.h"
 

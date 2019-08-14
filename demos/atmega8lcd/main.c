@@ -47,6 +47,7 @@
 
 #include "../../microsound/delay.h"
 
+#define LCD_PORT	D
 #include "../../lcd/lcd1602.h"
 
 const uint8_t PIANO_CHAR_A[] PROGMEM = {

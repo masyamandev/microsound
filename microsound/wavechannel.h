@@ -5,7 +5,7 @@
  * Author: Aleksandr Maksymenko aka masyaman
  */
 
-#include "utils/concat.h"
+#include "../utils/concat.h"
 
 // functions
 #define channelData		CONCAT2(CHANNEL_ID, ChannelData)

@@ -37,7 +37,7 @@ Project has the following dir structure:
 for different timer usage.
 - - instruments: wavetable samples.
 - - samples: examples of sound effects and melodies.
-- - utils: various utils used by microsound engine.
+- utils: various utils used by microsound engine.
 - demos: demos for different MCUs. Most of demos contain minimal examples for building working example.
 - lcd: driver for LCD display used in some demos.
 
