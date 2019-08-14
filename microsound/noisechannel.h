@@ -7,6 +7,11 @@
 
 #include "instruments/common/semirandom.h"
 
+// Update noise value every 2 ^ NOISE_UPDATE_SAMPLES_SKIP samples
+#ifndef NOISE_UPDATE_SAMPLES_SKIP
+#define NOISE_UPDATE_SAMPLES_SKIP	0
+#endif
+
 const uint8_t* noiseVolume;
 uint8_t noiseFramesRemain;
 uint8_t noiseCurrentVolume;
@@ -42,9 +47,9 @@ inline int16_t noiseNextSample() {
 	}
 
 
-//	if (!(tickSampleCounter & 0x3)) {
+	if (!(tickSampleCounter & ((1 << NOISE_UPDATE_SAMPLES_SKIP) - 1))) {
 		nextSemirandom();
-//	}
+	}
 
 	return mulSignedUnsigned((int8_t)semirandomValue, noiseCurrentVolume);
 }
