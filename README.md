@@ -40,6 +40,7 @@ for different timer usage.
 - utils: various utils used by microsound engine.
 - demos: demos for different MCUs. Most of demos contain minimal examples for building working example.
 - lcd: driver for LCD display used in some demos.
+- buttons: driver for buttons used in some demos.
 
 # Usage
 

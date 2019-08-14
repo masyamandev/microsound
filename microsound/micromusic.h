@@ -76,7 +76,7 @@ void updateMusicData() {
 			setBpm(bpm);
 		} else {
 			// COMMAND_END
-			isMusicStopped = 1;
+			stopMusic();
 			break;
 		}
 	}
@@ -101,6 +101,7 @@ INLINE_SOUND_CONTROL void playMusic(const uint8_t *data) {
 
 inline void stopMusic() {
 	isMusicStopped = 1;
+	resetSound();
 }
 
 #endif

@@ -18,6 +18,7 @@
 #define SAMPLE_BASS			3
 #define SAMPLE_OVERDRIVE	4
 #define SAMPLE_MUSICBOX		5
+#define SAMPLE_SYNTH_PIANO	6
 
 //#define BUFFER_BITS	16
 #define BUFFER_SIZE 64
@@ -32,23 +33,28 @@
 #include "../../microsound/devices/atmega8timer1cpu8mhz.h"
 #include "../../microsound/micromusic.h"
 
-//#include "../../microsound/instruments/piano.h"
-//#include "../../microsound/instruments/bassGuitar.h"
-////#include "../../microsound/instruments/accordion.h"
-//#include "../../microsound/instruments/harmonica.h"
-//#include "../../microsound/instruments/overdrivenGuitarChord.h"
-//#include "../../microsound/instruments/percussion.h"
+#include "../../microsound/instruments/piano.h"
+#include "../../microsound/instruments/synthPiano.h"
+#include "../../microsound/instruments/bassGuitar.h"
+//#include "../../microsound/instruments/accordion.h"
+#include "../../microsound/instruments/harmonica.h"
+#include "../../microsound/instruments/overdrivenGuitarChord.h"
+#include "../../microsound/instruments/percussion.h"
 #include "../../microsound/instruments/musicbox.h"
 
 
-//#include "../../microsound/samples/notifications_single_channel.h"
-//#include "../../microsound/samples/oh_susanna.h"
+#include "../../microsound/samples/notifications_single_channel.h"
+#include "../../microsound/samples/notifications_four_channels.h"
+#include "../../microsound/samples/oh_susanna.h"
 #include "../../microsound/samples/for_elise.h"
 
 #include "../../microsound/delay.h"
 
 #define LCD_PORT	D
 #include "../../lcd/lcd1602.h"
+
+#define BUTTONS_PORT	C
+#include "../../buttons/buttons.h"
 
 const uint8_t PIANO_CHAR_A[] PROGMEM = {
 		0b10001,
@@ -89,6 +95,7 @@ int main(void)
 	initMusic();
 	sei();
 	initLCD();
+	initButtons();
 
 	initCharProgmem(5, PIANO_CHAR_A);
 	initCharProgmem(6, PIANO_CHAR_B);
@@ -102,12 +109,13 @@ int main(void)
 		printChar(5);
 	}
 
-//	setSample(SAMPLE_PERCUSSION, playPercussion);
-//	setSample(SAMPLE_PIANO, playPiano);
-//	setSample(SAMPLE_HARMONICA, playHarmonica);
-//	setSample(SAMPLE_BASS, playBassGuitar);
-//	setSample(SAMPLE_OVERDRIVE, playOverdrivenGuitarChord);
+	setSample(SAMPLE_PERCUSSION, playPercussion);
+	setSample(SAMPLE_PIANO, playPiano);
+	setSample(SAMPLE_HARMONICA, playHarmonica);
+	setSample(SAMPLE_BASS, playBassGuitar);
+	setSample(SAMPLE_OVERDRIVE, playOverdrivenGuitarChord);
 	setSample(SAMPLE_MUSICBOX, playMusicbox);
+	setSample(SAMPLE_SYNTH_PIANO, playSynthPiano);
 
 
 	static uint8_t freeCustomCharsIndex;
@@ -121,7 +129,7 @@ int main(void)
 		displayString[i] = ' ';
 	}
 
-	uint8_t startNote;
+	uint8_t startNote = NOTE_C1;
 
 //	static uint8_t a = 0;
 //	static uint8_t b = 0;
@@ -191,12 +199,22 @@ int main(void)
 
 		}
 
-
-		if (isMusicStopped) {
-//			startNote = NOTE_C1;
-//			playMusic(ohSusannaSong);
+		updateButtons();
+		if (isButtonClicked(1 << 0)) { // B
+			startNote = NOTE_C1;
+			playMusic(ohSusannaSong);
+		} else if (isButtonClicked(1 << 1)) { // A
 			startNote = NOTE_C2;
 			playMusic(forElise);
+		}
+		if (isButtonClicked(1 << 2)) { // Right
+			playMusic((startNote == NOTE_C1) ? harmonicaNotification : chordC4);
+		} else if (isButtonClicked(1 << 3)) { // Up
+			playMusic((startNote == NOTE_C1) ? attentionNotification : harp);
+		} else if (isButtonClicked(1 << 4)) { // Down
+			playMusic((startNote == NOTE_C1) ? looserNotification : chordC5);
+		} else if (isButtonClicked(1 << 5)) { // Left
+			playMusic((startNote == NOTE_C1) ? guitarNotification : chordC4back);
 		}
 
 	}
