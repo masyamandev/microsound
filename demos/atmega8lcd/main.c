@@ -131,6 +131,8 @@ int main(void)
 
 	uint8_t startNote = NOTE_C1;
 
+	uint8_t soundBank = 0;
+
 //	static uint8_t a = 0;
 //	static uint8_t b = 0;
 	while (1) {
@@ -150,6 +152,67 @@ int main(void)
 //			a = 0;
 //			b++;
 //		}
+
+		if (isMusicStopped) {
+
+			if (isButtonClicked(1 << 0)) { // B
+				soundBank += 1;
+			} else if (isButtonClicked(1 << 1)) { // A
+				soundBank += 2;
+			}
+			if (soundBank >= 3) {
+				soundBank -= 3;
+			}
+
+			if (soundBank == 0) {
+				printStr("> Music samples ");
+
+				if (isButtonClicked(1 << 2)) { // Right
+					startNote = NOTE_C1;
+					playMusic(ohSusannaSong);
+//				} else if (isButtonClicked(1 << 3)) { // Up
+//					playMusic(harp);
+//				} else if (isButtonClicked(1 << 4)) { // Down
+//					playMusic(chordC5);
+				} else if (isButtonClicked(1 << 5)) { // Left
+					startNote = NOTE_C2;
+					playMusic(forElise);
+				}
+			} else if (soundBank == 1) {
+				printStr("> Sound effects ");
+				startNote = NOTE_C2;
+
+				if (isButtonClicked(1 << 2)) { // Right
+					playMusic(chordC4);
+				} else if (isButtonClicked(1 << 3)) { // Up
+					playMusic(harp);
+				} else if (isButtonClicked(1 << 4)) { // Down
+					playMusic(chordC5);
+				} else if (isButtonClicked(1 << 5)) { // Left
+					playMusic(chordC4back);
+				}
+			} else if (soundBank == 2) {
+				printStr("> Single channel");
+				startNote = NOTE_C2;
+
+				if (isButtonClicked(1 << 2)) { // Right
+					playMusic(harmonicaNotification);
+				} else if (isButtonClicked(1 << 3)) { // Up
+					playMusic(attentionNotification);
+				} else if (isButtonClicked(1 << 4)) { // Down
+					playMusic(looserNotification);
+				} else if (isButtonClicked(1 << 5)) { // Left
+					startNote = NOTE_C1;
+					playMusic(guitarNotification);
+				}
+			}
+
+			continue;
+		}
+
+		if (isButtonClicked(0xFF)) {
+			stopMusic();
+		}
 
 		uint8_t pos;
 		for (pos = 0; pos < DISPLAY_WIDTH; pos++) {
@@ -197,24 +260,6 @@ int main(void)
 				}
 			}
 
-		}
-
-		updateButtons();
-		if (isButtonClicked(1 << 0)) { // B
-			startNote = NOTE_C1;
-			playMusic(ohSusannaSong);
-		} else if (isButtonClicked(1 << 1)) { // A
-			startNote = NOTE_C2;
-			playMusic(forElise);
-		}
-		if (isButtonClicked(1 << 2)) { // Right
-			playMusic((startNote == NOTE_C1) ? harmonicaNotification : chordC4);
-		} else if (isButtonClicked(1 << 3)) { // Up
-			playMusic((startNote == NOTE_C1) ? attentionNotification : harp);
-		} else if (isButtonClicked(1 << 4)) { // Down
-			playMusic((startNote == NOTE_C1) ? looserNotification : chordC5);
-		} else if (isButtonClicked(1 << 5)) { // Left
-			playMusic((startNote == NOTE_C1) ? guitarNotification : chordC4back);
 		}
 
 	}

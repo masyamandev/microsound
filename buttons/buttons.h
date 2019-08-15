@@ -34,7 +34,7 @@ inline void updateButtons() {
 }
 
 uint8_t isButtonClicked(uint8_t buttonMask) {
-	//updateButtons();
+	updateButtons();
 
 	uint8_t clicked = buttonsClicked & buttonMask;
 	buttonsClicked &= ~buttonMask;

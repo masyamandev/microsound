@@ -43,6 +43,19 @@ inline void setSample(uint8_t id, sampleSource sample) {
 	samples[id] = sample;
 }
 
+// Play music data from specified array
+INLINE_SOUND_CONTROL void playMusic(const uint8_t *data) {
+	resetSound();
+	musicData = data;
+	nextBeat = 0;
+	isMusicStopped = 0;
+}
+
+inline void stopMusic() {
+	isMusicStopped = 1;
+	resetSound();
+}
+
 #include "commands.h"
 
 // Update channels data from music array
@@ -89,19 +102,6 @@ inline void fillMusicBuffer() {
 		fillBuffer(SAMPLES_PER_TICK);
 		updateMusicData();
 	}
-}
-
-// Play music data from specified array
-INLINE_SOUND_CONTROL void playMusic(const uint8_t *data) {
-	resetSound();
-	musicData = data;
-	nextBeat = 0;
-	isMusicStopped = 0;
-}
-
-inline void stopMusic() {
-	isMusicStopped = 1;
-	resetSound();
 }
 
 #endif
