@@ -14,7 +14,7 @@ Minimalistic example of using microsound on ATmega328p.
 
 ```
 +5V    
- ^    ATmega8
+ ^   ATmega328p
  |   +--------+
  +---+VCC     |    R1
      |     PB1+---/\/\--+-----> OUT
