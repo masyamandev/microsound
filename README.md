@@ -73,10 +73,10 @@ Song data should contain the following:
 // Init byte array in PROGMEM memory space:
 const uint8_t demoSample[] PROGMEM = {
 		DATA_TEMPO(160), // Set beats per minute
-		DATA_INSTRUMENT(0, 1), // Assign instrument 1 (see setSemple) to channel 0
-		DATA_INSTRUMENT(1, 1), // Assign instrument 1 (see setSemple) to channel 1
-		DATA_VOLUME(0, 128), // Set volume 128 to channel 1
-		DATA_VOLUME(0, 128), // Set volume 128 to channel 1
+		DATA_INSTRUMENT(0, 1), // Assign instrument 1 (see setSample) to channel 0
+		DATA_INSTRUMENT(1, 1), // Assign instrument 1 (see setSample) to channel 1
+		DATA_VOLUME(0, 128), // Set volume 128 to channel 0
+		DATA_VOLUME(1, 128), // Set volume 128 to channel 1
 		DATA_PLAY(0, NOTE_A4, 1), // Play note A4 on channel 0 and wait 1 beat 
 		DATA_PLAY(1, NOTE_A3, 1), // Play note A3 on channel 1 and wait 1 beat
 		DATA_WAIT(63), // Wait 63 beats
