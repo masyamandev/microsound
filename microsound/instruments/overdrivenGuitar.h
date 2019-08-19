@@ -20,8 +20,8 @@ const int8_t overdrivenGuitarWaveTable[] PROGMEM = {
 		111, 111, 113, 115, 117, 120, 122, 124, 125, 126, 127, 125, 122, 116, 107, 96,
 		87, 80, 76, 76, 79, 84, 91, 98, 103, 107, 108, 107, 100, 90, 76, 60,
 		47, 38, 33, 32, 36, 44, 52, 61, 68, 72, 73, 70, 65, 58, 51, 44,
-		39, 36, 35, 36, 37, 36, 32, 25, 16, 8, 1, -3, -6, -7, -5, -2,
-		0};// last value could be used for interpolation
+		39, 36, 35, 36, 37, 36, 32, 25, 16, 8, 1, -3, -6, -7, -5, -2
+		};
 
 void playOverdrivenGuitar(waveChannel* channel, uint8_t data) {
 	channel->waveStep = pgm_read_word(&frequencies[(data & 0b00111111)]);

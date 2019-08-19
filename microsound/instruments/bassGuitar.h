@@ -21,7 +21,7 @@ const int8_t bassGuitarWaveTable[] PROGMEM = {
 		-26, -26, -26, -26, -25, -24, -23, -22, -20, -19, -17, -16, -16, -16, -17, -18,
 		-20, -23, -27, -31, -36, -42, -49, -56, -63, -70, -78, -85, -92, -98, -104, -108,
 		-112, -115, -116, -116, -115, -113, -109, -103, -96, -88, -78, -67, -55, -41, -26, -11
-		};// last value could be used for interpolation
+		};
 
 void playBassGuitar(waveChannel* channel, uint8_t data) {
 	channel->waveStep = pgm_read_word(&frequencies[data]);
