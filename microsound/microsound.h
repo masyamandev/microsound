@@ -69,20 +69,19 @@ uint8_t volumeRecalculationId;
 typedef struct
 {
 	// Info about wave
-	uint16_t waveSample;
-	uint16_t waveStep;
-	const int8_t* waveForm;
+	const int8_t* waveForm; // Wave table array
+	uint16_t waveSample; // High byte is an index in waveForm array
+	uint16_t waveStep; // Frequency, how waveSample is changed in time
 
-	// Info about volume form
-	uint8_t volumeTicksCounter;
-	uint8_t volumeTicksPerSample;
-	uint8_t volumeFormLength;
-	const uint8_t* volumeForm;
+	// Info about volume envelope
+	const uint8_t* volumeForm; // Array of volume change in time
+	uint8_t volumeFormLength; // Length of volumeForm
+	uint8_t volumeTicksPerSample; // How many ticks should pass before index of volumeForm is changed
+	uint8_t volumeTicksCounter; // Counter for volumeTicksPerSample
 
 	// Info about volume
-	uint8_t currentVolume;
-	uint8_t instrumentVolume;
-
+	uint8_t currentVolume; // Precalculated volume for current tick
+	uint8_t instrumentVolume; // Volume of channel
 } waveChannel;
 
 waveChannel* channels[CHANNELS_SIZE];
