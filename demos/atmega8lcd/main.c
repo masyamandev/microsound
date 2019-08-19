@@ -183,13 +183,13 @@ int main(void)
 				startNote = NOTE_C2;
 
 				if (isButtonClicked(1 << 2)) { // Right
-					playMusic(chordC4);
+					playMusic(chordC5);
 				} else if (isButtonClicked(1 << 3)) { // Up
 					playMusic(harp);
 				} else if (isButtonClicked(1 << 4)) { // Down
-					playMusic(chordC5);
+					playMusic(chordC4);
 				} else if (isButtonClicked(1 << 5)) { // Left
-					playMusic(chordC4back);
+					playMusic(chordC5back);
 				}
 			} else if (soundBank == 2) {
 				printStr("> Single channel");
