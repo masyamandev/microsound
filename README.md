@@ -48,7 +48,7 @@ for different timer usage.
 Basic usage contains of several steps:
 ```
 // Include driver for your MCU and micromusic engine:
-#include "../../microsound/devices/atmega8timer1cpu8mhz.h"
+#include "../../microsound/devices/atmega8timer1.h"
 #include "../../microsound/micromusic.h"
 
 // Make some settings

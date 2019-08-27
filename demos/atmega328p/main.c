@@ -29,7 +29,7 @@
 #define SAMPLES_SIZE	16
 #define USE_NOISE_CHANNEL
 
-#include "../../microsound/devices/atmega328Ptimer1cpu8mhz.h"
+#include "../../microsound/devices/atmega328Ptimer1.h"
 #include "../../microsound/micromusic.h"
 
 #include "../../microsound/instruments/piano.h"

@@ -32,7 +32,7 @@
 #define SAMPLES_SIZE	1
 //#define USE_NOISE_CHANNEL
 
-#include "../../microsound/devices/attiny26timers01cpu16mhz.h"
+#include "../../microsound/devices/attiny26timers01.h"
 #include "../../microsound/micromusic.h"
 
 #include "../../microsound/instruments/musicbox.h"

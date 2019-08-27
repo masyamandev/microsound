@@ -28,7 +28,7 @@
 #define SAMPLES_SIZE	16
 #define USE_NOISE_CHANNEL
 
-#include "../../microsound/devices/attiny861timers01cpu16mhz.h"
+#include "../../microsound/devices/attiny861timers01.h"
 #include "../../microsound/micromusic.h"
 
 //#include "../../microsound/instruments/piano.h"
