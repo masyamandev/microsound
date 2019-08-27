@@ -1,5 +1,5 @@
 /*
- * 8 bits PWM driver for ATmega328p.
+ * 8 bits PWM driver for ATmega48/88/168/328p.
  *
  * It uses timer1 both for PWM and overflow interrupt.
  *

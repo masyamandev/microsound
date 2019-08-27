@@ -9,7 +9,8 @@ multiplication. ATtiny MCUs does not have hardware multiplication so performance
 
 Supported MCUs are:
 - ATmega8
-- ATmega328p
+- ATmega328p (usually used in Arduino)
+- ATmega48/88/168 (compatible with 328p)
 - ATtiny25/45/85
 - ATtiny261/461/861
 - ATtiny26
