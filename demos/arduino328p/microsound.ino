@@ -22,7 +22,7 @@
 #define SAMPLE_OVERDRIVE  4
 #define SAMPLE_MUSICBOX   5
 
-#define NOISE_CALCULATION_WHEN_UNUSED // Use full calculation of noise channel on each sample to test performance
+//#define NOISE_CALCULATION_WHEN_UNUSED // Use full calculation of noise channel on each sample to test performance
 #define BUFFER_SIZE 128
 #define MICROSOUND_FREQUENCY_DIVIDER  2 // Divide frequency by 2 as Arduino typically runs on 16MHz and this gives frequency 62500Hz
 //#define INTERPOLATION_STRENGTH  2
