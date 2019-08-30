@@ -23,7 +23,6 @@
 #define SAMPLE_MUSICBOX   5
 
 #define NOISE_CALCULATION_WHEN_UNUSED // Use full calculation of noise channel on each sample to test performance
-//#define BUFFER_BITS 16
 #define BUFFER_SIZE 128
 #define MICROSOUND_FREQUENCY_DIVIDER  2 // Divide frequency by 2 as Arduino typically runs on 16MHz and this gives frequency 62500Hz
 //#define INTERPOLATION_STRENGTH  2
@@ -32,7 +31,8 @@
 #define SAMPLES_SIZE  16
 #define USE_NOISE_CHANNEL
 
-#include "microsound/devices/atmega328Ptimer1.h"
+//#include "microsound/devices/atmega328Ptimer1.h" // Use this for 8-bits output
+#include "microsound/devices/atmega328Ptimer1out16bits.h" // Use this for 16-bits output
 #include "microsound/micromusic.h"
 
 #include "microsound/instruments/piano.h"
