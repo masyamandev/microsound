@@ -5,10 +5,13 @@
 		channel->waveForm = waveTable;
 
 
-#define setChannelVolume(volumeTable, ticksPerSample)					\
-		channel->volumeForm = volumeTable;						\
-		channel->volumeFormLength = sizeof(volumeTable) - 1;	\
-		channel->volumeTicksPerSample = ticksPerSample;					\
+#define setChannelVolumeWithLength(volumeTable, tableLength, ticksPerSample)	\
+		channel->volumeForm = volumeTable;										\
+		channel->volumeFormLength = tableLength;								\
+		channel->volumeTicksPerSample = ticksPerSample;							\
 		channel->volumeTicksCounter = ticksPerSample;
+
+#define setChannelVolume(volumeTable, ticksPerSample)	\
+		setChannelVolumeWithLength(volumeTable, sizeof(volumeTable) - 1, ticksPerSample);
 
 #endif

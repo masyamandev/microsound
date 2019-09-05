@@ -42,11 +42,7 @@ void playOverdrivenGuitarChord(waveChannel* channel, uint8_t data) {
 	if (data & OVERDRIVE_SHORT) {
 		setChannelVolume(overdrivenGuitarChordVolumeTableShort, 1);
 	} else {
-		channel->volumeForm = expNegTable;
-		channel->volumeFormLength = 64;
-		channel->volumeTicksPerSample = 8;
-		channel->volumeTicksCounter = 8;
-		// TODO
+		setChannelVolumeWithLength(expNegTable, 64, 1);
 	}
 
 	channel->currentVolume = channel->instrumentVolume;
