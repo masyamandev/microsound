@@ -29,13 +29,7 @@ const uint8_t musicboxVolumeTable[] PROGMEM = {
 	    8,7,6,5,4,3,2,1,0};
 
 void playMusicbox(waveChannel* channel, uint8_t data) {
-	channel->waveStep = pgm_read_word(&frequencies[data]);
-	channel->waveForm = musicboxWaveTable;
-
-	channel->volumeForm = musicboxVolumeTable;
-	channel->volumeFormLength = 72 - 1;
-	channel->volumeTicksPerSample = 4;
-	channel->volumeTicksCounter = 4;
-
+	setChannelWave(musicboxWaveTable, data);
+	setChannelVolume(musicboxVolumeTable, 4);
 	channel->currentVolume = channel->instrumentVolume;
 }

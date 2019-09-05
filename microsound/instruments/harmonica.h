@@ -26,13 +26,7 @@ const uint8_t harmonicaVolumeTable[] PROGMEM = {
 		};
 
 void playHarmonica(waveChannel* channel, uint8_t data) {
-	channel->waveStep = pgm_read_word(&frequencies[data - 12]);
-	channel->waveForm = harmonicaWaveTable;
-
-	channel->volumeForm = harmonicaVolumeTable;
-	channel->volumeFormLength = 16 - 1;
-	channel->volumeTicksPerSample = 1;
-	channel->volumeTicksCounter = 1;
-
+	setChannelWave(harmonicaWaveTable, data - 12);
+	setChannelVolume(harmonicaVolumeTable, 1);
 	channel->currentVolume = 0;
 }

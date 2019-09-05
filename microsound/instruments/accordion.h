@@ -26,13 +26,7 @@ const uint8_t accordionVolumeTable[] PROGMEM = {
 		213, 211, 209, 217, 235, 225, 223, 227, 232, 240, 238, 233, 230, 233, 245, 232};
 
 void playAccordion(waveChannel* channel, uint8_t data) {
-	channel->waveStep = pgm_read_word(&frequencies[data]);
-	channel->waveForm = accordionWaveTable;
-
-	channel->volumeForm = accordionVolumeTable;
-	channel->volumeFormLength = 32 - 1;
-	channel->volumeTicksPerSample = 1;
-	channel->volumeTicksCounter = 1;
-
+	setChannelWave(accordionWaveTable, data);
+	setChannelVolume(accordionVolumeTable, 1);
 	channel->currentVolume = 0;
 }

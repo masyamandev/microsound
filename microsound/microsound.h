@@ -65,6 +65,7 @@ uint8_t volumeRecalculationId;
 #include "../utils/multiply.h"
 #include "buffer.h"
 #include "frequencies.h"
+#include "instruments/common/commonWave.h"
 
 typedef struct
 {

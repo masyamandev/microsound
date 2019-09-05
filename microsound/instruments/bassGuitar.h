@@ -24,13 +24,7 @@ const int8_t bassGuitarWaveTable[] PROGMEM = {
 		};
 
 void playBassGuitar(waveChannel* channel, uint8_t data) {
-	channel->waveStep = pgm_read_word(&frequencies[data]);
-	channel->waveForm = bassGuitarWaveTable;
-
-	channel->volumeForm = expNegTable;
-	channel->volumeFormLength = 256 - 1;
-	channel->volumeTicksPerSample = 4;
-	channel->volumeTicksCounter = 4;
-
+	setChannelWave(bassGuitarWaveTable, data);
+	setChannelVolume(expNegTable, 4);
 	channel->currentVolume = channel->instrumentVolume;
 }

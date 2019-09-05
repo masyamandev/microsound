@@ -38,19 +38,15 @@ const uint8_t overdrivenGuitarChordNoiseVolume[] PROGMEM = {
 #endif
 
 void playOverdrivenGuitarChord(waveChannel* channel, uint8_t data) {
-	channel->waveStep = pgm_read_word(&frequencies[(data & 0b00111111) - 12]);
-	channel->waveForm = overdrivenGuitarChordWaveTable;
-
+	setChannelWave(overdrivenGuitarChordWaveTable, (data & 0b00111111) - 12);
 	if (data & OVERDRIVE_SHORT) {
-		channel->volumeForm = overdrivenGuitarChordVolumeTableShort;
-		channel->volumeFormLength = 16;
-		channel->volumeTicksPerSample = 1;
-		channel->volumeTicksCounter = 1;
+		setChannelVolume(overdrivenGuitarChordVolumeTableShort, 1);
 	} else {
 		channel->volumeForm = expNegTable;
 		channel->volumeFormLength = 64;
 		channel->volumeTicksPerSample = 8;
 		channel->volumeTicksCounter = 8;
+		// TODO
 	}
 
 	channel->currentVolume = channel->instrumentVolume;

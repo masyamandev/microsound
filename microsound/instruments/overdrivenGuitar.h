@@ -24,14 +24,8 @@ const int8_t overdrivenGuitarWaveTable[] PROGMEM = {
 		};
 
 void playOverdrivenGuitar(waveChannel* channel, uint8_t data) {
-	channel->waveStep = pgm_read_word(&frequencies[(data & 0b00111111)]);
-	channel->waveForm = overdrivenGuitarWaveTable;
-
-	channel->volumeForm = expNegTable;
-	channel->volumeFormLength = 255;
-	channel->volumeTicksPerSample = 8;
-	channel->volumeTicksCounter = 8;
-
+	setChannelWave(overdrivenGuitarWaveTable, (data & 0b00111111));
+	setChannelVolume(expNegTable, 8);
 	channel->currentVolume = channel->instrumentVolume;
 
 }
