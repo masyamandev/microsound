@@ -62,11 +62,6 @@ uint16_t beatCounter;
 
 uint8_t volumeRecalculationId;
 
-#include "../utils/multiply.h"
-#include "buffer.h"
-#include "frequencies.h"
-#include "instruments/common/commonWave.h"
-
 typedef struct
 {
 	// Info about wave
@@ -87,6 +82,11 @@ typedef struct
 
 waveChannel* channels[CHANNELS_SIZE];
 
+#include "../utils/multiply.h"
+#include "buffer.h"
+#include "frequencies.h"
+#include "declick.h"
+#include "instruments/common/commonWave.h"
 
 // Set volume for specified wave channel
 inline void setVolume(uint8_t channel, uint8_t volume) {
@@ -224,7 +224,7 @@ inline soundSample getNextSample() {
 		recalculateVolume(channels[tickSampleCounter]);
 	}
 
-	uint16_t val = 0x8000;
+	uint16_t val = getZeroSample(); // Optional declick code
 
 
 	#ifdef USE_NOISE_CHANNEL
@@ -284,6 +284,7 @@ void fillBuffer(uint8_t maxSamples) {
 		if (!(--limit)) {
 			limit = currentCounter - sampleCounterAtStart;
 			if (limit > maxSamples) { // overflow
+				moveToZeroSampleValue(); // Optional declick code
 				return;
 			}
 		}

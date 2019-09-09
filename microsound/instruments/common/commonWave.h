@@ -2,7 +2,8 @@
 
 #define setChannelWave(waveTable, note)							\
 		channel->waveStep = pgm_read_word(&frequencies[note]);	\
-		channel->waveForm = waveTable;
+		channel->waveForm = waveTable;							\
+		channel->waveSample = 0; // Can be omit if declick is disabled
 
 
 #define setChannelVolumeWithLength(volumeTable, tableLength, ticksPerSample)	\

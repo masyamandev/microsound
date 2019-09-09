@@ -70,6 +70,7 @@ void updateMusicData() {
 			// 2 bytes [CWWWHHHH][NNNNNNNN]: C: command, HHHH: channelId, NNNNNNNN: note, WWW: wait
 			uint8_t channel = data & 0b1111;
 			uint8_t wait = (data >> 4) & 0b111;
+			addChannelToZeroSample(channels[channel]); // Optional declick code
 			data = pgm_read_byte(musicData++);
 			channelSamples[channel](channels[channel], data);
 			nextBeat += wait;
